@@ -1,5 +1,5 @@
 
-const CACHE = 'laporketua-shell-v6';
+const CACHE = 'laporketua-shell-v7';
 
 const SHELL = [
   '/',

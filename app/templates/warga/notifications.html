@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Notifikasi{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">PEMBARUAN</span>
+        <h1>Notifikasi</h1>
+        <p class="muted">
+            Informasi terbaru terkait laporan dan aktivitas LaporKetua.
+        </p>
+    </div>
+</div>
+
+{% for n in notifications %}
+
+<a class="notification-row" href="{{ url_for('main.open_notification', notification_id=n.id) }}"
+    style="{% if not n.is_read %}border-left: 4px solid #D94B26;{% endif %}">
+
+    <div class="d-flex justify-content-between align-items-center gap-2">
+        <strong>{{ n.title }}</strong>
+
+        {% if not n.is_read %}
+        <span class="badge bg-danger">Baru</span>
+        {% else %}
+        <span class="badge bg-light text-secondary">Sudah dibaca</span>
+        {% endif %}
+    </div>
+
+    <p>{{ n.message }}</p>
+
+    <small>
+        {{ n.created_at|wib_datetime('%d %b %Y, %H:%M') }}
+    </small>
+
+</a>
+
+{% else %}
+
+<div class="empty-state">
+    <h3>Belum ada notifikasi</h3>
+    <p>Pembaruan laporan akan muncul di sini.</p>
+</div>
+
+{% endfor %}
+
+{% endblock %}

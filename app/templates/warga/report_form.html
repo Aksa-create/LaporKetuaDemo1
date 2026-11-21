@@ -1,0 +1,59 @@
+{% extends 'base.html' %}{% block title %}Buat Laporan{% endblock %}{% block head %}<style>
+    #reportMap {
+        height: 330px;
+        border-radius: 16px;
+        z-index: 1
+    }
+</style>{% endblock %}{% block content %}<div class="page-heading">
+    <div><span class="eyebrow">Sampaikan kondisi lingkungan</span>
+        <h1>Buat laporan baru</h1>
+        <p class="muted">Ceritakan masalahnya dan tandai lokasi yang tepat.</p>
+    </div>
+</div>
+<form method="post" enctype="multipart/form-data" class="form-panel"><input type="hidden" name="csrf_token"
+        value="{{ csrf_token() }}">
+    <div class="row g-3">
+        <div class="col-md-8"><label class="form-label">Judul laporan</label><input class="form-control" name="title"
+                maxlength="160" placeholder="Contoh: Lampu jalan mati di dekat gang" required></div>
+        <div class="col-md-4"><label class="form-label">Kategori</label><select class="form-select" name="category_id"
+                required>
+                <option value="">Pilih kategori</option>{% for category in categories %}<option
+                    value="{{ category.id }}">{{ category.name }}</option>{% endfor %}
+            </select></div>
+        <div class="col-12"><label class="form-label">Deskripsi masalah</label><textarea class="form-control"
+                name="description" rows="4" minlength="15" placeholder="Jelaskan kondisi, dampak, dan patokan lokasi..."
+                required></textarea></div>
+        <div class="col-md-6"><label class="form-label">RT lokasi kejadian</label><select class="form-select"
+                name="rt_number" required>
+                <option value="">Pilih RT tempat kejadian</option>{% for rt in rts %}<option value="{{ rt.number }}">RT
+                    {{ rt.number }}</option>{% endfor %}
+            </select><small class="muted">Pilih RT tempat masalah terjadi, bukan RT tempat tinggal akunmu.</small></div>
+        <div class="col-md-6"><label class="form-label">Patokan / detail lokasi</label><input class="form-control"
+                name="location_detail" minlength="5" maxlength="255"
+                placeholder="Contoh: depan SDN, dekat pos ronda, Gang Melati" required><small class="muted">Tulis alamat
+                singkat atau patokan yang mudah ditemukan petugas.</small></div>
+        <div class="col-md-6"><label class="form-label">Tingkat urgensi menurut kamu</label><select class="form-select"
+                name="urgency">
+                <option>Rendah</option>
+                <option selected>Sedang</option>
+                <option>Tinggi</option>
+            </select></div>
+        <div class="col-md-6"><label class="form-label">Foto pendukung (opsional, maks. 6 MB)</label><input
+                class="form-control" type="file" name="photo" accept="image/png,image/jpeg,image/webp"></div>
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-2"><label class="form-label mb-0">Tandai
+                    titik lokasi kejadian pada peta</label><button type="button" class="btn btn-sm btn-outline-navy"
+                    id="useMyLocation">Gunakan lokasi saya</button></div>
+            <div id="reportMap"></div><small class="muted d-block mt-2">Pilih RT di atas, isi patokan lokasi, lalu ketuk
+                peta untuk memasang pin tepat di lokasi kejadian. Marker SDN Jembatan Besi dan Sekretariat Pos RW 06
+                hanya patokan tampilan, bukan batas wilayah.</small><input type="hidden" name="latitude" id="latitude"
+                required><input type="hidden" name="longitude" id="longitude" required>
+        </div>
+        <div class="col-12 d-flex gap-2 justify-content-end mt-3"><a class="btn btn-outline-secondary"
+                href="{{ url_for('main.dashboard') }}">Batal</a><button class="btn btn-teal">Kirim laporan</button>
+        </div>
+    </div>
+</form>{% endblock %}{% block scripts %}
+<script>
+    const center = [-6.1532935, 106.7985635]; const map = L.map('reportMap').setView(center, 17); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(map); L.marker([-6.153027, 106.798433]).addTo(map).bindPopup('SDN Jembatan Besi · Patokan peta'); L.marker([-6.153560, 106.798694]).addTo(map).bindPopup('Sekretariat Pos RW 06 · Patokan peta'); let marker = null; function setPoint(lat, lng) { if (marker) marker.setLatLng([lat, lng]); else marker = L.marker([lat, lng], { draggable: true }).addTo(map); document.getElementById('latitude').value = lat; document.getElementById('longitude').value = lng; marker.on('dragend', () => { const p = marker.getLatLng(); setPoint(p.lat, p.lng) }); } map.on('click', e => setPoint(e.latlng.lat, e.latlng.lng)); document.getElementById('useMyLocation').addEventListener('click', () => { if (!navigator.geolocation) { alert('GPS tidak tersedia di perangkat ini.'); return } navigator.geolocation.getCurrentPosition(p => { map.setView([p.coords.latitude, p.coords.longitude], 18); setPoint(p.coords.latitude, p.coords.longitude) }, () => alert('Lokasi tidak dapat diakses. Kamu tetap bisa memilih titik secara manual.')) }); setTimeout(() => map.invalidateSize(), 250);
+</script>{% endblock %}

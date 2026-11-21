@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+
+{% block title %}Kelola Laporan{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">MANAJEMEN PELAPORAN</span>
+        <h1>Semua laporan</h1>
+        <p class="muted">
+            Verifikasi dan pantau tindak lanjut laporan warga.
+        </p>
+    </div>
+</div>
+
+<!-- Filter laporan -->
+<form class="filter-bar mb-3">
+
+    <select class="form-select" name="status">
+        <option value="">Semua status</option>
+
+        {% for s in statuses %}
+        <option value="{{ s }}" {% if selected_status==s %}selected{% endif %}>
+            {{ s }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <select class="form-select" name="rt">
+        <option value="">Semua RT</option>
+
+        {% for rt in rts %}
+        <option value="{{ rt.number }}" {% if selected_rt==rt.number %}selected{% endif %}>
+            RT {{ rt.number }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit" class="btn btn-outline-navy">
+        Filter
+    </button>
+
+    <a class="btn btn-light" href="{{ url_for('admin.reports') }}">
+        Reset
+    </a>
+
+</form>
+
+{% if reports %}
+
+<div class="table-responsive card-table admin-report-table">
+
+    <table class="table align-middle">
+
+        <thead>
+            <tr>
+                <th>Nomor / Tanggal</th>
+                <th>Laporan</th>
+                <th>Pelapor</th>
+                <th>Lokasi kejadian</th>
+                <th>Prioritas</th>
+                <th>Status</th>
+                <th>Petugas Penanggung Jawab</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for r in reports %}
+
+            <tr>
+
+                <!-- Nomor dan waktu laporan -->
+                <td>
+                    <strong>{{ r.report_number }}</strong>
+                    <small class="d-block muted">
+                        {{ r.created_at|wib_datetime('%d/%m/%Y %H:%M') }}
+                    </small>
+                </td>
+
+                <!-- Informasi laporan -->
+                <td>
+                    {{ r.title }}
+                    <small class="d-block muted">
+                        {{ r.category.name }}
+                    </small>
+                </td>
+
+                <!-- Identitas pelapor -->
+                <td>
+                    {{ r.reporter.full_name }}
+                </td>
+
+                <!-- Lokasi kejadian -->
+                <td>
+                    <strong>RT {{ r.rt_number }}</strong>
+                    <small class="d-block muted">
+                        {{ r.location_detail or 'Detail lokasi belum diisi' }}
+                    </small>
+                </td>
+
+                <!-- Prioritas -->
+                <td>
+                    {{ r.priority }}
+                </td>
+
+                <!-- Status laporan -->
+                <td>
+                    <span class="status-pill">
+                        {{ r.status }}
+                    </span>
+                </td>
+
+                <!-- Penugasan Petugas -->
+                <td>
+                    {% if r.assigned_petugas %}
+                    <strong>{{ r.assigned_petugas.full_name }}</strong>
+                    <small class="d-block muted">
+                        Petugas ditugaskan
+                    </small>
+                    {% else %}
+                    <span class="muted">Belum ditugaskan</span>
+                    {% endif %}
+
+                    {% if r.status in ['Diverifikasi', 'Sedang Diproses'] %}
+                    <form method="POST" action="{{ url_for('admin.assign_petugas', report_id=r.id) }}" class="mt-2">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                        <select name="petugas_id" class="form-select form-select-sm mb-2" required>
+                            <option value="">Pilih Petugas</option>
+
+                            {% for p in petugas_list %}
+                            <option value="{{ p.id }}" {% if r.assigned_petugas_id==p.id %}selected{% endif %}>
+                                {{ p.full_name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+
+                        <button type="submit" class="btn btn-sm btn-outline-navy" {% if not petugas_list %}disabled{%
+                            endif %}>
+                            {% if r.assigned_petugas_id %}
+                            Ganti Petugas
+                            {% else %}
+                            Tugaskan
+                            {% endif %}
+                        </button>
+                    </form>
+                    {% endif %}
+                </td>
+
+                <!-- Tombol tindakan -->
+                <td class="admin-action-cell">
+
+                    <div class="d-flex align-items-center flex-wrap gap-1">
+
+                        <!-- Detail -->
+                        <a class="btn btn-sm btn-outline-navy" href="{{ url_for('reports.detail', report_id=r.id) }}">
+                            Detail
+                        </a>
+
+                        <!-- Verifikasi -->
+                        {% if r.status == 'Menunggu Verifikasi' %}
+
+                        <form method="POST" action="{{ url_for('admin.verify_report', report_id=r.id) }}">
+
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                            <button type="submit" class="btn btn-sm btn-teal">
+                                Verifikasi
+                            </button>
+
+                        </form>
+
+                        {% endif %}
+
+                        <!-- Hapus -->
+                        <form method="POST" action="{{ url_for('reports.delete_report', report_id=r.id) }}"
+                            onsubmit="return confirm('Yakin ingin menghapus laporan {{ r.report_number }} secara permanen? Data laporan, foto, notifikasi, dan riwayat terkait akan ikut dihapus.');">
+
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                Hapus
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% else %}
+
+<div class="empty-state">
+    <h3>Tidak ada laporan ditemukan</h3>
+    <p>Coba ubah filter yang digunakan.</p>
+</div>
+
+{% endif %}
+
+{% endblock %}

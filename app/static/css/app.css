@@ -1,0 +1,3344 @@
+/* =========================================================
+   LAPORKETUA - OFFICIAL DESIGN SYSTEM
+   Forum Komunikasi RW 06 Jembatan Besi
+   Color: Orange Brick / Warm White / Charcoal
+========================================================= */
+
+
+/* =========================================================
+   1. GLOBAL VARIABLES
+========================================================= */
+
+:root {
+    --navy: #D94B26;
+    --teal: #F47745;
+
+    --primary: #D94B26;
+    --primary-dark: #B93C1D;
+    --primary-light: #FCE9E1;
+    --accent: #F47745;
+
+    --bg: #F8F3EF;
+    --surface: #FFFFFF;
+    --surface-soft: #FFF9F5;
+
+    --ink: #292929;
+    --slate: #77716D;
+    --line: #EAE1DB;
+
+    --success: #319B63;
+    --warning: #D99A32;
+    --danger: #D64B4B;
+    --info: #4D91C6;
+
+    --radius-sm: 10px;
+    --radius-md: 15px;
+    --radius-lg: 20px;
+    --radius-xl: 26px;
+
+    --shadow-sm: 0 4px 14px #5426160A;
+    --shadow-md: 0 10px 30px #54261610;
+    --shadow-lg: 0 20px 55px #54261614;
+}
+
+
+/* =========================================================
+   2. RESET AND BODY
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+img {
+    max-width: 100%;
+}
+
+::selection {
+    background: #F6C5B2;
+    color: #542719;
+}
+
+
+/* =========================================================
+   3. NAVBAR AND BRANDING
+========================================================= */
+
+.app-nav {
+    background: var(--primary);
+    min-height: 82px;
+    padding: 12px 0;
+    box-shadow: 0 4px 18px #D94B2625;
+}
+
+.navbar-brand {
+    padding: 0;
+    font-weight: 800;
+    letter-spacing: -.4px;
+}
+
+.brand-logo {
+    display: block;
+    width: 64px;
+    height: 64px;
+    flex: 0 0 64px;
+    object-fit: contain;
+    object-position: center;
+    filter: drop-shadow(0 2px 4px #00000020);
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-name {
+    font-size: 21px;
+    line-height: 1.15;
+    font-weight: 800;
+    color: #FFFFFF;
+}
+
+.brand-name span {
+    color: #FFD2BC;
+}
+
+.brand-sub {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: .2px;
+    color: #FFE9DF;
+    margin-top: 3px;
+}
+
+.nav-link {
+    color: #FFF1EA !important;
+    font-size: 13px;
+    font-weight: 600;
+    transition: color .2s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: #FFFFFF !important;
+}
+
+.nav-user {
+    font-size: 12px;
+    color: #FFFFFF;
+    margin: 0 8px;
+}
+
+.navbar-toggler {
+    border: 1px solid #FFFFFF55;
+    border-radius: 10px;
+    padding: 7px 10px;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 .2rem #FFFFFF40;
+}
+
+
+/* =========================================================
+   4. BUTTONS
+========================================================= */
+
+.btn {
+    border-radius: 10px;
+    font-weight: 700;
+    transition: all .2s ease;
+}
+
+.btn-teal {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+.btn-teal:hover,
+.btn-teal:focus {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+    color: #FFFFFF;
+    transform: translateY(-1px);
+}
+
+.btn-outline-navy {
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.btn-outline-navy:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #FFFFFF;
+}
+
+.btn-outline-light {
+    border-radius: 9px;
+}
+
+.btn-outline-danger {
+    font-weight: 700;
+}
+
+.btn:focus-visible,
+a:focus-visible {
+    outline: 3px solid #F4774570;
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   5. LANDING PAGE - HERO
+========================================================= */
+
+.hero {
+    min-height: 440px;
+}
+
+.eyebrow {
+    font-size: 10px;
+    letter-spacing: 1.6px;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.display-title {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: -3px;
+    color: var(--ink);
+    max-width: 720px;
+}
+
+.display-title span {
+    color: var(--primary);
+}
+
+.lead-copy {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--slate);
+    max-width: 560px;
+}
+
+.hero-note {
+    font-size: 12px;
+    color: var(--slate);
+}
+
+.dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+
+/* =========================================================
+   6. HERO ILLUSTRATION CARD
+========================================================= */
+
+.hero-card {
+    background: var(--surface);
+    border-radius: var(--radius-xl);
+    padding: 22px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--line);
+}
+
+.hero-card-top,
+.hero-card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mini-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--primary);
+}
+
+.live-pill {
+    font-size: 9px;
+    color: var(--primary-dark);
+    background: var(--primary-light);
+    border-radius: 20px;
+    padding: 7px 10px;
+    font-weight: 800;
+}
+
+.hero-illustration {
+    height: 270px;
+    background: linear-gradient(145deg, #FCE9E1, #F8F3EF);
+    border-radius: 20px;
+    margin: 18px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.sun {
+    position: absolute;
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    background: #F9D1BD;
+    right: 55px;
+    top: 36px;
+}
+
+.house {
+    position: absolute;
+    left: 50%;
+    bottom: 42px;
+    transform: translateX(-50%);
+    width: 190px;
+}
+
+.roof {
+    height: 90px;
+    background: var(--primary);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    position: relative;
+}
+
+.house-body {
+    height: 110px;
+    background: #FFFFFF;
+    border: 5px solid var(--primary);
+    border-top: 0;
+    position: relative;
+}
+
+.door {
+    position: absolute;
+    width: 42px;
+    height: 70px;
+    bottom: 0;
+    left: 72px;
+    background: #FCE9E1;
+    border: 3px solid var(--primary);
+    border-bottom: 0;
+    border-radius: 8px 8px 0 0;
+}
+
+.window {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    right: 18px;
+    top: 20px;
+    background: #FCE9E1;
+    border: 3px solid var(--primary);
+    border-radius: 5px;
+}
+
+.pin {
+    position: absolute;
+    left: calc(50% + 80px);
+    top: 48px;
+    width: 48px;
+    height: 58px;
+    border-radius: 50% 50% 50% 0;
+    background: var(--accent);
+    transform: rotate(-45deg);
+    display: grid;
+    place-items: center;
+    color: #FFFFFF;
+    font-size: 20px;
+    box-shadow: 0 8px 20px #F4774555;
+}
+
+.pin span {
+    transform: rotate(45deg);
+}
+
+.bubble {
+    position: absolute;
+    left: 24px;
+    top: 48px;
+    background: #FFFFFF;
+    padding: 11px 14px;
+    border-radius: 12px 12px 12px 2px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--primary);
+    box-shadow: var(--shadow-md);
+}
+
+.hero-card-bottom strong,
+.hero-card-bottom span {
+    display: block;
+}
+
+.hero-card-bottom strong {
+    color: var(--ink);
+    font-size: 14px;
+}
+
+.hero-card-bottom span {
+    font-size: 11px;
+    color: var(--slate);
+}
+
+.arrow-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    display: grid !important;
+    place-items: center;
+    color: var(--primary) !important;
+    font-size: 18px !important;
+}
+
+
+/* =========================================================
+   7. GENERAL CARDS
+========================================================= */
+
+.feature-card,
+.stat-card,
+.detail-card,
+.form-panel,
+.card-table,
+.empty-state,
+.quick-card,
+.notification-row,
+.chart-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+}
+
+.feature-card {
+    padding: 23px;
+    height: 100%;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.feature-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    background: var(--primary-light);
+    color: var(--primary);
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.feature-card h3 {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--ink);
+}
+
+.feature-card p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--slate);
+    margin: 0;
+}
+
+
+/* =========================================================
+   8. CTA SECTION
+========================================================= */
+
+.cta-strip {
+    background: linear-gradient(120deg, #D94B26, #F47745);
+    color: #FFFFFF;
+    border-radius: var(--radius-lg);
+    padding: 25px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.cta-strip h2 {
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.cta-strip p {
+    color: #FFE9DF;
+    font-size: 12px;
+}
+
+.cta-strip .eyebrow {
+    color: #FFE0D1;
+}
+
+
+/* =========================================================
+   9. FOOTER
+========================================================= */
+
+.app-footer {
+    border-top: 1px solid var(--line);
+    padding: 22px 0;
+    margin-top: 45px;
+    color: var(--slate);
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   10. LOGIN AND REGISTER
+========================================================= */
+
+.auth-wrap {
+    max-width: 500px;
+    margin: 25px auto;
+}
+
+.auth-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    padding: 30px;
+    box-shadow: var(--shadow-md);
+}
+
+.auth-card h1,
+.page-heading h1 {
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -1px;
+}
+
+.auth-card h1 {
+    font-size: 27px;
+    margin: 8px 0;
+}
+
+.muted {
+    color: var(--slate);
+    font-size: 12px;
+}
+
+.form-control,
+.form-select {
+    border: 1px solid #E5D8D0;
+    border-radius: 10px;
+    padding: 11px 13px;
+    font-size: 13px;
+    background-color: #FFFFFF;
+    color: var(--ink);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 .2rem #D94B2620;
+}
+
+.form-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #51443E;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.form-check-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 .2rem #D94B2620;
+}
+
+
+/* =========================================================
+   11. PAGE HEADING
+========================================================= */
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    margin: 12px 0 25px;
+}
+
+.page-heading h1 {
+    font-size: clamp(25px, 4vw, 34px);
+    margin: 5px 0;
+}
+
+
+/* =========================================================
+   12. DASHBOARD STATISTICS
+========================================================= */
+
+.stat-card {
+    padding: 17px;
+    height: 100%;
+    min-height: 100px;
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-card span {
+    font-size: 10px;
+    color: var(--slate);
+    display: block;
+    line-height: 1.5;
+}
+
+.stat-card strong {
+    font-size: 27px;
+    color: var(--ink);
+    display: block;
+    margin-top: 7px;
+}
+
+.metric-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: var(--primary-light);
+    color: var(--primary);
+    display: grid;
+    place-items: center;
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.metric-trend {
+    font-size: 10px;
+    color: var(--success);
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   13. SECTION HEADING
+========================================================= */
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 22px 0 13px;
+}
+
+.section-heading h2 {
+    font-size: 18px;
+    color: var(--ink);
+    font-weight: 800;
+    margin: 0;
+}
+
+.section-heading a {
+    font-size: 12px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   14. REPORT LIST
+========================================================= */
+
+.report-list {
+    background: #FFFFFF;
+    border: 1px solid var(--line);
+    border-radius: 17px;
+    overflow: hidden;
+}
+
+.report-row {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 15px 17px;
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    transition: background .2s ease;
+}
+
+.report-row:last-child {
+    border-bottom: 0;
+}
+
+.report-row:hover {
+    background: #FFF8F4;
+    color: inherit;
+}
+
+.report-symbol {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    border-radius: 12px;
+    background: var(--primary-light);
+    color: var(--primary);
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+}
+
+.report-row strong {
+    display: block;
+    font-size: 13px;
+    color: var(--ink);
+}
+
+.report-row small {
+    display: block;
+    font-size: 10px;
+    color: var(--slate);
+    margin-top: 4px;
+}
+
+
+/* =========================================================
+   15. STATUS AND PRIORITY
+========================================================= */
+
+.status-pill,
+.priority-pill {
+    display: inline-block;
+    background: #FCE9E1;
+    color: #A83B20;
+    border-radius: 30px;
+    padding: 6px 10px;
+    font-size: 9px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.status-pill.large {
+    font-size: 11px;
+}
+
+.priority-pill {
+    background: #FFF1DC;
+    color: #98651B;
+}
+
+
+/* =========================================================
+   16. EMPTY STATE
+========================================================= */
+
+.empty-state {
+    text-align: center;
+    padding: 45px 20px;
+}
+
+.empty-state h3 {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--ink);
+}
+
+.empty-state p {
+    font-size: 12px;
+    color: var(--slate);
+}
+
+.empty-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    background: var(--primary-light);
+    color: var(--primary);
+    display: grid;
+    place-items: center;
+    font-size: 26px;
+    margin: 0 auto 15px;
+}
+
+
+/* =========================================================
+   17. PWA INSTALL HINT
+========================================================= */
+
+.install-hint {
+    padding: 17px 20px;
+    border: 1px solid #F0D5C9;
+    background: #FFF5EF;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.install-hint strong {
+    font-size: 13px;
+    color: var(--ink);
+}
+
+.install-hint p {
+    font-size: 11px;
+    color: var(--slate);
+}
+
+
+/* =========================================================
+   18. FORMS AND FILTERS
+========================================================= */
+
+.form-panel,
+.detail-card {
+    padding: 23px;
+}
+
+.filter-bar {
+    display: flex;
+    gap: 10px;
+    max-width: 650px;
+}
+
+.filter-bar .form-select {
+    max-width: 230px;
+}
+
+
+/* =========================================================
+   19. TABLES
+========================================================= */
+
+.card-table {
+    padding: 8px 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table {
+    font-size: 12px;
+    margin: 0;
+}
+
+.table thead th {
+    font-size: 10px;
+    color: var(--primary);
+    font-weight: 800;
+    border-bottom-color: var(--line);
+    padding: 13px;
+    white-space: nowrap;
+}
+
+.table td {
+    padding: 13px;
+    border-color: var(--line);
+    color: var(--ink);
+}
+
+.table tbody tr:hover {
+    background: #FFF9F5;
+}
+
+
+/* =========================================================
+   20. QUICK CARDS AND LINKS
+========================================================= */
+
+.quick-card {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: inherit;
+    text-decoration: none;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.quick-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    color: inherit;
+}
+
+.quick-card .feature-icon {
+    margin: 0;
+}
+
+.quick-card strong,
+.quick-card small {
+    display: block;
+}
+
+.quick-card strong {
+    font-size: 13px;
+    color: var(--ink);
+}
+
+.quick-card small {
+    font-size: 10px;
+    color: var(--slate);
+}
+
+.quick-card>span:last-child {
+    margin-left: auto;
+    color: var(--primary);
+}
+
+.quick-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    color: var(--ink);
+    text-decoration: none;
+    background: #FFFFFF;
+    font-size: 11px;
+    font-weight: 700;
+    transition: all .2s ease;
+}
+
+.quick-link:hover {
+    border-color: #F0B49D;
+    background: #FFF8F4;
+    color: var(--primary);
+}
+
+.quick-link span:first-child {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    background: var(--primary-light);
+    display: grid;
+    place-items: center;
+    color: var(--primary);
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   21. DETAIL REPORT
+========================================================= */
+
+.detail-card h3 {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 18px;
+}
+
+.detail-card p {
+    font-size: 13px;
+    line-height: 1.8;
+    color: #5D514B;
+}
+
+.report-photo {
+    width: 100%;
+    max-height: 360px;
+    object-fit: cover;
+    border-radius: 14px;
+}
+
+
+/* =========================================================
+   22. TIMELINE
+========================================================= */
+
+.timeline {
+    border-left: 2px solid #EBC5B5;
+    margin-left: 6px;
+    padding-left: 18px;
+}
+
+.timeline-item {
+    position: relative;
+    padding: 0 0 20px;
+}
+
+.timeline-item:before {
+    content: '';
+    position: absolute;
+    left: -25px;
+    top: 3px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 0 0 2px #F5D6C9;
+}
+
+.timeline-item strong,
+.timeline-item small {
+    display: block;
+}
+
+.timeline-item strong {
+    font-size: 12px;
+    color: var(--ink);
+}
+
+.timeline-item small {
+    font-size: 10px;
+    color: var(--slate);
+    margin-top: 4px;
+}
+
+.timeline-item p {
+    font-size: 11px;
+    margin: 6px 0 0;
+}
+
+
+/* =========================================================
+   23. AI INFORMATION
+========================================================= */
+
+.ai-note {
+    background: #FFF4EE;
+    border: 1px solid #F4D6C8;
+    padding: 13px;
+    border-radius: 12px;
+}
+
+.ai-note strong {
+    font-size: 12px;
+    color: var(--primary-dark);
+}
+
+.ai-note p {
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+
+/* =========================================================
+   24. NOTIFICATIONS
+========================================================= */
+
+.notification-row {
+    display: block;
+    padding: 17px;
+    margin-bottom: 10px;
+    color: inherit;
+    text-decoration: none;
+    transition: background .2s ease, box-shadow .2s ease;
+}
+
+.notification-row:hover {
+    background: #FFF9F5;
+    color: inherit;
+    box-shadow: var(--shadow-sm);
+}
+
+.notification-row strong {
+    font-size: 13px;
+    color: var(--ink);
+}
+
+.notification-row p {
+    font-size: 12px;
+    color: var(--slate);
+    margin: 5px 0;
+}
+
+.notification-row small {
+    font-size: 10px;
+    color: #8A7E77;
+}
+
+
+/* =========================================================
+   25. MAP
+========================================================= */
+
+.map-panel {
+    border: 1px solid var(--line);
+    padding: 5px;
+    background: #FFFFFF;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.map-legend {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-size: 11px;
+    color: var(--slate);
+}
+
+.legend-dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.legend-dot.navy {
+    background: var(--primary);
+}
+
+.legend-dot.teal {
+    background: var(--accent);
+}
+
+.legend-dot.red {
+    background: var(--danger);
+}
+
+
+/* =========================================================
+   26. DASHBOARD BANNER
+========================================================= */
+
+.dashboard-banner {
+    background: linear-gradient(120deg, #D94B26, #F47745);
+    color: #FFFFFF;
+    border-radius: 22px;
+    padding: 26px 28px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 30px #D94B2620;
+}
+
+.dashboard-banner:after {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    border: 1px solid #FFFFFF22;
+    border-radius: 50%;
+    right: -55px;
+    top: -95px;
+    box-shadow: 0 0 0 25px #FFFFFF08,
+        0 0 0 50px #FFFFFF06;
+    pointer-events: none;
+}
+
+.dashboard-banner h1 {
+    font-size: 27px;
+    font-weight: 800;
+    margin: 5px 0;
+    color: #FFFFFF;
+}
+
+.dashboard-banner p {
+    font-size: 12px;
+    color: #FFE9DF;
+    margin: 0;
+}
+
+.dashboard-banner .eyebrow {
+    color: #FFE0D1 !important;
+}
+
+.dashboard-banner .btn {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* =========================================================
+   27. CHARTS
+========================================================= */
+
+.chart-card {
+    padding: 19px;
+    height: 100%;
+}
+
+.chart-card h3 {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--ink);
+}
+
+.bar-row {
+    display: grid;
+    grid-template-columns: 110px 1fr 28px;
+    gap: 10px;
+    align-items: center;
+    margin: 13px 0;
+    font-size: 10px;
+    color: var(--slate);
+}
+
+.bar-track {
+    height: 9px;
+    background: #F1E8E2;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #D94B26, #F7A17F);
+}
+
+
+/* =========================================================
+   28. ACTIVITY
+========================================================= */
+
+.activity-item {
+    display: flex;
+    gap: 11px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.activity-item:last-child {
+    border: 0;
+}
+
+.activity-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--primary);
+    margin-top: 5px;
+    flex: 0 0 9px;
+}
+
+.activity-item strong {
+    display: block;
+    font-size: 11px;
+    color: var(--ink);
+}
+
+.activity-item small {
+    font-size: 10px;
+    color: var(--slate);
+}
+
+
+/* =========================================================
+   29. SAMPLE RIBBON
+========================================================= */
+
+.sample-ribbon {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #FFF4DF;
+    color: #8B621A;
+    border: 1px solid #F3DFB8;
+    border-radius: 30px;
+    padding: 6px 10px;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .5px;
+}
+
+
+/* =========================================================
+   30. RESIDENT AVATAR AND REPORT THUMBNAIL
+========================================================= */
+
+.resident-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 11px;
+}
+
+.report-thumb {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #F8F0EB;
+    display: grid;
+    place-items: center;
+    font-size: 19px;
+}
+
+
+/* =========================================================
+   31. ADMIN REPORT TABLE
+========================================================= */
+
+.admin-report-table {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+.admin-report-table table {
+    min-width: 950px;
+    margin-bottom: 0;
+}
+
+.admin-report-table th,
+.admin-report-table td {
+    vertical-align: middle;
+}
+
+.admin-report-table .admin-action-cell {
+    min-width: 220px;
+    white-space: nowrap;
+}
+
+.admin-report-table .admin-action-cell form {
+    display: inline-block;
+    margin: 0;
+}
+
+
+/* =========================================================
+   32. ALERTS
+========================================================= */
+
+.alert {
+    font-size: 12px;
+    border-radius: 12px;
+}
+
+.alert-success {
+    background: #EAF7EF;
+    border-color: #C9E8D4;
+    color: #276B43;
+}
+
+.alert-danger {
+    background: #FCEDEC;
+    border-color: #F2CECA;
+    color: #A63830;
+}
+
+
+/* =========================================================
+   33. MOBILE RESPONSIVE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    body {
+        font-size: 14px;
+    }
+
+    main.container {
+        padding-top: 22px !important;
+    }
+
+    .app-nav {
+        min-height: 70px;
+        padding: 9px 0;
+    }
+
+    .brand-logo {
+        width: 52px;
+        height: 52px;
+        flex-basis: 52px;
+    }
+
+    .brand-name {
+        font-size: 18px;
+    }
+
+    .brand-sub {
+        font-size: 8px;
+    }
+
+    .hero {
+        min-height: 0;
+    }
+
+    .display-title {
+        font-size: clamp(2rem, 9vw, 3rem);
+        letter-spacing: -1.8px;
+    }
+
+    .lead-copy {
+        font-size: 14px;
+        line-height: 1.75;
+    }
+
+    .hero-card {
+        max-width: 430px;
+        margin: auto;
+        padding: 17px;
+    }
+
+    .hero-illustration {
+        height: 240px;
+    }
+
+    .page-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .page-heading>.btn {
+        width: 100%;
+    }
+
+    .filter-bar {
+        flex-wrap: wrap;
+        max-width: 100%;
+    }
+
+    .filter-bar .form-select {
+        max-width: none;
+        flex: 1 1 40%;
+    }
+
+    .cta-strip {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 21px;
+    }
+
+    .cta-strip h2 {
+        font-size: 19px;
+    }
+
+    .report-row {
+        flex-wrap: wrap;
+    }
+
+    .status-pill {
+        margin-left: auto;
+    }
+
+    .form-panel,
+    .detail-card {
+        padding: 17px;
+    }
+
+    .auth-card {
+        padding: 23px 19px;
+        border-radius: 20px;
+    }
+
+    .nav-user {
+        padding: 8px 0;
+        margin: 0;
+    }
+
+    .app-footer {
+        margin-top: 28px;
+    }
+
+    .dashboard-banner {
+        padding: 21px;
+    }
+
+    .dashboard-banner h1 {
+        font-size: 22px;
+    }
+
+    .admin-report-table {
+        border-radius: 14px;
+    }
+
+    .admin-report-table table {
+        min-width: 950px;
+    }
+
+    .admin-report-table th,
+    .admin-report-table td {
+        padding: 12px 10px;
+    }
+
+    .admin-report-table .admin-action-cell {
+        min-width: 220px;
+    }
+
+    .bar-row {
+        grid-template-columns: 90px 1fr 24px;
+        gap: 7px;
+    }
+}
+
+
+/* =========================================================
+   34. EXTRA SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .brand-logo {
+        width: 46px;
+        height: 46px;
+        flex-basis: 46px;
+    }
+
+    .brand-name {
+        font-size: 16px;
+    }
+
+    .brand-sub {
+        font-size: 7px;
+    }
+
+    .hero-illustration {
+        height: 210px;
+    }
+
+    .house {
+        transform: translateX(-50%) scale(.85);
+        transform-origin: bottom center;
+    }
+
+    .bubble {
+        left: 12px;
+        top: 30px;
+        font-size: 9px;
+    }
+
+    .sun {
+        right: 25px;
+        top: 25px;
+    }
+
+    .stat-card {
+        padding: 13px;
+    }
+
+    .stat-card strong {
+        font-size: 23px;
+    }
+}
+
+
+/* =========================================================
+   35. ACCESSIBILITY AND REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+
+
+/* =====================================================
+   NAVBAR REFINEMENT - LAPORKETUA
+===================================================== */
+
+/* BRAND */
+.brand-logo {
+    width: 58px;
+    height: 58px;
+    flex: 0 0 58px;
+    object-fit: contain;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.brand-name {
+    color: #FFFFFF;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -.7px;
+}
+
+.brand-name span {
+    color: #FFD2BC;
+}
+
+.brand-sub {
+    color: #FFE9DF;
+    font-size: 9px;
+    margin-top: 4px;
+}
+
+/* REGISTER BUTTON */
+.btn-nav-register {
+    background: #FFFFFF;
+    color: #D94B26;
+    border: 1px solid #FFFFFF;
+    font-weight: 800;
+    padding: 8px 17px;
+}
+
+.btn-nav-register:hover {
+    background: #FFF0E9;
+    color: #B93C1D;
+    border-color: #FFF0E9;
+}
+
+/* MOBILE NAVIGATION */
+@media (max-width: 991.98px) {
+
+    .app-nav .container {
+        flex-wrap: wrap;
+    }
+
+    .navbar-brand {
+        margin-right: auto;
+    }
+
+    .navbar-collapse {
+        flex-basis: 100%;
+        margin-top: 12px;
+        padding: 13px;
+        background: #BF3D1D;
+        border-radius: 14px;
+        box-shadow: 0 8px 20px #69200F25;
+    }
+
+    .navbar-nav {
+        align-items: stretch !important;
+        gap: 5px !important;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 10px 12px;
+        border-radius: 9px;
+    }
+
+    .navbar-nav .nav-link:hover {
+        background: #FFFFFF18;
+    }
+
+    /* PUBLIC LOGIN AND REGISTER */
+    .nav-public-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .nav-public-actions .nav-link {
+        flex: 1;
+        text-align: center;
+    }
+
+    .nav-public-actions .btn-nav-register {
+        flex: 1;
+        text-align: center;
+    }
+
+    /* AUTHENTICATED USER */
+    .nav-user {
+        display: block;
+        padding: 10px 12px;
+        margin: 0;
+    }
+
+    .nav-logout-form {
+        padding: 5px 12px;
+    }
+
+    .nav-logout-form button {
+        width: 100%;
+    }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 400px) {
+
+    .brand-logo {
+        width: 48px;
+        height: 48px;
+        flex-basis: 48px;
+    }
+
+    .brand-name {
+        font-size: 19px;
+    }
+
+    .brand-sub {
+        font-size: 8px;
+    }
+
+    .navbar-toggler {
+        padding: 6px 9px;
+    }
+}
+
+
+/* ==========================================
+   HERO IMAGE - 3D RW 06
+========================================== */
+
+.hero-illustration-image {
+    height: auto;
+    aspect-ratio: 16 / 9;
+    background: #FCE9DF;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.hero-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+/* MOBILE */
+@media (max-width: 767px) {
+
+    .hero-illustration-image {
+        aspect-ratio: 16 / 9;
+        border-radius: 16px;
+    }
+
+    .hero-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+}
+
+
+/* ==========================================
+   MODERN OUTLINE ICON SYSTEM
+   LAPORKETUA - WARGA DASHBOARD
+========================================== */
+
+.metric-icon-modern,
+.report-symbol-modern,
+.empty-icon-modern,
+.quick-link-icon,
+.install-hint-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+.metric-icon-modern {
+    background: #FCE8E0;
+    color: #D94B26;
+    border-radius: 14px;
+}
+
+.report-symbol-modern {
+    background: #FCE8E0;
+    color: #D94B26;
+    border-radius: 13px;
+}
+
+.empty-icon-modern {
+    background: #FCE8E0;
+    color: #D94B26;
+}
+
+.quick-link-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    background: #FCE8E0;
+    color: #D94B26;
+    transition: background .2s ease, color .2s ease;
+}
+
+.quick-link:hover .quick-link-icon {
+    background: #D94B26;
+    color: #FFFFFF;
+}
+
+.quick-link-arrow {
+    display: grid;
+    place-items: center;
+    color: #9A8178;
+    transition: transform .2s ease, color .2s ease;
+}
+
+.quick-link:hover .quick-link-arrow {
+    color: #D94B26;
+    transform: translateX(3px);
+}
+
+.quick-link-icon svg,
+.quick-link-arrow svg,
+.metric-icon-modern svg,
+.report-symbol-modern svg,
+.empty-icon-modern svg,
+.install-hint-icon svg {
+    display: block;
+}
+
+.install-hint-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #FCE8E0;
+    color: #D94B26;
+}
+
+.dashboard-banner .btn-teal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* MOBILE */
+@media (max-width: 767px) {
+
+    .quick-link {
+        min-height: 70px;
+        padding: 12px 15px;
+    }
+
+    .quick-link-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .metric-icon-modern {
+        width: 44px;
+        height: 44px;
+    }
+
+    .report-symbol-modern {
+        width: 42px;
+        height: 42px;
+    }
+
+}
+
+/* ==========================================
+   STATUS COLOR SYSTEM - WARGA DASHBOARD
+========================================== */
+
+/* CARD */
+.stat-card-modern {
+    border-radius: 20px;
+    padding: 20px;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.stat-card-modern:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(50, 30, 20, .07);
+}
+
+/* ICON BASE */
+.metric-icon-modern {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+/* 1. MENUNGGU - ORANGE */
+.status-waiting {
+    background: #FFF1DA;
+    color: #D97706;
+}
+
+/* 2. DIVERIFIKASI - BLUE */
+.status-verified {
+    background: #E5F1FF;
+    color: #2563EB;
+}
+
+/* 3. DIPROSES - PURPLE */
+.status-processing {
+    background: #F0EAFE;
+    color: #7C3AED;
+}
+
+/* 4. SELESAI - GREEN */
+.status-completed {
+    background: #E4F7E9;
+    color: #16A34A;
+}
+
+/* LABEL */
+.stat-card-modern>span {
+    font-size: 11px;
+    color: #85766F;
+    line-height: 1.5;
+}
+
+/* NUMBER */
+.stat-card-modern>strong {
+    font-size: 29px;
+    color: #302B29;
+    font-weight: 800;
+    margin-top: 5px;
+}
+
+/* MOBILE */
+@media (max-width: 767px) {
+
+    .stat-card-modern {
+        padding: 15px;
+        border-radius: 18px;
+        min-height: 145px;
+    }
+
+    .metric-icon-modern {
+        width: 45px;
+        height: 45px;
+        margin-bottom: 12px;
+    }
+
+    .stat-card-modern>strong {
+        font-size: 26px;
+    }
+
+}
+
+
+/* ==========================================
+   FOOTER REFINEMENT
+========================================== */
+
+.app-footer {
+    margin-top: 55px;
+    padding: 25px 0;
+    border-top: 1px solid #EADFD9;
+    background: #FBF6F2;
+}
+
+.footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.footer-brand,
+.footer-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.footer-brand strong {
+    font-size: 14px;
+    font-weight: 800;
+    color: #D94B26;
+}
+
+.footer-brand span,
+.footer-meta span {
+    font-size: 11px;
+    color: #85766F;
+}
+
+.footer-meta {
+    text-align: right;
+}
+
+/* MOBILE */
+@media (max-width: 767px) {
+
+    .app-footer {
+        margin-top: 35px;
+        padding: 22px 0;
+    }
+
+    .footer-content {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .footer-meta {
+        text-align: left;
+        gap: 5px;
+    }
+
+}
+
+
+/* ==========================================
+   FIX MOBILE DASHBOARD & FOOTER
+========================================== */
+
+/* Tips card jangan memaksa tinggi kolom */
+.dashboard-tips {
+    height: auto !important;
+    min-height: 0;
+    align-self: flex-start;
+    margin-bottom: 0;
+}
+
+/* Install hint */
+.install-hint {
+    width: 100%;
+    margin-top: 24px;
+    margin-bottom: 10px;
+    padding: 17px 20px;
+    align-items: center;
+}
+
+/* Footer layout */
+.app-footer {
+    width: 100%;
+    margin-top: 28px;
+    padding: 22px 0;
+    background: #FBF6F2;
+    border-top: 1px solid #EADFD9;
+}
+
+/* Footer content */
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Mobile layout */
+@media (max-width: 767px) {
+
+    .dashboard-tips {
+        height: auto !important;
+        margin-top: 16px !important;
+    }
+
+    .install-hint {
+        margin-top: 18px;
+        margin-bottom: 0;
+        padding: 15px;
+    }
+
+    .app-footer {
+        margin-top: 28px;
+        padding: 20px 0;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .footer-brand,
+    .footer-meta {
+        text-align: left;
+        align-items: flex-start;
+    }
+
+    main.container {
+        padding-bottom: 10px !important;
+    }
+}
+
+
+/* ==========================================
+   ADMIN DASHBOARD - MODERN ICON SYSTEM
+========================================== */
+
+/* STAT CARD ICON COLORS */
+
+.status-orange {
+    background: #FCE8E0;
+    color: #D94B26;
+}
+
+.status-waiting {
+    background: #FFF1DA;
+    color: #D97706;
+}
+
+.status-processing {
+    background: #F0EAFE;
+    color: #7C3AED;
+}
+
+.status-completed {
+    background: #E4F7E9;
+    color: #16A34A;
+}
+
+.status-blue {
+    background: #E5F1FF;
+    color: #2563EB;
+}
+
+.status-purple {
+    background: #F0EAFE;
+    color: #7C3AED;
+}
+
+/* QUICK ACCESS ICON */
+
+.quick-link-icon {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 14px;
+    background: #FCE8E0;
+    color: #D94B26;
+    transition: background .2s ease, color .2s ease;
+}
+
+.quick-link:hover .quick-link-icon {
+    background: #D94B26;
+    color: #FFFFFF;
+}
+
+/* QUICK ACCESS ARROW */
+
+.quick-link-arrow {
+    display: grid;
+    place-items: center;
+    color: #9A8178;
+    transition: transform .2s ease, color .2s ease;
+}
+
+.quick-link:hover .quick-link-arrow {
+    color: #D94B26;
+    transform: translateX(3px);
+}
+
+/* QUICK ACCESS TEXT */
+
+.quick-link {
+    min-height: 70px;
+    padding: 12px 14px;
+    border-radius: 15px;
+    gap: 12px;
+}
+
+/* AI NOTE */
+
+.ai-note-modern {
+    background: #FFF2EC;
+    border: 1px solid #F7D3C4;
+    border-radius: 14px;
+    padding: 15px;
+}
+
+.ai-note-modern strong {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #D94B26;
+    font-size: 12px;
+}
+
+.ai-note-modern p {
+    color: #80665B;
+    font-size: 11px;
+    line-height: 1.7;
+    margin-top: 7px;
+}
+
+/* AREA INFO */
+
+.area-info-card {
+    height: auto;
+}
+
+/* ICON SIZING */
+
+.metric-icon-modern svg,
+.quick-link-icon svg {
+    display: block;
+}
+
+/* MOBILE */
+
+@media (max-width: 767px) {
+
+    .quick-link {
+        min-height: 66px;
+        padding: 11px 12px;
+    }
+
+    .quick-link-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .stat-card-modern {
+        min-height: 145px;
+    }
+
+}
+
+
+/* =========================================
+   PETUGAS DASHBOARD - LAPORKETUA
+========================================= */
+
+.petugas-topline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.petugas-hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 235px;
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    border-radius: 24px;
+    color: white;
+    background: linear-gradient(115deg, #c93817, #f36b38);
+}
+
+.petugas-hero:after {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    right: 70px;
+    top: -145px;
+    border: 1px solid #ffffff30;
+    border-radius: 50%;
+    box-shadow: 0 0 0 25px #ffffff0c,
+        0 0 0 50px #ffffff08;
+}
+
+.petugas-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 65%;
+}
+
+.petugas-eyebrow {
+    display: inline-block;
+    padding: 7px 13px;
+    border-radius: 30px;
+    background: #ffffff28;
+    color: #fff3df;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.petugas-hero h1 {
+    margin: 15px 0 7px;
+    font-size: clamp(25px, 4vw, 36px);
+    font-weight: 800;
+    color: white;
+}
+
+.petugas-hero p {
+    max-width: 430px;
+    color: #ffeadf;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.petugas-hero-stats {
+    display: flex;
+    gap: 35px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #ffffff45;
+}
+
+.petugas-hero-stats strong,
+.petugas-hero-stats span {
+    display: block;
+}
+
+.petugas-hero-stats strong {
+    font-size: 25px;
+    color: white;
+}
+
+.petugas-hero-stats span {
+    font-size: 11px;
+    color: #ffeadf;
+}
+
+.petugas-mascot {
+    position: absolute;
+    z-index: 3;
+    right: 15px;
+    bottom: -12px;
+    width: 225px;
+    max-height: 260px;
+    object-fit: contain;
+    object-position: bottom;
+
+    /* Pertahankan warna asli karakter */
+    mix-blend-mode: normal;
+    opacity: 1;
+    filter: none;
+
+    pointer-events: none;
+}
+
+.petugas-stat-card {
+    height: 100%;
+    min-height: 135px;
+    padding: 17px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 19px;
+    box-shadow: 0 5px 18px #8b492010;
+}
+
+.petugas-stat-icon {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    margin-bottom: 12px;
+    border-radius: 13px;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.petugas-stat-icon.orange {
+    color: #d94b26;
+    background: #ffebe3;
+}
+
+.petugas-stat-icon.yellow {
+    color: #c17b12;
+    background: #fff3d9;
+}
+
+.petugas-stat-icon.purple {
+    color: #7545b5;
+    background: #f0e8ff;
+}
+
+.petugas-stat-icon.green {
+    color: #198754;
+    background: #e2f5e9;
+}
+
+.petugas-stat-card strong {
+    display: block;
+    color: #292929;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.petugas-stat-card span {
+    color: var(--slate);
+    font-size: 11px;
+}
+
+.petugas-area-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 23px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+}
+
+.petugas-section-label {
+    color: #d94b26;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.petugas-area-card h2 {
+    margin: 8px 0 4px;
+    color: var(--ink);
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.petugas-area-card p {
+    margin: 0;
+    color: var(--slate);
+    font-size: 12px;
+}
+
+.petugas-area-meta {
+    display: flex;
+    gap: 28px;
+}
+
+.petugas-area-meta span,
+.petugas-area-meta strong {
+    display: block;
+}
+
+.petugas-area-meta span {
+    color: var(--slate);
+    font-size: 10px;
+}
+
+.petugas-area-meta strong {
+    margin-top: 5px;
+    color: var(--ink);
+    font-size: 17px;
+}
+
+.petugas-job-card {
+    padding: 21px;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: 0 5px 18px #8b492010;
+}
+
+.petugas-job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.petugas-report-number {
+    display: inline-block;
+    padding: 7px 12px;
+    color: #98431f;
+    background: #fff1dc;
+    border-radius: 30px;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.petugas-job-main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 290px;
+    gap: 24px;
+}
+
+.petugas-job-info h3 {
+    color: var(--ink);
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.petugas-job-date {
+    color: var(--slate);
+    font-size: 11px;
+}
+
+.petugas-location {
+    margin: 14px 0;
+    padding: 13px;
+    background: #fff6f1;
+    border: 1px solid #f6e5dc;
+    border-radius: 13px;
+    font-size: 11px;
+}
+
+.petugas-location strong {
+    display: block;
+    margin-bottom: 6px;
+    color: #d94b26;
+}
+
+.petugas-location p {
+    color: var(--ink);
+}
+
+.petugas-location small {
+    display: block;
+    color: var(--slate);
+    overflow-wrap: anywhere;
+}
+
+.petugas-location a {
+    display: inline-block;
+    margin-top: 7px;
+    color: #d94b26;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.petugas-job-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.petugas-job-tags span {
+    padding: 6px 10px;
+    border-radius: 30px;
+    background: #f3f4f6;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.petugas-job-tags span:last-child {
+    background: #fff0e6;
+    color: #bd4b20;
+}
+
+.petugas-description {
+    color: #536273;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.petugas-update-panel {
+    padding-left: 22px;
+    border-left: 1px solid var(--line);
+}
+
+.petugas-update-panel .form-label {
+    font-size: 11px;
+}
+
+.btn-petugas-submit {
+    background: #d94b26;
+    border-color: #d94b26;
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.btn-petugas-submit:hover {
+    background: #b93c1d;
+    border-color: #b93c1d;
+    color: white;
+}
+
+.petugas-hint {
+    display: block;
+    margin-top: 10px;
+    color: var(--slate);
+    font-size: 10px;
+}
+
+@media(max-width:767px) {
+
+    .petugas-topline {
+        align-items: flex-start;
+    }
+
+    .petugas-hero {
+        min-height: 245px;
+        padding: 22px;
+        align-items: flex-start;
+    }
+
+    .petugas-hero-content {
+        max-width: 78%;
+    }
+
+    .petugas-hero h1 {
+        font-size: 25px;
+    }
+
+    .petugas-hero p {
+        max-width: 250px;
+        font-size: 11px;
+    }
+
+    .petugas-hero-stats {
+        gap: 18px;
+    }
+
+    .petugas-hero-stats strong {
+        font-size: 21px;
+    }
+
+    .petugas-mascot {
+        width: 145px;
+        max-height: 185px;
+        right: -8px;
+        bottom: -5px;
+    }
+
+    .petugas-stat-card {
+        min-height: 125px;
+        padding: 14px;
+    }
+
+    .petugas-stat-card strong {
+        font-size: 22px;
+    }
+
+    .petugas-area-card {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 18px;
+    }
+
+    .petugas-area-meta {
+        width: 100%;
+        justify-content: space-between;
+        padding-top: 13px;
+        border-top: 1px solid var(--line);
+    }
+
+    .petugas-job-card {
+        padding: 15px;
+    }
+
+    .petugas-job-main {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .petugas-update-panel {
+        padding: 16px 0 0;
+        border-left: 0;
+        border-top: 1px solid var(--line);
+    }
+}
+
+@media(max-width:380px) {
+
+    .petugas-hero-content {
+        max-width: 100%;
+    }
+
+    .petugas-mascot {
+        opacity: .22;
+        width: 135px;
+    }
+}
+
+
+/* =====================================
+   DASHBOARD WARGA - RESIDENT BANNER
+===================================== */
+
+.resident-banner {
+    background: linear-gradient(120deg, #D94B26, #F36B3F);
+    color: #fff;
+    border-radius: 24px;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    min-height: 300px;
+}
+
+.resident-banner::before {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border: 1px solid #ffffff25;
+    border-radius: 50%;
+    right: 12%;
+    top: -170px;
+    box-shadow: 0 0 0 35px #ffffff0a,
+        0 0 0 70px #ffffff08;
+    pointer-events: none;
+}
+
+.resident-banner-content {
+    position: relative;
+    z-index: 2;
+}
+
+.resident-eyebrow {
+    color: #FFE3D5;
+    letter-spacing: 1.5px;
+}
+
+.resident-greeting {
+    font-size: clamp(26px, 4vw, 36px);
+    font-weight: 800;
+    letter-spacing: -1.2px;
+    margin: 12px 0 5px;
+}
+
+.resident-headline {
+    font-size: clamp(23px, 3.5vw, 34px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 12px;
+}
+
+.resident-banner-content p {
+    color: #FFF0E8;
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 430px;
+}
+
+.resident-cta {
+    color: #C94321;
+    font-weight: 800;
+    font-size: 14px;
+    padding: 9px 15px;
+    border: 0;
+    border-radius: 11px;
+    margin-top: 8px;
+}
+
+.resident-cta:hover {
+    background: #fff0e8;
+    color: #A83218;
+}
+
+/* Posisi maskot warga */
+.resident-banner-visual {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: visible;
+}
+
+.resident-mascot {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    transform: translateY(8px);
+    animation: residentMascotFloat 4s ease-in-out infinite;
+}
+
+/* Gerakan maskot */
+@keyframes residentMascotFloat {
+
+    0%,
+    100% {
+        transform: translateY(8px);
+    }
+
+    50% {
+        transform: translateY(3px);
+    }
+}
+
+
+@media (max-width: 767px) {
+    .resident-banner {
+        padding: 23px 18px 0;
+        min-height: auto;
+    }
+
+    .resident-banner-content {
+        padding-bottom: 5px;
+    }
+
+    .resident-banner-visual {
+        margin-top: -5px;
+    }
+
+    .resident-mascot {
+        width: 100%;
+        max-width: 390px;
+        max-height: 210px;
+        top: 8px;
+    }
+
+    .resident-greeting {
+        font-size: 27px;
+    }
+
+    .resident-headline {
+        font-size: 25px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .resident-mascot {
+        animation: none;
+    }
+}
+
+/* LANDING PAGE - MASKOT RW 06 */
+
+.hero-illustration-image {
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+}
+
+
+
+/* =================================
+   MASKOT DASHBOARD PETUGAS
+================================= */
+
+.petugas-hero {
+    position: relative;
+    overflow: visible;
+}
+
+.petugas-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.petugas-mascot-wrap {
+    position: absolute;
+    right: 12px;
+    bottom: 0;
+    width: 40%;
+    max-width: 180px;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.petugas-mascot {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: bottom center;
+    transform-origin: center bottom;
+    animation: petugasMascotFloat 5s ease-in-out 900ms infinite;
+}
+
+/* Entrance */
+@keyframes petugasMascotEnter {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Floating */
+@keyframes petugasMascotFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .petugas-mascot-wrap,
+    .petugas-mascot {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+/* ==========================================
+   LANDING PAGE - HERO CARD REFINEMENT
+   LAPORKETUA RW 06
+========================================== */
+
+.hero-card {
+    position: relative;
+    background: #FFFFFF;
+    border: 1px solid #F0DFD7;
+    border-radius: 30px;
+    padding: 24px;
+    box-shadow: 0 18px 45px rgba(116, 65, 43, 0.09);
+    overflow: hidden;
+}
+
+.hero-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.mini-label {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+}
+
+.live-pill {
+    padding: 9px 13px;
+    border-radius: 30px;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+/* IMAGE */
+.hero-illustration-image {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    margin: 0;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #FCE9DF;
+}
+
+.hero-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    transition: transform .4s ease;
+}
+
+/* CAPTION */
+.hero-showcase-caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-top: 13px;
+    padding: 11px 13px;
+    border-radius: 13px;
+    background: #FFF2EB;
+    color: #C94726;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .5px;
+}
+
+/* BOTTOM */
+.hero-card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 17px;
+}
+
+.hero-card-bottom>div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.hero-card-bottom strong {
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.hero-card-bottom span:not(.arrow-circle) {
+    font-size: 12px;
+}
+
+.arrow-circle {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    transition: transform .25s ease;
+}
+
+/* HOVER */
+@media (hover: hover) {
+    .hero-card:hover .hero-image {
+        transform: scale(1.025);
+    }
+
+    .hero-card:hover .arrow-circle {
+        transform: translate(3px, -3px);
+    }
+}
+
+/* MOBILE */
+@media (max-width: 767px) {
+    .hero-card {
+        padding: 16px;
+        border-radius: 24px;
+    }
+
+    .hero-card-top {
+        margin-bottom: 16px;
+    }
+
+    .hero-illustration-image {
+        aspect-ratio: 16 / 9;
+        border-radius: 17px;
+    }
+
+    .hero-image {
+        object-fit: contain;
+    }
+
+    .hero-showcase-caption {
+        font-size: 9px;
+        padding: 10px;
+    }
+
+    .hero-card-bottom {
+        margin-top: 15px;
+    }
+
+    .hero-card-bottom strong {
+        font-size: 17px;
+    }
+
+    .arrow-circle {
+        width: 42px;
+        height: 42px;
+    }
+}
+
+
+/* =====================================
+   COMMUNITY CALLOUT - HERO FOOTER
+===================================== */
+
+.hero-card-bottom {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.hero-community-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.hero-community-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #D94B26;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+}
+
+.hero-community-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #E45A32;
+    box-shadow: 0 0 0 4px #FCE9DF;
+}
+
+.hero-community-copy strong {
+    color: #302B29;
+    font-size: clamp(16px, 2vw, 20px);
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.hero-community-copy p {
+    margin: 0;
+    color: #89776F;
+    font-size: 12px;
+    line-height: 1.6;
+    max-width: 330px;
+}
+
+.hero-card-bottom .arrow-circle {
+    width: 46px;
+    height: 46px;
+    background: #D94B26;
+    color: white !important;
+    box-shadow: 0 6px 15px #D94B2630;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+
+.hero-community-steps {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1px solid #F1E5DF;
+}
+
+.hero-community-steps span {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    color: #C94726;
+    font-size: 10px;
+    font-weight: 700;
+    background: #FFF1EA;
+    padding: 8px 12px;
+    border-radius: 30px;
+}
+
+/* Tampilan HP kecil */
+@media (max-width: 380px) {
+    .hero-community-steps {
+        gap: 5px;
+    }
+
+    .hero-community-steps span {
+        font-size: 9px;
+        padding: 7px 9px;
+    }
+}
+
+
+@media (hover: hover) {
+    .hero-card-bottom .arrow-circle:hover {
+        transform: translate(3px, -3px);
+        box-shadow: 0 9px 20px #D94B2640;
+    }
+}
+
+@media (max-width: 767px) {
+    .hero-card-bottom {
+        margin-top: 17px;
+        gap: 8px;
+    }
+
+    .hero-community-copy strong {
+        font-size: 17px;
+    }
+
+    .hero-community-copy p {
+        font-size: 11px;
+    }
+
+    .hero-community-steps {
+        gap: 6px;
+    }
+
+    .hero-community-steps span {
+        font-size: 9px;
+        padding: 7px 9px;
+    }
+}
+
+
+/* =====================================
+   LANDING PAGE - BRAND HEADER
+===================================== */
+
+.hero-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.hero-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.hero-brand strong {
+    color: #D94B26;
+    font-size: 19px;
+    font-weight: 850;
+    letter-spacing: -.5px;
+    line-height: 1.1;
+}
+
+.hero-brand strong span {
+    color: #F59A56;
+}
+
+.hero-brand small {
+    color: #907D74;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+}
+
+.live-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 13px;
+    border-radius: 30px;
+    background: #FFF0E9;
+    color: #C94726;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .4px;
+    white-space: nowrap;
+}
+
+.live-indicator {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #E65A35;
+    box-shadow: 0 0 0 3px #F9DCD0;
+}
+
+@media (max-width: 767px) {
+    .hero-card-top {
+        margin-bottom: 16px;
+    }
+
+    .hero-brand strong {
+        font-size: 17px;
+    }
+
+    .hero-brand small {
+        font-size: 7px;
+    }
+
+    .live-pill {
+        padding: 8px 10px;
+        font-size: 8px;
+    }
+}
+
+
+/* FORCE HORIZONTAL COMMUNITY STEPS */
+.hero-card .hero-card-bottom .hero-community-steps {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    gap: 6px !important;
+    overflow-x: auto;
+}
+
+.hero-card .hero-card-bottom .hero-community-steps span {
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+    padding: 7px 9px !important;
+    font-size: 9px !important;
+}
+
+
+
+/* FIX DESKTOP - RESIDENT MASCOT */
+
+@media (min-width: 768px) {
+    .resident-banner-visual {
+        align-self: stretch;
+        align-items: flex-end;
+    }
+
+    .resident-mascot {
+        animation: residentMascotDesktop 4s ease-in-out infinite;
+    }
+}
+
+@keyframes residentMascotDesktop {
+
+    0%,
+    100% {
+        transform: translateY(36px);
+    }
+
+    50% {
+        transform: translateY(30px);
+    }
+}
+
+/* Mengatur elemen yang disembunyikan */
+[hidden] {
+    display: none !important;
+}
+
+
+/* =====================================
+   INSTALL PWA BUTTON
+===================================== */
+
+#installBtn {
+    background: #153B5B;
+    color: #FFFFFF;
+    border: 1px solid #153B5B;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.25s ease;
+    box-shadow: 0 3px 8px rgba(21, 59, 91, 0.15);
+}
+
+/* Efek saat mouse diarahkan */
+#installBtn:hover {
+    background: #1D527D;
+    border-color: #1D527D;
+    color: #FFFFFF;
+    transform: translateY(-3px);
+    box-shadow: 0 7px 16px rgba(21, 59, 91, 0.25);
+}
+
+/* Efek ketika tombol ditekan */
+#installBtn:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: 0 2px 5px rgba(21, 59, 91, 0.2);
+}
+
+/* Efek fokus keyboard */
+#installBtn:focus-visible {
+    outline: 3px solid rgba(21, 59, 91, 0.3);
+    outline-offset: 3px;
+}
+
+/* Transisi untuk perangkat mobile */
+@media (prefers-reduced-motion: reduce) {
+    #installBtn {
+        transition: none;
+    }
+}

@@ -1,0 +1,4 @@
+{% extends 'base.html' %}{% block title %}File terlalu besar{% endblock %}{% block content %}<div class="empty-state">
+    <h1>File terlalu besar</h1>
+    <p>Ukuran unggahan maksimal 6 MB.</p><a class="btn btn-teal" href="{{ url_for('main.dashboard') }}">Kembali</a>
+</div>{% endblock %}

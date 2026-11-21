@@ -1,0 +1,25 @@
+{
+  "id": "/",
+  "name": "LaporKetua - RW 06 Jembatan Besi",
+  "short_name": "LaporKetua",
+  "description": "Platform pelaporan lingkungan RW 06 Jembatan Besi",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F4F7FA",
+  "theme_color": "#153B5B",
+  "icons": [
+    {
+      "src": "/static/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/static/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}{% block title %}Peta Laporan{% endblock %}{% block head %}<style>
+    #adminMap {
+        height: 560px;
+        border-radius: 18px;
+        z-index: 1
+    }
+</style>{% endblock %}{% block content %}<div class="page-heading">
+    <div><span class="eyebrow">PEMETAAN DIGITAL</span>
+        <h1>Peta laporan RW 06</h1>
+        <p class="muted">Titik laporan di halaman demo merupakan koordinat simulasi. Batas resmi RW belum tersedia;
+            marker sekretariat masih placeholder dan wajib dikonfirmasi.</p>
+    </div>
+</div>
+<div id="adminMap" class="map-panel"></div>
+<div class="map-legend mt-3"><span><i class="legend-dot navy"></i> SDN Jembatan Besi</span><span><i
+            class="legend-dot teal"></i> Sekretariat (placeholder)</span><span><i class="legend-dot red"></i> Laporan
+        warga</span></div>{% endblock %}{% block scripts %}
+<script>const m = L.map('adminMap').setView([-6.1532935, 106.7985635], 17); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(m); L.marker([-6.153027, 106.798433]).addTo(m).bindPopup('SDN Jembatan Besi · Patokan tampilan'); L.marker([-6.153560, 106.798694]).addTo(m).bindPopup('Sekretariat · Placeholder belum terverifikasi'); {% for r in reports %} L.circleMarker([{{ r.latitude }}, {{ r.longitude }}], { radius: 8, color: '#d64b4b', fillOpacity: .8 }).addTo(m).bindPopup({{ (r.title ~ ' · RT ' ~r.rt_number ~ ' · ' ~(r.location_detail or 'Detail lokasi belum diisi') ~ ' · ' ~r.report_number ~ ' · ' ~r.status) | tojson }}); {% endfor %}</script>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Masuk{% endblock %}
+
+{% block content %}
+
+<div class="auth-wrap">
+    <div class="auth-card">
+
+        <span class="eyebrow">SELAMAT DATANG KEMBALI</span>
+
+        <h1>Masuk ke LaporKetua</h1>
+
+        <p class="muted">
+            Pilih jenis akun yang sesuai dengan akun terdaftar.
+        </p>
+
+        <form method="post">
+
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <label class="form-label">Masuk sebagai</label>
+
+            <select class="form-select mb-3" name="role" required>
+                <option value="">Pilih jenis akun</option>
+                <option value="warga">Warga</option>
+                <option value="petugas">Petugas Lapangan</option>
+            </select>
+
+            <label class="form-label">Username atau email</label>
+
+            <input class="form-control mb-3" name="identity" required autocomplete="username">
+
+            <label class="form-label">Password</label>
+
+            <input class="form-control" type="password" name="password" required autocomplete="current-password">
+
+            <div class="text-end mb-3">
+                <a href="{{ url_for('auth.forgot_password') }}" class="small text-decoration-none">
+                    Lupa Password?
+                </a>
+            </div>
+
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" name="remember" id="remember">
+
+                <label class="form-check-label" for="remember">
+                    Ingat saya
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-teal w-100">
+                Masuk
+            </button>
+
+        </form>
+
+        <p class="mt-3 mb-0 text-center">
+            Belum punya akun?
+            <a href="{{ url_for('auth.register') }}">
+                Daftar warga
+            </a>
+        </p>
+
+    </div>
+</div>
+
+{% endblock %}

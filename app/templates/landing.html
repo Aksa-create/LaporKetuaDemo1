@@ -1,0 +1,309 @@
+{% extends 'base.html' %}
+
+{% block title %}Beranda{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero row align-items-center g-4 py-4 py-lg-5">
+
+    <div class="col-lg-7">
+
+        <span class="eyebrow">
+            PLATFORM PARTISIPASI WARGA · RW 06
+        </span>
+
+        <h1 class="display-title mt-3">
+            Lingkungan lebih baik,
+            <span>dimulai dari satu laporan.</span>
+        </h1>
+
+        <p class="lead-copy mt-3">
+            LaporKetua membantu warga RW 06 Jembatan Besi menyampaikan masalah lingkungan,
+            menandai lokasi, dan memantau tindak lanjut secara transparan.
+        </p>
+
+
+        <div class="d-flex flex-wrap gap-2 mt-4">
+
+            <a class="btn btn-teal btn-lg" href="{{ url_for('auth.register') }}">
+                Mulai buat laporan →
+            </a>
+
+            <a class="btn btn-outline-navy btn-lg" href="{{ url_for('auth.login') }}">
+                Masuk akun
+            </a>
+
+            <!-- Tombol Install PWA -->
+            <button type="button" id="installBtn" class="btn btn-lg" hidden>
+                <i class="bi bi-download me-2"></i>
+                Install Aplikasi
+            </button>
+
+            <!-- Indikator aplikasi sudah terpasang -->
+            <div id="installedStatus" class="alert alert-success d-inline-flex align-items-center gap-2 mb-0"
+                role="status" hidden>
+                <span>✓</span>
+                <span>Aplikasi sudah terpasang</span>
+            </div>
+
+        </div>
+
+
+        <div class="hero-note mt-4">
+            <span class="dot"></span>
+            RW 06 · Kelurahan Jembatan Besi · Kecamatan Tambora
+        </div>
+
+    </div>
+
+    <!-- HERO ILLUSTRATION -->
+    <div class="col-lg-5">
+
+        <div class="hero-card">
+
+
+            <div class="hero-card-top">
+
+                <div class="hero-brand">
+                    <strong>LaporKetua<span>.</span></strong>
+                    <small>FORUM KOMUNIKASI RW 06</small>
+                </div>
+
+                <span class="live-pill">
+                    <span class="live-indicator"></span>
+                    LAYANAN WARGA
+                </span>
+
+            </div>
+
+
+            <!-- ILUSTRASI 3D RW 06 -->
+            <div class="hero-illustration hero-illustration-image">
+
+                <img src="{{ url_for('static', filename='images/maskot-rw06-landscape.png') }}"
+                    alt="Tujuh karakter warga, Hansip, Pak RW 06, pemuda pelapor digital, dan petugas PPSU"
+                    class="hero-image" loading="eager">
+
+            </div>
+
+            <div class="hero-showcase-caption">
+                <span>✦ SATU LINGKUNGAN, SATU TUJUAN</span>
+                <span>RW 06</span>
+            </div>
+
+
+            <div class="hero-card-bottom">
+
+                <div class="hero-community-copy">
+
+                    <span class="hero-community-label">
+                        <span class="hero-community-dot"></span>
+                        PARTISIPASI WARGA RW 06
+                    </span>
+
+                    <strong>Lingkungan baik, dimulai dari kita.</strong>
+
+                    <p>
+                        Sampaikan masalah di sekitar dan ikut pantau
+                        proses penanganannya bersama LaporKetua.
+                    </p>
+
+                </div>
+
+                <span class="arrow-circle">
+                    ↗
+                </span>
+
+                <div class="hero-community-steps">
+                    <span>✓ Laporkan</span>
+                    <span>→ Pantau</span>
+                    <span>→ Selesai</span>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURE SECTION -->
+<section class="row g-3 mt-2">
+
+    <div class="col-md-4">
+
+        <div class="feature-card">
+
+            <div class="feature-icon">⌖</div>
+
+            <h3>Lokasi lebih jelas</h3>
+
+            <p>
+                Tandai titik masalah pada peta agar petugas mengetahui area
+                yang perlu diperiksa.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="feature-card">
+
+            <div class="feature-icon">✓</div>
+
+            <h3>Status transparan</h3>
+
+            <p>
+                Pantau tahapan laporan mulai dari verifikasi, proses penanganan,
+                hingga selesai.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="feature-card">
+
+            <div class="feature-icon">✦</div>
+
+            <h3>Prioritas terbantu</h3>
+
+            <p>
+                Sistem membantu memberi rekomendasi prioritas.
+                Keputusan akhir tetap pada Admin RW.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- REPORT CATEGORIES -->
+<section class="mt-5">
+
+    <div class="section-heading">
+
+        <div>
+            <span class="eyebrow">APA YANG BISA DILAPORKAN?</span>
+            <h2 class="mt-2">Masalah di lingkungan sekitar</h2>
+        </div>
+
+    </div>
+
+    <div class="row g-3">
+
+        {% for icon, title, desc in [
+        ('⌁', 'Jalan rusak', 'Lubang, aspal rusak, atau akses jalan terganggu.'),
+        ('♻', 'Sampah menumpuk', 'Sampah liar atau jadwal pengangkutan.'),
+        ('☼', 'Lampu jalan mati', 'Penerangan jalan dan area publik.'),
+        ('≋', 'Saluran tersumbat', 'Drainase mampet atau genangan.'),
+        ('♧', 'Pohon tumbang', 'Pohon rawan tumbang atau dahan berbahaya.'),
+        ('⌂', 'Fasilitas umum', 'Kerusakan fasilitas bersama dan keamanan.')
+        ] %}
+
+        <div class="col-6 col-md-4">
+
+            <div class="quick-card h-100">
+
+                <div class="feature-icon">
+                    {{ icon }}
+                </div>
+
+                <div>
+                    <strong>{{ title }}</strong>
+                    <small>{{ desc }}</small>
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+<section class="mt-5">
+
+    <div class="section-heading">
+
+        <div>
+            <span class="eyebrow">MUDAH DAN TERARAH</span>
+            <h2 class="mt-2">Bagaimana cara kerjanya?</h2>
+        </div>
+
+    </div>
+
+    <div class="row g-3">
+
+        {% for n, t, d in [
+        ('01', 'Buat laporan', 'Pilih kategori, jelaskan masalah, unggah foto, dan tandai lokasi.'),
+        ('02', 'Admin memverifikasi', 'Admin RW memeriksa laporan, menentukan prioritas, dan meneruskan tindak
+        lanjut.'),
+        ('03', 'Pantau sampai selesai', 'Warga menerima pembaruan status dan dapat melihat riwayat penanganan.')
+        ] %}
+
+        <div class="col-md-4">
+
+            <div class="feature-card">
+
+                <span class="eyebrow">
+                    LANGKAH {{ n }}
+                </span>
+
+                <h3 class="mt-3">
+                    {{ t }}
+                </h3>
+
+                <p>{{ d }}</p>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<!-- CALL TO ACTION -->
+<section class="cta-strip mt-5">
+
+    <div>
+
+        <span class="eyebrow">
+            SATU LINGKUNGAN, SATU TUJUAN
+        </span>
+
+        <h2 class="mb-1">
+            Ada masalah? Lapor Ketua!
+        </h2>
+
+        <p class="mb-0">
+            Partisipasi kecil bisa membantu lingkungan menjadi lebih baik.
+        </p>
+
+    </div>
+
+    <a class="btn btn-light" href="{{ url_for('auth.register') }}">
+        Daftar sebagai warga
+    </a>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Laporan Saya{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <div>
+        <span class="eyebrow">RIWAYAT</span>
+        <h1>Laporan saya</h1>
+        <p class="muted">Semua laporan yang pernah kamu kirim.</p>
+    </div>
+
+    <a class="btn btn-teal" href="{{ url_for('reports.create') }}">
+        ＋ Buat laporan
+    </a>
+</div>
+
+{% if reports %}
+<div class="report-list">
+
+    {% for report in reports %}
+    <a class="report-row" href="{{ url_for('reports.detail', report_id=report.id) }}">
+
+        <div class="report-symbol">⌖</div>
+
+        <div class="flex-grow-1">
+            <strong>{{ report.title }}</strong>
+
+            <small>
+                {{ report.report_number }}
+                · {{ report.category.name }}
+                · RT {{ report.rt_number }}
+                · {{ report.location_detail or 'Detail lokasi belum diisi' }}
+                · {{ report.created_at|wib_datetime('%d %b %Y, %H:%M') }}
+            </small>
+        </div>
+
+        <span class="status-pill">
+            {{ report.status }}
+        </span>
+
+    </a>
+    {% endfor %}
+
+</div>
+
+{% else %}
+<div class="empty-state">
+    <h3>Belum ada laporan</h3>
+
+    <a class="btn btn-teal" href="{{ url_for('reports.create') }}">
+        Buat laporan
+    </a>
+</div>
+{% endif %}
+
+{% endblock %}

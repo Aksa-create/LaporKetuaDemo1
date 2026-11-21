@@ -1,0 +1,412 @@
+{
+  "dataset_file": "dataset\\dataset_sintetis_laporketua_1800_bersih.csv",
+  "total_samples": 1800,
+  "category_counts": {
+    "Fasilitas Umum Rusak": 200,
+    "Jalan Rusak": 200,
+    "Keamanan Lingkungan": 200,
+    "Lainnya": 200,
+    "Lampu Jalan Mati": 200,
+    "Pasca Kebakaran / Penanganan Puing": 200,
+    "Pohon Tumbang": 200,
+    "Saluran Air Tersumbat": 200,
+    "Sampah Menumpuk": 200
+  },
+  "grouping_method": "category + scenario issue type (text before first semicolon)",
+  "unique_groups": 90,
+  "random_split": {
+    "split": {
+      "training": 1260,
+      "validation": 270,
+      "testing": 270,
+      "category_counts": {
+        "training": {
+          "Fasilitas Umum Rusak": 140,
+          "Jalan Rusak": 140,
+          "Keamanan Lingkungan": 140,
+          "Lainnya": 140,
+          "Lampu Jalan Mati": 140,
+          "Pasca Kebakaran / Penanganan Puing": 140,
+          "Pohon Tumbang": 140,
+          "Saluran Air Tersumbat": 140,
+          "Sampah Menumpuk": 140
+        },
+        "validation": {
+          "Fasilitas Umum Rusak": 30,
+          "Jalan Rusak": 30,
+          "Keamanan Lingkungan": 30,
+          "Lainnya": 30,
+          "Lampu Jalan Mati": 30,
+          "Pasca Kebakaran / Penanganan Puing": 30,
+          "Pohon Tumbang": 30,
+          "Saluran Air Tersumbat": 30,
+          "Sampah Menumpuk": 30
+        },
+        "testing": {
+          "Fasilitas Umum Rusak": 30,
+          "Jalan Rusak": 30,
+          "Keamanan Lingkungan": 30,
+          "Lainnya": 30,
+          "Lampu Jalan Mati": 30,
+          "Pasca Kebakaran / Penanganan Puing": 30,
+          "Pohon Tumbang": 30,
+          "Saluran Air Tersumbat": 30,
+          "Sampah Menumpuk": 30
+        }
+      }
+    },
+    "validation_metrics": {
+      "accuracy": 1.0,
+      "precision_macro": 1.0,
+      "recall_macro": 1.0,
+      "f1_macro": 1.0,
+      "classification_report": {
+        "Fasilitas Umum Rusak": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 30.0
+        },
+        "Jalan Rusak": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 30.0
+        },
+        "Keamanan Lingkungan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 30.0
+        },
+        "Lainnya": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 30.0
+        },
+        "Lampu Jalan Mati": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 30.0
+        },
+        "Pasca Kebakaran / Penanganan Puing": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 30.0
+        },
+        "Pohon Tumbang": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 30.0
+        },
+        "Saluran Air Tersumbat": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 30.0
+        },
+        "Sampah Menumpuk": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 30.0
+        },
+        "accuracy": 1.0,
+        "macro avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 270.0
+        },
+        "weighted avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 270.0
+        }
+      }
+    },
+    "test_metrics": {
+      "accuracy": 0.9962962962962963,
+      "precision_macro": 0.9964157706093191,
+      "recall_macro": 0.9962962962962963,
+      "f1_macro": 0.9962952672038531,
+      "classification_report": {
+        "Fasilitas Umum Rusak": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 30.0
+        },
+        "Jalan Rusak": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 30.0
+        },
+        "Keamanan Lingkungan": {
+          "precision": 0.967741935483871,
+          "recall": 1.0,
+          "f1-score": 0.9836065573770492,
+          "support": 30.0
+        },
+        "Lainnya": {
+          "precision": 1.0,
+          "recall": 0.9666666666666667,
+          "f1-score": 0.9830508474576272,
+          "support": 30.0
+        },
+        "Lampu Jalan Mati": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 30.0
+        },
+        "Pasca Kebakaran / Penanganan Puing": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 30.0
+        },
+        "Pohon Tumbang": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 30.0
+        },
+        "Saluran Air Tersumbat": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 30.0
+        },
+        "Sampah Menumpuk": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 30.0
+        },
+        "accuracy": 0.9962962962962963,
+        "macro avg": {
+          "precision": 0.9964157706093191,
+          "recall": 0.9962962962962963,
+          "f1-score": 0.9962952672038531,
+          "support": 270.0
+        },
+        "weighted avg": {
+          "precision": 0.9964157706093189,
+          "recall": 0.9962962962962963,
+          "f1-score": 0.9962952672038531,
+          "support": 270.0
+        }
+      }
+    }
+  },
+  "group_split": {
+    "split": {
+      "training": 260,
+      "validation": 260,
+      "testing": 260,
+      "category_counts": {
+        "training": {
+          "Fasilitas Umum Rusak": 20,
+          "Jalan Rusak": 20,
+          "Keamanan Lingkungan": 40,
+          "Lainnya": 20,
+          "Lampu Jalan Mati": 40,
+          "Pasca Kebakaran / Penanganan Puing": 40,
+          "Pohon Tumbang": 40,
+          "Saluran Air Tersumbat": 20,
+          "Sampah Menumpuk": 20
+        },
+        "validation": {
+          "Fasilitas Umum Rusak": 40,
+          "Jalan Rusak": 20,
+          "Keamanan Lingkungan": 20,
+          "Lainnya": 40,
+          "Lampu Jalan Mati": 40,
+          "Pasca Kebakaran / Penanganan Puing": 20,
+          "Pohon Tumbang": 20,
+          "Saluran Air Tersumbat": 20,
+          "Sampah Menumpuk": 40
+        },
+        "testing": {
+          "Fasilitas Umum Rusak": 20,
+          "Jalan Rusak": 20,
+          "Keamanan Lingkungan": 40,
+          "Lainnya": 20,
+          "Lampu Jalan Mati": 40,
+          "Pasca Kebakaran / Penanganan Puing": 40,
+          "Pohon Tumbang": 20,
+          "Saluran Air Tersumbat": 20,
+          "Sampah Menumpuk": 40
+        }
+      }
+    },
+    "group_overlap": {
+      "train_validation": 0,
+      "train_test": 0,
+      "validation_test": 0
+    },
+    "validation_metrics": {
+      "accuracy": 0.8884615384615384,
+      "precision_macro": 0.897312810646144,
+      "recall_macro": 0.8999999999999999,
+      "f1_macro": 0.8862297959318988,
+      "classification_report": {
+        "Fasilitas Umum Rusak": {
+          "precision": 0.9545454545454546,
+          "recall": 0.525,
+          "f1-score": 0.6774193548387096,
+          "support": 40.0
+        },
+        "Jalan Rusak": {
+          "precision": 0.8666666666666667,
+          "recall": 0.65,
+          "f1-score": 0.7428571428571429,
+          "support": 20.0
+        },
+        "Keamanan Lingkungan": {
+          "precision": 0.8,
+          "recall": 1.0,
+          "f1-score": 0.8888888888888888,
+          "support": 20.0
+        },
+        "Lainnya": {
+          "precision": 1.0,
+          "recall": 0.95,
+          "f1-score": 0.9743589743589743,
+          "support": 40.0
+        },
+        "Lampu Jalan Mati": {
+          "precision": 0.8888888888888888,
+          "recall": 1.0,
+          "f1-score": 0.9411764705882353,
+          "support": 40.0
+        },
+        "Pasca Kebakaran / Penanganan Puing": {
+          "precision": 0.9523809523809523,
+          "recall": 1.0,
+          "f1-score": 0.975609756097561,
+          "support": 20.0
+        },
+        "Pohon Tumbang": {
+          "precision": 0.8333333333333334,
+          "recall": 1.0,
+          "f1-score": 0.9090909090909091,
+          "support": 20.0
+        },
+        "Saluran Air Tersumbat": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 20.0
+        },
+        "Sampah Menumpuk": {
+          "precision": 0.78,
+          "recall": 0.975,
+          "f1-score": 0.8666666666666667,
+          "support": 40.0
+        },
+        "accuracy": 0.8884615384615384,
+        "macro avg": {
+          "precision": 0.897312810646144,
+          "recall": 0.8999999999999999,
+          "f1-score": 0.8862297959318988,
+          "support": 260.0
+        },
+        "weighted avg": {
+          "precision": 0.89994227994228,
+          "recall": 0.8884615384615384,
+          "f1-score": 0.8796684330645904,
+          "support": 260.0
+        }
+      }
+    },
+    "test_metrics": {
+      "accuracy": 0.9192307692307692,
+      "precision_macro": 0.9356591721384935,
+      "recall_macro": 0.8916666666666667,
+      "f1_macro": 0.9002105586490244,
+      "classification_report": {
+        "Fasilitas Umum Rusak": {
+          "precision": 1.0,
+          "recall": 0.7,
+          "f1-score": 0.8235294117647058,
+          "support": 20.0
+        },
+        "Jalan Rusak": {
+          "precision": 1.0,
+          "recall": 0.7,
+          "f1-score": 0.8235294117647058,
+          "support": 20.0
+        },
+        "Keamanan Lingkungan": {
+          "precision": 0.9090909090909091,
+          "recall": 1.0,
+          "f1-score": 0.9523809523809523,
+          "support": 40.0
+        },
+        "Lainnya": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 20.0
+        },
+        "Lampu Jalan Mati": {
+          "precision": 0.975609756097561,
+          "recall": 1.0,
+          "f1-score": 0.9876543209876543,
+          "support": 40.0
+        },
+        "Pasca Kebakaran / Penanganan Puing": {
+          "precision": 0.8695652173913043,
+          "recall": 1.0,
+          "f1-score": 0.9302325581395349,
+          "support": 40.0
+        },
+        "Pohon Tumbang": {
+          "precision": 0.6666666666666666,
+          "recall": 1.0,
+          "f1-score": 0.8,
+          "support": 20.0
+        },
+        "Saluran Air Tersumbat": {
+          "precision": 1.0,
+          "recall": 0.7,
+          "f1-score": 0.8235294117647058,
+          "support": 20.0
+        },
+        "Sampah Menumpuk": {
+          "precision": 1.0,
+          "recall": 0.925,
+          "f1-score": 0.961038961038961,
+          "support": 40.0
+        },
+        "accuracy": 0.9192307692307692,
+        "macro avg": {
+          "precision": 0.9356591721384935,
+          "recall": 0.8916666666666667,
+          "f1-score": 0.9002105586490244,
+          "support": 260.0
+        },
+        "weighted avg": {
+          "precision": 0.9365537255250934,
+          "recall": 0.9192307692307692,
+          "f1-score": 0.9179386015683326,
+          "support": 260.0
+        }
+      }
+    }
+  },
+  "production_model": {
+    "file": "ml_models\\report_classifier.joblib",
+    "training_samples": 1800,
+    "note": "Model produksi dilatih ulang dengan seluruh 1.800 data setelah evaluasi. Skor evaluasi berasal dari model yang dilatih hanya pada bagian training di masing-masing split."
+  },
+  "caution": "Seluruh data bersifat sintetis. Group split menguji generalisasi pada jenis masalah scenario yang ditahan dari training, tetapi belum menggantikan pengujian dengan laporan warga nyata."
+}

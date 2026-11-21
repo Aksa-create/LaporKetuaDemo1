@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Akses Admin RW{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card">
+
+    <span class="eyebrow">AKSES KHUSUS PENGELOLA</span>
+
+    <h1>Masuk Admin RW</h1>
+
+    <p class="muted">
+      Halaman ini hanya diperuntukkan bagi akun Admin RW
+      yang dibuat dan diberikan oleh pengelola sistem.
+      Pendaftaran Admin tidak tersedia untuk publik.
+    </p>
+
+    <form method="POST">
+
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+      <!-- Username atau Email -->
+      <div class="mb-3">
+        <label for="identity" class="form-label">
+          Username atau Email Admin
+        </label>
+
+        <input type="text" class="form-control" id="identity" name="identity" placeholder="Masukkan username atau email"
+          autocomplete="username" required>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3">
+        <label for="password" class="form-label">
+          Password
+        </label>
+
+        <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password"
+          autocomplete="current-password" required>
+      </div>
+
+      <!-- Remember Me -->
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" name="remember" id="remember">
+
+        <label class="form-check-label" for="remember">
+          Ingat saya
+        </label>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn btn-teal w-100">
+        Masuk sebagai Admin
+      </button>
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}

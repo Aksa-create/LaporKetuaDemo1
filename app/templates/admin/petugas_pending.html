@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Persetujuan Petugas{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+    <span class="eyebrow">MANAJEMEN PENGGUNA</span>
+    <h1>Persetujuan Petugas Lapangan</h1>
+    <p class="muted">
+        Periksa dan kelola pendaftaran calon Petugas RW 06.
+    </p>
+</div>
+
+<div class="card-table">
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>RT</th>
+                    <th>Tanggal Daftar</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for petugas in petugas_list %}
+                <tr>
+                    <td>{{ petugas.full_name }}</td>
+                    <td>{{ petugas.username }}</td>
+                    <td>{{ petugas.email }}</td>
+                    <td>RT {{ petugas.rt_number }}</td>
+                    <td>
+                        {{ petugas.created_at.strftime('%d-%m-%Y') }}
+                    </td>
+                    <td>
+                        <div class="d-flex gap-2">
+
+                            <form method="POST" action="{{ url_for('admin.approve_petugas', user_id=petugas.id) }}"
+                                onsubmit="return confirm('Setujui petugas ini?')">
+
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                                <button class="btn btn-sm btn-teal">
+                                    Setujui
+                                </button>
+                            </form>
+
+                            <form method="POST" action="{{ url_for('admin.reject_petugas', user_id=petugas.id) }}"
+                                onsubmit="return confirm('Tolak petugas ini?')">
+
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                                <button class="btn btn-sm btn-outline-danger">
+                                    Tolak
+                                </button>
+                            </form>
+
+                        </div>
+                    </td>
+                </tr>
+
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center py-5">
+                        <h5>Belum ada pendaftaran Petugas</h5>
+                        <p class="muted">
+                            Tidak ada akun yang menunggu persetujuan.
+                        </p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

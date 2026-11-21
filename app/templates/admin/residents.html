@@ -1,0 +1,38 @@
+{% extends 'base.html' %}{% block title %}Data Warga{% endblock %}{% block content %}<div class="page-heading">
+    <div><span class="eyebrow">DATA PENGGUNA</span>
+        <h1>Warga terdaftar</h1>
+        <p class="muted">Jumlah dihitung berdasarkan akun unik, bukan jumlah login.</p>
+    </div>
+</div>
+<form class="filter-bar mb-3"><select class="form-select" name="rt">
+        <option value="">Semua RT</option>{% for rt in rts %}<option value="{{ rt.number }}" {% if
+            selected_rt==rt.number %}selected{% endif %}>RT {{ rt.number }}</option>{% endfor %}
+    </select><select class="form-select" name="status">
+        <option value="">Semua status</option>
+        <option value="active" {% if selected_status=='active' %}selected{% endif %}>Aktif</option>
+        <option value="inactive" {% if selected_status=='inactive' %}selected{% endif %}>Nonaktif</option>
+    </select><button class="btn btn-outline-navy">Filter</button></form>
+<div class="table-responsive card-table">
+    <table class="table align-middle">
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Username</th>
+                <th>RT</th>
+                <th>Terdaftar</th>
+                <th>Terakhir login</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>{% for u in residents %}<tr>
+                <td>{{ u.full_name }}</td>
+                <td>{{ u.username }}</td>
+                <td>{{ u.rt_number or '-' }}</td>
+                <td>{{ u.created_at.strftime('%d/%m/%Y') }}</td>
+                <td>{{ u.last_login_at.strftime('%d/%m/%Y %H:%M') if u.last_login_at else 'Belum pernah' }}</td>
+                <td><span class="status-pill">{{ u.account_status }}</span></td>
+            </tr>{% else %}<tr>
+                <td colspan="6" class="text-center muted py-4">Belum ada warga terdaftar.</td>
+            </tr>{% endfor %}</tbody>
+    </table>
+</div>{% endblock %}

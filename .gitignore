@@ -1,0 +1,52 @@
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Flask instance
+instance/
+
+# Database & backup
+*.db
+*.sqlite
+*.sqlite3
+backups/
+*.dump
+
+# User uploads
+uploads/*
+!uploads/.gitkeep
+app/static/uploads/*
+!app/static/uploads/.gitkeep
+
+# Machine Learning
+ml_models/*.joblib
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# File arsip sementara
+*.zip
+
+# File log
+*.log
+
+# Backup
+backups/
+*.dump

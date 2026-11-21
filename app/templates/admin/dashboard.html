@@ -1,0 +1,479 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard Admin{% endblock %}
+
+{% block content %}
+
+{# ICON COMPONENT #}
+{% macro ui_icon(name, size=22) %}
+<svg width="{{ size }}" height="{{ size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    {% if name == 'clipboard-check' %}
+    <rect x="5" y="4" width="14" height="17" rx="2" />
+    <path d="M9 4.5h6V3H9z" />
+    <path d="m9 14 2 2 4-4" />
+
+    {% elif name == 'clock' %}
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 6v6l4 2" />
+
+    {% elif name == 'settings' %}
+    <circle cx="12" cy="12" r="3" />
+    <path
+        d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.7 2.9-.2-.1a1.7 1.7 0 0 0-1.8.1 1.7 1.7 0 0 0-.8 1.5v.2h-3.4v-.2a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8-.1l-.2.1-1.7-2.9.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H5.8v-3.4H6a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1 1.7-2.9.2.1a1.7 1.7 0 0 0 1.8-.1 1.7 1.7 0 0 0 .8-1.5V3h3.4v.2a1.7 1.7 0 0 0 1.1 1.5 1.7 1.7 0 0 0 1.8.1l.2-.1 1.7 2.9-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.2V14H21a1.7 1.7 0 0 0-1.6 1z" />
+
+    {% elif name == 'check-circle' %}
+    <circle cx="12" cy="12" r="10" />
+    <path d="m8 12 2.5 2.5L16 9" />
+
+    {% elif name == 'users' %}
+    <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+    <circle cx="10" cy="7" r="4" />
+    <path d="M20 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+
+    {% elif name == 'user-check' %}
+    <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+    <circle cx="10" cy="7" r="4" />
+    <path d="m16 11 2 2 4-4" />
+
+    {% elif name == 'map-pinned' %}
+    <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
+    <circle cx="12" cy="10" r="2.5" />
+
+    {% elif name == 'plus' %}
+    <path d="M12 5v14M5 12h14" />
+
+    {% elif name == 'arrow-right' %}
+    <path d="M5 12h14M12 5l7 7-7 7" />
+
+    {% elif name == 'arrow-up-right' %}
+    <path d="M7 17 17 7M7 7h10v10" />
+
+    {% elif name == 'sparkles' %}
+    <path d="m12 3 1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3Z" />
+    <path d="m19 14 1.2 2.8L23 18l-2.8 1.2L19 22l-1.2-2.8L15 18l2.8-1.2L19 14Z" />
+
+    {% endif %}
+</svg>
+{% endmacro %}
+
+
+<!-- HEADER -->
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+
+    <span class="sample-ribbon">
+        ● MODE DEMO · DATA SIMULASI
+    </span>
+
+    <small class="muted">
+        RW 06 · Jembatan Besi, Tambora
+    </small>
+
+</div>
+
+
+<!-- WELCOME BANNER -->
+<section class="dashboard-banner mb-4">
+
+    <div class="row align-items-center g-3">
+
+        <div class="col-lg-8">
+
+            <span class="eyebrow" style="color:#FFE0D1">
+                PUSAT KENDALI LINGKUNGAN
+            </span>
+
+            <h1>Dashboard Admin RW 06</h1>
+
+            <p>
+                Pantau laporan warga, verifikasi masalah,
+                dan koordinasikan tindak lanjut lingkungan.
+            </p>
+
+        </div>
+
+        <div class="col-lg-4 text-lg-end">
+
+            <a class="btn btn-teal" href="{{ url_for('admin.reports') }}">
+                {{ ui_icon('clipboard-check', 18) }}
+                Kelola laporan
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- STATISTICS -->
+<div class="row g-3 mb-4">
+
+    {% set metrics = [
+    ('Total laporan', total_reports, 'clipboard-check', 'orange'),
+    ('Menunggu verifikasi', counts.get('Menunggu Verifikasi', 0), 'clock', 'waiting'),
+    ('Sedang diproses', counts.get('Sedang Diproses', 0), 'settings', 'processing'),
+    ('Selesai ditangani', counts.get('Selesai', 0), 'check-circle', 'completed'),
+    ('Warga terdaftar', total_users, 'users', 'blue'),
+    ('Petugas menunggu', pending_petugas_count, 'user-check', 'purple')
+    ] %}
+
+    {% for label, value, ico, color in metrics %}
+
+    <div class="col-6 col-md">
+
+        <div class="stat-card stat-card-modern">
+
+            <div class="metric-icon metric-icon-modern status-{{ color }}">
+                {{ ui_icon(ico, 24) }}
+            </div>
+
+            <span>{{ label }}</span>
+
+            <strong>{{ value }}</strong>
+
+            <small class="metric-trend">Data simulasi</small>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+
+<!-- CHART AND QUICK ACCESS -->
+<div class="row g-3 mb-4">
+
+    <!-- REPORT STATUS CHART -->
+    <div class="col-lg-7">
+
+        <div class="chart-card">
+
+            <div class="section-heading mt-0">
+
+                <h2>Status laporan</h2>
+
+                <span class="sample-ribbon">
+                    Ringkasan demo
+                </span>
+
+            </div>
+
+            {% set colors = [
+            '#D97706',
+            '#2563EB',
+            '#7C3AED',
+            '#16A34A',
+            '#DC6262'
+            ] %}
+
+            {% for s in [
+            'Menunggu Verifikasi',
+            'Diverifikasi',
+            'Sedang Diproses',
+            'Selesai',
+            'Ditolak'
+            ] %}
+
+            {% set v = counts.get(s, 0) %}
+
+            <div class="bar-row">
+
+                <span>{{ s }}</span>
+
+                <div class="bar-track">
+
+                    <div class="bar-fill"
+                        style="width:{{ (v * 100 / total_reports) if total_reports else 0 }}%; background:{{ colors[loop.index0] }};">
+                    </div>
+
+                </div>
+
+                <strong>{{ v }}</strong>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+
+    <!-- QUICK ACCESS -->
+    <div class="col-lg-5">
+
+        <div class="chart-card">
+
+            <div class="section-heading mt-0">
+                <h2>Akses cepat</h2>
+            </div>
+
+            <div class="d-grid gap-2">
+
+                <a class="quick-link" href="{{ url_for('admin.reports') }}">
+
+                    <span class="quick-link-icon">
+                        {{ ui_icon('clipboard-check', 22) }}
+                    </span>
+
+                    <span>Verifikasi & kelola laporan</span>
+
+                    <b class="ms-auto quick-link-arrow">
+                        {{ ui_icon('arrow-right', 18) }}
+                    </b>
+
+                </a>
+
+
+                <a class="quick-link" href="{{ url_for('admin.map_view') }}">
+
+                    <span class="quick-link-icon">
+                        {{ ui_icon('map-pinned', 22) }}
+                    </span>
+
+                    <span>Peta sebaran laporan</span>
+
+                    <b class="ms-auto quick-link-arrow">
+                        {{ ui_icon('arrow-right', 18) }}
+                    </b>
+
+                </a>
+
+
+                <a class="quick-link" href="{{ url_for('admin.residents') }}">
+
+                    <span class="quick-link-icon">
+                        {{ ui_icon('users', 22) }}
+                    </span>
+
+                    <span>Direktori warga RW 06</span>
+
+                    <b class="ms-auto quick-link-arrow">
+                        {{ ui_icon('arrow-right', 18) }}
+                    </b>
+
+                </a>
+
+
+                <a class="quick-link" href="{{ url_for('admin.pending_petugas') }}">
+
+                    <span class="quick-link-icon">
+                        {{ ui_icon('user-check', 22) }}
+                    </span>
+
+                    <span>Persetujuan Petugas</span>
+
+                    {% if pending_petugas_count > 0 %}
+
+                    <span class="badge bg-warning text-dark">
+                        {{ pending_petugas_count }}
+                    </span>
+
+                    {% endif %}
+
+                    <b class="ms-auto quick-link-arrow">
+                        {{ ui_icon('arrow-right', 18) }}
+                    </b>
+
+                </a>
+
+            </div>
+
+
+            <!-- AI INFORMATION -->
+            <div class="ai-note ai-note-modern mt-3">
+
+                <strong>
+                    {{ ui_icon('sparkles', 17) }}
+                    Asisten analisis
+                </strong>
+
+                <p class="mb-0">
+                    Prioritas saat ini ditampilkan dari aturan kategori
+                    dan urgensi. Prediksi ML akan aktif setelah dataset
+                    berlabel tersedia.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- RECENT REPORTS AND AREA INFORMATION -->
+<div class="row g-3">
+
+    <!-- RECENT REPORTS -->
+    <div class="col-lg-8">
+
+        <div class="section-heading">
+
+            <h2>Laporan terbaru</h2>
+
+            <a href="{{ url_for('admin.reports') }}">
+                Lihat semua
+                {{ ui_icon('arrow-up-right', 15) }}
+            </a>
+
+        </div>
+
+        <div class="card-table">
+
+            <div class="table-responsive">
+
+                <table class="table align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>No. laporan</th>
+                            <th>Masalah</th>
+                            <th>RT & patokan lokasi</th>
+                            <th>Prioritas</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for r in reports %}
+
+                        <tr>
+
+                            <td>
+                                <b>{{ r.report_number }}</b>
+                                <br>
+                                <small class="muted">
+                                    {{ r.created_at.strftime('%d %b %Y') }}
+                                </small>
+                            </td>
+
+                            <td>
+                                {{ r.title }}
+                                <br>
+                                <small class="muted">
+                                    {{ r.category.name }}
+                                </small>
+                            </td>
+
+                            <td>
+                                <b>RT {{ r.rt_number }}</b>
+                                <br>
+                                <small class="muted">
+                                    {{ r.location_detail or 'Detail lokasi belum diisi' }}
+                                </small>
+                            </td>
+
+                            <td>
+                                <span class="priority-pill">
+                                    {{ r.priority }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="status-pill">
+                                    {{ r.status }}
+                                </span>
+                            </td>
+
+                            <td class="text-nowrap">
+
+                                <a class="btn btn-sm btn-outline-navy"
+                                    href="{{ url_for('reports.detail', report_id=r.id) }}">
+                                    Buka
+                                </a>
+
+                                {% if r.status == 'Menunggu Verifikasi' %}
+
+                                <form method="post" action="{{ url_for('admin.verify_report', report_id=r.id) }}"
+                                    class="mt-1">
+
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                                    <button class="btn btn-sm btn-teal" type="submit">
+                                        Verifikasi
+                                    </button>
+
+                                </form>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% else %}
+
+                        <tr>
+                            <td colspan="6" class="text-center muted py-4">
+                                Belum ada laporan.
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- AREA INFORMATION -->
+    <div class="col-lg-4">
+
+        <div class="section-heading">
+            <h2>Info wilayah</h2>
+        </div>
+
+        <div class="chart-card area-info-card">
+
+            <div class="mb-3">
+
+                <small class="muted">
+                    WILAYAH LAYANAN
+                </small>
+
+                <h3 class="mt-1">
+                    RW 06 · Jembatan Besi
+                </h3>
+
+                <p class="muted mb-0">
+                    Kecamatan Tambora, Jakarta Barat, DKI Jakarta
+                </p>
+
+            </div>
+
+            <hr>
+
+            <div class="d-flex justify-content-between py-2">
+                <span class="muted">RT terdaftar</span>
+                <b>13 RT</b>
+            </div>
+
+            <div class="d-flex justify-content-between py-2">
+                <span class="muted">Landmark</span>
+                <b>SDN Jembatan Besi 01–04</b>
+            </div>
+
+            <a href="{{ url_for('admin.map_view') }}" class="btn btn-outline-navy w-100 mt-2">
+                {{ ui_icon('map-pinned', 17) }}
+                Lihat peta laporan
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard Warga{% endblock %}
+
+{% block content %}
+
+{# ICON COMPONENT - LUCIDE STYLE #}
+{% macro ui_icon(name, size=22) %}
+<svg width="{{ size }}" height="{{ size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    {% if name == 'clock' %}
+    <circle cx="12" cy="12" r="10" />
+    <polyline points="12 6 12 12 16 14" />
+    {% elif name == 'check-circle' %}
+    <circle cx="12" cy="12" r="10" />
+    <path d="m8 12 2.5 2.5L16 9" />
+    {% elif name == 'settings' %}
+    <circle cx="12" cy="12" r="3" />
+    <path
+        d="m19.4 15 .1.1 1.4 1.1-1.4 2.4-1.7-.6a8 8 0 0 1-1.7 1l-.3 1.8h-2.8l-.3-1.8a8 8 0 0 1-1.7-1l-1.7.6-1.4-2.4 1.4-1.1a8 8 0 0 1 0-2l-1.4-1.1 1.4-2.4 1.7.6a8 8 0 0 1 1.7-1l.3-1.8h2.8l.3 1.8a8 8 0 0 1 1.7 1l1.7-.6 1.4 2.4-1.4 1.1a8 8 0 0 1 0 2z"
+        transform="translate(-1 -1) scale(.95)" />
+    {% elif name == 'star' %}
+    <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-2.9-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3z" />
+    {% elif name == 'map-pin' %}
+    <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
+    <circle cx="12" cy="10" r="2.5" />
+    {% elif name == 'plus' %}
+    <path d="M12 5v14M5 12h14" />
+    {% elif name == 'clipboard' %}
+    <rect x="5" y="4" width="14" height="17" rx="2" />
+    <path d="M9 4.5h6V3H9zM9 10h6M9 14h6M9 18h4" />
+    {% elif name == 'bell' %}
+    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
+    <path d="M10 21h4" />
+    {% elif name == 'arrow-right' %}
+    <path d="M5 12h14M12 5l7 7-7 7" />
+    {% elif name == 'arrow-up-right' %}
+    <path d="M7 17 17 7M7 7h10v10" />
+    {% elif name == 'check' %}
+    <path d="m5 12 4 4L19 6" />
+    {% endif %}
+</svg>
+{% endmacro %}
+
+<!-- HEADER -->
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <span class="sample-ribbon">● MODE DEMO · DATA SIMULASI</span>
+    <small class="muted">RW 06 · Jembatan Besi</small>
+</div>
+
+<!-- RESIDENT BANNER -->
+<section class="dashboard-banner resident-banner mb-4">
+    <div class="row align-items-center g-3 position-relative">
+        <div class="col-lg-6 resident-banner-content">
+            <span class="eyebrow resident-eyebrow">WARGA RW 06</span>
+
+            <h1 class="resident-greeting">
+                Halo, {{ current_user.full_name.split(' ')[0] }}! 👋
+            </h1>
+
+            <h2 class="resident-headline">
+                Bersama jaga lingkungan RW 06!
+            </h2>
+
+            <p>
+                Sampaikan masalah di sekitar kita,
+                dan pantau tindak lanjutnya di LaporKetua.
+            </p>
+
+            <a class="btn btn-light btn-lg resident-cta" href="{{ url_for('reports.create') }}">
+                ＋ Buat laporan sekarang
+            </a>
+        </div>
+
+        <div class="col-lg-6 resident-banner-visual">
+            <img src="{{ url_for('static', filename='images/maskot-warga.png') }}" alt="Empat maskot warga RW 06"
+                class="resident-mascot">
+        </div>
+    </div>
+</section>
+
+<!-- REPORT STATISTICS -->
+<div class="row g-3 mb-4">
+    {% for label, key, ico, color in [
+    ('Menunggu verifikasi', 'Menunggu Verifikasi', 'clock', 'waiting'),
+    ('Diverifikasi', 'Diverifikasi', 'check-circle', 'verified'),
+    ('Sedang diproses', 'Sedang Diproses', 'settings', 'processing'),
+    ('Selesai', 'Selesai', 'star', 'completed')
+    ] %}
+    <div class="col-6 col-md-3">
+        <div class="stat-card stat-card-modern">
+            <div class="metric-icon metric-icon-modern status-{{ color }}">
+                {{ ui_icon(ico, 25) }}
+            </div>
+            <span>{{ label }}</span>
+            <strong>{{ counts.get(key, 0) }}</strong>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- MAIN DASHBOARD CONTENT -->
+<div class="row g-3 mb-4">
+
+    <!-- RECENT REPORTS -->
+    <div class="col-lg-8">
+        <div class="section-heading mt-0">
+            <h2>Laporan terbaru saya</h2>
+            <a href="{{ url_for('reports.list_mine') }}">
+                Riwayat lengkap {{ ui_icon('arrow-up-right', 15) }}
+            </a>
+        </div>
+
+        <div class="report-list">
+            {% for r in reports %}
+            <div class="report-row d-flex align-items-center gap-2">
+                <a class="d-flex align-items-center flex-grow-1 gap-3 text-decoration-none text-reset"
+                    href="{{ url_for('reports.detail', report_id=r.id) }}" style="min-width:0;">
+                    <span class="report-symbol report-symbol-modern">
+                        {{ ui_icon('map-pin', 21) }}
+                    </span>
+
+                    <span class="flex-grow-1" style="min-width:0;">
+                        <strong>{{ r.title }}</strong>
+                        <small>
+                            {{ r.report_number }}
+                            · RT {{ r.rt_number }}
+                            · {{ r.location_detail or 'Detail lokasi belum diisi' }}
+                            · {{ r.created_at.strftime('%d %b %Y') }}
+                        </small>
+                    </span>
+
+                    <span class="status-pill">{{ r.status }}</span>
+                </a>
+
+                <form method="POST" action="{{ url_for('reports.delete_report', report_id=r.id) }}"
+                    class="d-inline flex-shrink-0"
+                    onsubmit="return confirm('Yakin ingin menghapus laporan {{ r.report_number }} secara permanen? Data laporan dan foto terkait akan ikut dihapus.');">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Hapus laporan">
+                        Hapus
+                    </button>
+                </form>
+            </div>
+
+            {% else %}
+            <div class="empty-state">
+                <div class="empty-icon empty-icon-modern">
+                    {{ ui_icon('clipboard', 27) }}
+                </div>
+                <h3>Belum ada laporan</h3>
+                <p>Mulai berkontribusi untuk lingkungan yang lebih nyaman.</p>
+                <a class="btn btn-teal" href="{{ url_for('reports.create') }}">
+                    {{ ui_icon('plus', 17) }}
+                    Buat laporan pertama
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- QUICK ACCESS -->
+    <div class="col-lg-4">
+        <div class="section-heading mt-0">
+            <h2>Akses cepat</h2>
+        </div>
+
+        <div class="d-grid gap-2">
+            <a class="quick-link" href="{{ url_for('reports.create') }}">
+                <span class="quick-link-icon">{{ ui_icon('plus', 21) }}</span>
+                <span>Buat laporan baru</span>
+                <b class="ms-auto quick-link-arrow">{{ ui_icon('arrow-right', 18) }}</b>
+            </a>
+
+            <a class="quick-link" href="{{ url_for('reports.list_mine') }}">
+                <span class="quick-link-icon">{{ ui_icon('clipboard', 21) }}</span>
+                <span>Semua laporan saya</span>
+                <b class="ms-auto quick-link-arrow">{{ ui_icon('arrow-right', 18) }}</b>
+            </a>
+
+            <a class="quick-link" href="{{ url_for('main.notifications') }}">
+                <span class="quick-link-icon">{{ ui_icon('bell', 21) }}</span>
+                <span>Notifikasi</span>
+                {% if unread %}
+                <span class="badge bg-danger">{{ unread }}</span>
+                {% endif %}
+                <b class="ms-auto quick-link-arrow">{{ ui_icon('arrow-right', 18) }}</b>
+            </a>
+        </div>
+
+        <!-- REPORT TIPS -->
+        <div class="chart-card dashboard-tips mt-3">
+
+            <h3>Tips membuat laporan</h3>
+
+            <p class="muted mb-2">
+                1. Gunakan judul yang jelas.
+            </p>
+
+            <p class="muted mb-2">
+                2. Sertakan foto kondisi terbaru.
+            </p>
+
+            <p class="muted mb-0">
+                3. Tandai lokasi masalah secara akurat.
+            </p>
+
+        </div>
+    </div>
+
+    <!-- PWA INSTALL HINT -->
+    <div class="install-hint">
+        <div>
+            <strong>Pasang LaporKetua di HP</strong>
+            <p class="mb-0">Tambahkan ke layar utama agar lebih mudah diakses.</p>
+        </div>
+        <span class="install-hint-icon">
+            {{ ui_icon('arrow-up-right', 21) }}
+        </span>
+    </div>
+
+    {% endblock %}

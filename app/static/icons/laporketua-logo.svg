@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="220" viewBox="0 0 760 220" role="img" aria-labelledby="title desc" preserveAspectRatio="xMidYMid meet">
+  <title id="title">LaporKetua</title>
+  <desc id="desc">Logo rumah di dalam pin lokasi dengan gelembung percakapan. Tagline: Ada Masalah? Lapor Ketua!</desc>
+  <defs>
+    <linearGradient id="pinNavy" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#205777"/>
+      <stop offset="1" stop-color="#153B5B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Ikon rumah + pin lokasi -->
+  <g transform="translate(10 4) scale(0.82)">
+    <path d="M94 5C42 5 5 44 5 94c0 53 89 151 89 151s89-98 89-151C183 44 146 5 94 5Z" fill="url(#pinNavy)"/>
+    <path d="M42 102 94 58l52 44-10 11-10-9v48H62v-48l-10 9Z" fill="#fff"/>
+    <rect x="82" y="126" width="24" height="34" rx="2" fill="#153B5B"/>
+    <rect x="67" y="111" width="15" height="13" rx="3" fill="#153B5B"/>
+    <rect x="106" y="111" width="15" height="13" rx="3" fill="#153B5B"/>
+    <!-- Gelembung percakapan -->
+    <path d="M112 166h49c18 0 30 11 30 27s-12 27-30 27h-25l-18 13v-16c-12-5-18-13-18-24 0-15 13-27 30-27Z" fill="#20B89A" stroke="#fff" stroke-width="5" stroke-linejoin="round"/>
+    <g fill="#fff"><circle cx="132" cy="193" r="5"/><circle cx="151" cy="193" r="5"/><circle cx="170" cy="193" r="5"/></g>
+    <!-- Aksen sinyal -->
+    <path d="M169 34l8-20M195 53l17-15M205 80l21-3" fill="none" stroke="#20B89A" stroke-width="11" stroke-linecap="round"/>
+  </g>
+
+  <!-- Wordmark; area teks diberi ruang cukup agar tidak terpotong -->
+  <text x="225" y="105" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="76" font-weight="800" letter-spacing="-2" fill="#fff">Lapor<tspan fill="#20B89A">Ketua</tspan></text>
+  <path d="M228 145h42" stroke="#20B89A" stroke-width="5" stroke-linecap="round"/>
+  <text x="288" y="155" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="25" font-weight="600" letter-spacing="1.2" fill="#fff">Ada Masalah? Lapor Ketua!</text>
+  <path d="M692 145h42" stroke="#20B89A" stroke-width="5" stroke-linecap="round"/>
+</svg>

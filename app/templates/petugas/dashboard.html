@@ -1,0 +1,228 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard Petugas{% endblock %}
+
+{% block content %}
+
+<!-- HEADER -->
+<div class="petugas-topline">
+    <span class="sample-ribbon">● LAPORAN AKTUAL</span>
+    <small class="muted">Petugas Lapangan RW 06</small>
+</div>
+
+<!-- HERO -->
+<section class="petugas-hero mb-4">
+    <div class="petugas-hero-content">
+        <span class="petugas-eyebrow">✦ OPERASIONAL LAPANGAN</span>
+        <h1>Halo, {{ current_user.full_name.split(' ')[0] }}!</h1>
+        <p>
+            Perbarui progres penanganan laporan dan catat
+            hasil pemeriksaan di lapangan.
+        </p>
+
+        <div class="petugas-hero-stats">
+            <div>
+                <strong>{{ reports|length }}</strong>
+                <span>Tugas aktif</span>
+            </div>
+            <div>
+                <strong>{{ verified_count }}</strong>
+                <span>Perlu ditindaklanjuti</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="petugas-mascot-wrap">
+        <img src="{{ url_for('static', filename='images/petugas-rw06.png') }}" alt="Petugas PPSU dan Satpam RW 06"
+            class="petugas-mascot">
+    </div>
+
+</section>
+
+<!-- STATISTIK -->
+<div class="row g-3 mb-4">
+
+    <div class="col-6 col-lg-3">
+        <div class="petugas-stat-card">
+            <div class="petugas-stat-icon orange">▤</div>
+            <strong>{{ reports|length }}</strong>
+            <span>Tugas aktif</span>
+        </div>
+    </div>
+
+    <div class="col-6 col-lg-3">
+        <div class="petugas-stat-card">
+            <div class="petugas-stat-icon yellow">◷</div>
+            <strong>{{ verified_count }}</strong>
+            <span>Belum dimulai</span>
+        </div>
+    </div>
+
+    <div class="col-6 col-lg-3">
+        <div class="petugas-stat-card">
+            <div class="petugas-stat-icon purple">⚙</div>
+            <strong>{{ processing_count }}</strong>
+            <span>Sedang dikerjakan</span>
+        </div>
+    </div>
+
+    <div class="col-6 col-lg-3">
+        <div class="petugas-stat-card">
+            <div class="petugas-stat-icon green">✓</div>
+            <strong>RW 06</strong>
+            <span>Area operasional</span>
+        </div>
+    </div>
+
+</div>
+
+<!-- AREA KERJA -->
+<section class="petugas-area-card mb-4">
+    <div>
+        <span class="petugas-section-label">⌖ AREA PENUGASAN</span>
+        <h2>RW 06 · Jembatan Besi</h2>
+        <p>Kelurahan Jembatan Besi · Kecamatan Tambora</p>
+    </div>
+
+    <div class="petugas-area-meta">
+        <div>
+            <span>Wilayah cakupan</span>
+            <strong>13 RT</strong>
+        </div>
+        <div>
+            <span>Tugas aktif</span>
+            <strong>{{ reports|length }} laporan</strong>
+        </div>
+    </div>
+</section>
+
+<!-- DAFTAR PEKERJAAN -->
+<div class="section-heading">
+    <h2>Daftar pekerjaan</h2>
+    <span class="sample-ribbon">Laporan terverifikasi</span>
+</div>
+
+<div class="row g-3">
+
+    {% for r in reports %}
+
+    <div class="col-12">
+
+        <article class="petugas-job-card">
+
+            <div class="petugas-job-header">
+                <span class="petugas-report-number">
+                    {{ r.report_number }}
+                </span>
+
+                <span class="status-pill">
+                    {{ r.status }}
+                </span>
+            </div>
+
+            <div class="petugas-job-main">
+
+                <div class="petugas-job-info">
+
+                    <h3>{{ r.title }}</h3>
+
+                    <p class="petugas-job-date">
+                        ◷ Dibuat:
+                        {{ r.created_at|wib_datetime('%d %B %Y, %H:%M') }}
+                    </p>
+
+                    <div class="petugas-location">
+                        <strong>⌖ Lokasi penanganan</strong>
+
+                        <p class="mb-1">
+                            RT {{ r.rt_number }} ·
+                            {{ r.location_detail or 'Detail lokasi belum diisi' }}
+                        </p>
+
+                        {% if r.latitude is not none and r.longitude is not none %}
+                        <small>
+                            Koordinat:
+                            {{ '%.6f'|format(r.latitude) }},
+                            {{ '%.6f'|format(r.longitude) }}
+                        </small>
+
+                        <a href="https://www.openstreetmap.org/?mlat={{ r.latitude }}&mlon={{ r.longitude }}#map=18/{{ r.latitude }}/{{ r.longitude }}"
+                            target="_blank" rel="noopener">
+                            Buka titik di peta ↗
+                        </a>
+                        {% else %}
+                        <small>Koordinat belum tersedia.</small>
+                        {% endif %}
+                    </div>
+
+                    <div class="petugas-job-tags">
+                        <span>{{ r.category.name }}</span>
+                        <span>Prioritas {{ r.priority }}</span>
+                    </div>
+
+                    <p class="petugas-description">
+                        {{ r.description }}
+                    </p>
+
+                </div>
+
+                <div class="petugas-update-panel">
+
+                    <form method="POST" action="{{ url_for('petugas.update_report', report_id=r.id) }}">
+
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                        <label class="form-label">Update status</label>
+
+                        <select class="form-select mb-3" name="status">
+                            <option value="Sedang Diproses" {% if r.status=='Sedang Diproses' %}selected{% endif %}>
+                                Sedang Diproses
+                            </option>
+                            <option value="Selesai">
+                                Selesai
+                            </option>
+                        </select>
+
+                        <label class="form-label">
+                            Catatan pemeriksaan / penyelesaian
+                        </label>
+
+                        <textarea class="form-control mb-3" name="note" rows="3"
+                            placeholder="Tuliskan hasil pemeriksaan atau penyelesaian..."></textarea>
+
+                        <button type="submit" class="btn btn-petugas-submit w-100">
+                            ✓ Simpan progres
+                        </button>
+
+                    </form>
+
+                    {% if r.status == 'Diverifikasi' %}
+                    <small class="petugas-hint">
+                        Laporan ini menunggu tindak lanjut petugas.
+                    </small>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </article>
+
+    </div>
+
+    {% else %}
+
+    <div class="col-12">
+        <div class="empty-state">
+            <div class="empty-icon">✓</div>
+            <h3>Tidak ada pekerjaan aktif</h3>
+            <p>
+                Laporan yang sudah diverifikasi Admin akan muncul di sini.
+            </p>
+        </div>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

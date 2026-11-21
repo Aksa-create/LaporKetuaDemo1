@@ -20,8 +20,15 @@ migrate = Migrate()
 def create_app(test_config=None):
     load_dotenv()
 
-    app = Flask(__name__, instance_relative_config=True)
-
+    if os.getenv("VERCEL"):
+        app = Flask(
+        __name__,
+        instance_relative_config=True,
+        instance_path="/tmp/laporketua-instance"
+    )
+    else:
+         app = Flask(__name__, instance_relative_config=True)
+                            
     database_url = os.getenv(
         "DATABASE_URL",
         "sqlite:///laporketua.db"
@@ -48,8 +55,11 @@ def create_app(test_config=None):
         SQLALCHEMY_DATABASE_URI=database_url,
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
         UPLOAD_FOLDER=os.path.abspath(
-            os.getenv("UPLOAD_FOLDER", "uploads")
-        ),
+    os.getenv(
+        "UPLOAD_FOLDER",
+        "/tmp/laporketua-uploads" if os.getenv("VERCEL") else "uploads"
+    )
+),
         MAX_CONTENT_LENGTH=int(
             os.getenv("MAX_CONTENT_LENGTH", 6 * 1024 * 1024)
         ),

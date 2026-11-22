@@ -25,11 +25,22 @@
             </tr>
         </thead>
         <tbody>{% for u in residents %}<tr>
-                <td>{{ u.full_name }}</td>
-                <td>{{ u.username }}</td>
-                <td>{{ u.rt_number or '-' }}</td>
-                <td>{{ u.created_at.strftime('%d/%m/%Y') }}</td>
-                <td>{{ u.last_login_at.strftime('%d/%m/%Y %H:%M') if u.last_login_at else 'Belum pernah' }}</td>
+                <td>
+                    {{ u.full_name }}
+                </td>
+                <td>
+                    {{ u.username }}
+                </td>
+                <td>
+                    {{ u.rt_number or '-' }}
+                </td>
+                <td>
+                    {{ u.created_at.strftime('%d/%m/%Y') }}
+                </td>
+                <td>
+                    {{ u.last_login_display.strftime('%d/%m/%Y %H:%M WIB') if u.last_login_display else 'Belum pernah'
+                    }}
+                </td>
                 <td><span class="status-pill">{{ u.account_status }}</span></td>
             </tr>{% else %}<tr>
                 <td colspan="6" class="text-center muted py-4">Belum ada warga terdaftar.</td>

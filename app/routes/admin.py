@@ -1,3 +1,4 @@
+from zoneinfo import ZoneInfo
 from datetime import datetime, timezone
 from flask import Blueprint, render_template, request, redirect, url_for, flash, abort
 from flask_login import login_required, current_user, login_user
@@ -234,19 +235,47 @@ def verify_report(report_id):
     flash("Laporan berhasil diverifikasi. Petugas dapat melihatnya di daftar pekerjaan.", "success")
     return redirect(url_for("admin.reports"))
 
-
 @bp.get("/warga")
 @login_required
 @roles_required("admin")
 def residents():
     from ..models import RT
+
     rt = request.args.get("rt", "")
     status = request.args.get("status", "")
-    query = User.query.filter_by(role="warga")
-    if rt: query = query.filter_by(rt_number=rt)
-    if status: query = query.filter_by(account_status=status)
-    return render_template("admin/residents.html", residents=query.order_by(User.created_at.desc()).all(), rts=RT.query.order_by(RT.number).all(), selected_rt=rt, selected_status=status)
 
+    query = User.query.filter_by(role="warga")
+
+    if rt:
+        query = query.filter_by(rt_number=rt)
+
+    if status:
+        query = query.filter_by(account_status=status)
+
+    residents = query.order_by(User.created_at.desc()).all()
+
+    # Konversi waktu login dari UTC ke WIB
+    jakarta_tz = ZoneInfo("Asia/Jakarta")
+
+    for user in residents:
+        if user.last_login_at:
+            login_time = user.last_login_at
+
+            # Antisipasi datetime tanpa informasi timezone
+            if login_time.tzinfo is None:
+                login_time = login_time.replace(tzinfo=timezone.utc)
+
+            user.last_login_display = login_time.astimezone(jakarta_tz)
+        else:
+            user.last_login_display = None
+
+    return render_template(
+        "admin/residents.html",
+        residents=residents,
+        rts=RT.query.order_by(RT.number).all(),
+        selected_rt=rt,
+        selected_status=status
+    )
 
 @bp.get("/petugas")
 @login_required

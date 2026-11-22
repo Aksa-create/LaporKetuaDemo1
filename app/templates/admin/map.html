@@ -7,13 +7,74 @@
 </style>{% endblock %}{% block content %}<div class="page-heading">
     <div><span class="eyebrow">PEMETAAN DIGITAL</span>
         <h1>Peta laporan RW 06</h1>
-        <p class="muted">Titik laporan di halaman demo merupakan koordinat simulasi. Batas resmi RW belum tersedia;
-            marker sekretariat masih placeholder dan wajib dikonfirmasi.</p>
+        <p class="muted">Peta menampilkan sebaran lokasi laporan warga di wilayah RW 06. Setiap titik menunjukkan lokasi
+            kejadian berdasarkan penanda yang diberikan oleh pelapor untuk memudahkan petugas dalam melakukan tindak
+            lanjut.</p>
     </div>
 </div>
 <div id="adminMap" class="map-panel"></div>
-<div class="map-legend mt-3"><span><i class="legend-dot navy"></i> SDN Jembatan Besi</span><span><i
-            class="legend-dot teal"></i> Sekretariat (placeholder)</span><span><i class="legend-dot red"></i> Laporan
-        warga</span></div>{% endblock %}{% block scripts %}
-<script>const m = L.map('adminMap').setView([-6.1532935, 106.7985635], 17); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap' }).addTo(m); L.marker([-6.153027, 106.798433]).addTo(m).bindPopup('SDN Jembatan Besi · Patokan tampilan'); L.marker([-6.153560, 106.798694]).addTo(m).bindPopup('Sekretariat · Placeholder belum terverifikasi'); {% for r in reports %} L.circleMarker([{{ r.latitude }}, {{ r.longitude }}], { radius: 8, color: '#d64b4b', fillOpacity: .8 }).addTo(m).bindPopup({{ (r.title ~ ' · RT ' ~r.rt_number ~ ' · ' ~(r.location_detail or 'Detail lokasi belum diisi') ~ ' · ' ~r.report_number ~ ' · ' ~r.status) | tojson }}); {% endfor %}</script>
+<div class="map-legend mt-3">
+    <span>
+        <i class="legend-dot" style="background-color: #2563EB;"></i>
+        SDN Jembatan Besi
+    </span>
+    <span>
+        <i class="legend-dot" style="background-color: #14ee4b;"></i>
+        Sekretariat RW 06
+    </span>
+    <span>
+        <i class="legend-dot" style="background-color: #eb0b0b;"></i>
+        Laporan Warga
+    </span>
+</div>
+{% endblock %}{% block scripts %}
+<script>
+    const m = L.map('adminMap').setView([-6.1532935, 106.7985635], 17);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap'
+    }).addTo(m);
+
+    // Icon SDN Jembatan Besi - Biru
+    const sdnIcon = L.divIcon({
+        className: '',
+        html: '<div style="background:#2563EB;width:18px;height:18px;border:3px solid white;border-radius:50%;box-shadow:0 2px 6px #0005;"></div>',
+        iconSize: [18, 18],
+        iconAnchor: [9, 9]
+    });
+
+    // Icon Sekretariat RW 06 - Hijau
+    const sekretariatIcon = L.divIcon({
+        className: '',
+        html: '<div style="background:#14EE4B;width:18px;height:18px;border:3px solid white;border-radius:50%;box-shadow:0 2px 6px #0005;"></div>',
+        iconSize: [18, 18],
+        iconAnchor: [9, 9]
+    });
+
+    // Marker SDN Jembatan Besi
+    L.marker([-6.153027, 106.798433], {
+        icon: sdnIcon
+    }).addTo(m).bindPopup('<strong>SDN Jembatan Besi</strong><br>Titik patokan wilayah RW 06');
+
+    // Marker Sekretariat RW 06
+    L.marker([-6.153560, 106.798694], {
+        icon: sekretariatIcon
+    }).addTo(m).bindPopup('<strong>Sekretariat RW 06</strong><br>Titik referensi sekretariat');
+
+    // Marker laporan warga - Merah
+    {% for r in reports %}
+    L.circleMarker(
+        [{{ r.latitude }}, {{ r.longitude }}],
+        {
+            radius: 8,
+            color: '#EF4444',
+            fillColor: '#EF4444',
+            fillOpacity: 0.9,
+            weight: 2
+        }
+    ).addTo(m).bindPopup(
+        {{ (r.title ~ ' · RT ' ~r.rt_number ~ ' · ' ~(r.location_detail or 'Detail lokasi belum diisi') ~ ' · ' ~r.report_number ~ ' · ' ~r.status) | tojson }}
+        );
+    {% endfor %}
+</script>
 {% endblock %}

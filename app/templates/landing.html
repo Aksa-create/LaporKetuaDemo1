@@ -1,309 +1,326 @@
 {% extends 'base.html' %}
 
-{% block title %}Beranda{% endblock %}
+{% block title %}LaporKetua | RW 06 Jembatan Besi{% endblock %}
 
 {% block content %}
 
-<!-- HERO SECTION -->
-<section class="hero row align-items-center g-4 py-4 py-lg-5">
+<div class="lk-home">
 
-    <div class="col-lg-7">
+    <!-- HERO -->
+    <section class="lk-hero">
+        <div class="lk-hero-copy">
 
-        <span class="eyebrow">
-            PLATFORM PARTISIPASI WARGA · RW 06
-        </span>
-
-        <h1 class="display-title mt-3">
-            Lingkungan lebih baik,
-            <span>dimulai dari satu laporan.</span>
-        </h1>
-
-        <p class="lead-copy mt-3">
-            LaporKetua membantu warga RW 06 Jembatan Besi menyampaikan masalah lingkungan,
-            menandai lokasi, dan memantau tindak lanjut secara transparan.
-        </p>
-
-
-        <div class="d-flex flex-wrap gap-2 mt-4">
-
-            <a class="btn btn-teal btn-lg" href="{{ url_for('auth.register') }}">
-                Mulai buat laporan →
-            </a>
-
-            <a class="btn btn-outline-navy btn-lg" href="{{ url_for('auth.login') }}">
-                Masuk akun
-            </a>
-
-            <!-- Tombol Install PWA -->
-            <button type="button" id="installBtn" class="btn btn-lg" hidden>
-                <i class="bi bi-download me-2"></i>
-                Install Aplikasi
-            </button>
-
-            <!-- Indikator aplikasi sudah terpasang -->
-            <div id="installedStatus" class="alert alert-success d-inline-flex align-items-center gap-2 mb-0"
-                role="status" hidden>
-                <span>✓</span>
-                <span>Aplikasi sudah terpasang</span>
+            <div class="lk-eyebrow">
+                <span class="lk-eyebrow-dot"></span>
+                PLATFORM PARTISIPASI WARGA · RW 06
             </div>
 
-        </div>
+            <h1>
+                Lingkungan lebih baik,
+                <span>dimulai dari kepedulian.</span>
+            </h1>
 
-
-        <div class="hero-note mt-4">
-            <span class="dot"></span>
-            RW 06 · Kelurahan Jembatan Besi · Kecamatan Tambora
-        </div>
-
-    </div>
-
-    <!-- HERO ILLUSTRATION -->
-    <div class="col-lg-5">
-
-        <div class="hero-card">
-
-
-            <div class="hero-card-top">
-
-                <div class="hero-brand">
-                    <strong>LaporKetua<span>.</span></strong>
-                    <small>FORUM KOMUNIKASI RW 06</small>
-                </div>
-
-                <span class="live-pill">
-                    <span class="live-indicator"></span>
-                    LAYANAN WARGA
-                </span>
-
-            </div>
-
-
-            <!-- ILUSTRASI 3D RW 06 -->
-            <div class="hero-illustration hero-illustration-image">
-
-                <img src="{{ url_for('static', filename='images/maskot-rw06-landscape.png') }}"
-                    alt="Tujuh karakter warga, Hansip, Pak RW 06, pemuda pelapor digital, dan petugas PPSU"
-                    class="hero-image" loading="eager">
-
-            </div>
-
-            <div class="hero-showcase-caption">
-                <span>✦ SATU LINGKUNGAN, SATU TUJUAN</span>
-                <span>RW 06</span>
-            </div>
-
-
-            <div class="hero-card-bottom">
-
-                <div class="hero-community-copy">
-
-                    <span class="hero-community-label">
-                        <span class="hero-community-dot"></span>
-                        PARTISIPASI WARGA RW 06
-                    </span>
-
-                    <strong>Lingkungan baik, dimulai dari kita.</strong>
-
-                    <p>
-                        Sampaikan masalah di sekitar dan ikut pantau
-                        proses penanganannya bersama LaporKetua.
-                    </p>
-
-                </div>
-
-                <span class="arrow-circle">
-                    ↗
-                </span>
-
-                <div class="hero-community-steps">
-                    <span>✓ Laporkan</span>
-                    <span>→ Pantau</span>
-                    <span>→ Selesai</span>
-                </div>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- FEATURE SECTION -->
-<section class="row g-3 mt-2">
-
-    <div class="col-md-4">
-
-        <div class="feature-card">
-
-            <div class="feature-icon">⌖</div>
-
-            <h3>Lokasi lebih jelas</h3>
-
-            <p>
-                Tandai titik masalah pada peta agar petugas mengetahui area
-                yang perlu diperiksa.
+            <p class="lk-hero-description">
+                Sampaikan permasalahan lingkungan, tandai lokasi,
+                dan pantau tindak lanjut laporan secara transparan
+                melalui LaporKetua.
             </p>
 
-        </div>
+            <div class="lk-hero-actions">
+                <a href="{{ url_for('auth.register') }}" class="lk-button lk-button-primary">
+                    <span class="lk-button-icon">＋</span>
+                    <span>Buat laporan sekarang</span>
+                    <span class="lk-button-arrow">→</span>
+                </a>
 
-    </div>
+                <a href="{{ url_for('auth.login') }}" class="lk-button lk-button-secondary">
+                    <span>Masuk akun</span>
+                </a>
+            </div>
 
-    <div class="col-md-4">
-
-        <div class="feature-card">
-
-            <div class="feature-icon">✓</div>
-
-            <h3>Status transparan</h3>
-
-            <p>
-                Pantau tahapan laporan mulai dari verifikasi, proses penanganan,
-                hingga selesai.
-            </p>
-
-        </div>
-
-    </div>
-
-    <div class="col-md-4">
-
-        <div class="feature-card">
-
-            <div class="feature-icon">✦</div>
-
-            <h3>Prioritas terbantu</h3>
-
-            <p>
-                Sistem membantu memberi rekomendasi prioritas.
-                Keputusan akhir tetap pada Admin RW.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- REPORT CATEGORIES -->
-<section class="mt-5">
-
-    <div class="section-heading">
-
-        <div>
-            <span class="eyebrow">APA YANG BISA DILAPORKAN?</span>
-            <h2 class="mt-2">Masalah di lingkungan sekitar</h2>
-        </div>
-
-    </div>
-
-    <div class="row g-3">
-
-        {% for icon, title, desc in [
-        ('⌁', 'Jalan rusak', 'Lubang, aspal rusak, atau akses jalan terganggu.'),
-        ('♻', 'Sampah menumpuk', 'Sampah liar atau jadwal pengangkutan.'),
-        ('☼', 'Lampu jalan mati', 'Penerangan jalan dan area publik.'),
-        ('≋', 'Saluran tersumbat', 'Drainase mampet atau genangan.'),
-        ('♧', 'Pohon tumbang', 'Pohon rawan tumbang atau dahan berbahaya.'),
-        ('⌂', 'Fasilitas umum', 'Kerusakan fasilitas bersama dan keamanan.')
-        ] %}
-
-        <div class="col-6 col-md-4">
-
-            <div class="quick-card h-100">
-
-                <div class="feature-icon">
-                    {{ icon }}
+            <div class="lk-location-mini">
+                <div class="lk-location-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                        <circle cx="12" cy="10" r="3" />
+                    </svg>
                 </div>
 
                 <div>
-                    <strong>{{ title }}</strong>
-                    <small>{{ desc }}</small>
+                    <strong>RW 06 Jembatan Besi</strong>
+                    <span>Kelurahan Jembatan Besi · Kecamatan Tambora</span>
                 </div>
-
             </div>
 
         </div>
 
-        {% endfor %}
+        <div class="lk-hero-visual">
+            <div class="lk-visual-decoration lk-decoration-one"></div>
+            <div class="lk-visual-decoration lk-decoration-two"></div>
 
-    </div>
+            <div class="lk-mascot-frame">
+                <img src="{{ url_for('static', filename='images/maskot-rw06-landscape.png') }}"
+                    alt="Maskot LaporKetua RW 06" class="lk-mascot" loading="eager">
+            </div>
 
-</section>
-
-
-<!-- HOW IT WORKS -->
-<section class="mt-5">
-
-    <div class="section-heading">
-
-        <div>
-            <span class="eyebrow">MUDAH DAN TERARAH</span>
-            <h2 class="mt-2">Bagaimana cara kerjanya?</h2>
+            <div class="lk-floating-card">
+                <div class="lk-floating-icon">✓</div>
+                <div>
+                    <strong>Suara warga berarti</strong>
+                    <span>Lingkungan lebih terjaga</span>
+                </div>
+            </div>
         </div>
+    </section>
 
-    </div>
 
-    <div class="row g-3">
+    <!-- INSTALL PWA -->
+    <section class="lk-install-section">
+        <div class="lk-install-banner">
 
-        {% for n, t, d in [
-        ('01', 'Buat laporan', 'Pilih kategori, jelaskan masalah, unggah foto, dan tandai lokasi.'),
-        ('02', 'Admin memverifikasi', 'Admin RW memeriksa laporan, menentukan prioritas, dan meneruskan tindak
-        lanjut.'),
-        ('03', 'Pantau sampai selesai', 'Warga menerima pembaruan status dan dapat melihat riwayat penanganan.')
-        ] %}
+            <div class="lk-install-illustration">
+                <div class="lk-install-circle"></div>
 
-        <div class="col-md-4">
+                <div class="lk-phone-illustration">
+                    <div class="lk-phone-speaker"></div>
 
-            <div class="feature-card">
+                    <div class="lk-phone-screen">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M7 17 17 7" />
+                            <path d="M7 7h10v10" />
+                        </svg>
 
-                <span class="eyebrow">
-                    LANGKAH {{ n }}
-                </span>
+                        <div class="lk-download-symbol">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 3v12" />
+                                <path d="m7 10 5 5 5-5" />
+                                <path d="M5 20h14" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                <h3 class="mt-3">
-                    {{ t }}
-                </h3>
+            <div class="lk-install-copy">
+                <span class="lk-install-label">LEBIH PRAKTIS</span>
+                <h2>Pasang LaporKetua di HP Anda</h2>
+                <p>
+                    Akses lebih cepat, praktis, dan selalu terhubung
+                    dengan informasi RW 06.
+                </p>
+            </div>
 
-                <p>{{ d }}</p>
+            <div class="lk-install-action">
+                <button type="button" id="installBtn" class="lk-install-button">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 3v12" />
+                        <path d="m7 10 5 5 5-5" />
+                        <path d="M5 20h14" />
+                    </svg>
+                    <span>Install aplikasi</span>
+                </button>
 
+                <div id="installedStatus" class="lk-installed-status">
+                    Aplikasi sudah terpasang
+                </div>
             </div>
 
         </div>
-
-        {% endfor %}
-
-    </div>
-
-</section>
+    </section>
 
 
-<!-- CALL TO ACTION -->
-<section class="cta-strip mt-5">
+    <!-- FEATURES -->
+    <section class="lk-feature-section">
 
-    <div>
+        <div class="lk-section-heading">
+            <span class="lk-section-eyebrow">FITUR LAPORKETUA</span>
+            <h2>Pelaporan warga dalam satu platform</h2>
+            <p>
+                Cara sederhana untuk menyampaikan permasalahan
+                dan ikut menjaga lingkungan.
+            </p>
+        </div>
 
-        <span class="eyebrow">
-            SATU LINGKUNGAN, SATU TUJUAN
-        </span>
+        <div class="lk-feature-grid">
 
-        <h2 class="mb-1">
-            Ada masalah? Lapor Ketua!
-        </h2>
+            <article class="lk-feature-card">
+                <div class="lk-feature-icon lk-icon-orange">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="5" y="4" width="14" height="17" rx="2" />
+                        <path d="M9 4V2h6v2" />
+                        <path d="M8 10h8M8 14h8M8 18h4" />
+                    </svg>
+                </div>
+                <h3>Buat laporan</h3>
+                <p>Sampaikan permasalahan lingkungan di sekitar Anda.</p>
+            </article>
 
-        <p class="mb-0">
-            Partisipasi kecil bisa membantu lingkungan menjadi lebih baik.
-        </p>
+            <article class="lk-feature-card">
+                <div class="lk-feature-icon lk-icon-navy">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                        <circle cx="12" cy="10" r="3" />
+                    </svg>
+                </div>
+                <h3>Tandai lokasi</h3>
+                <p>Tentukan titik permasalahan secara lebih akurat.</p>
+            </article>
 
-    </div>
+            <article class="lk-feature-card">
+                <div class="lk-feature-icon lk-icon-orange">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M3 12h4l3-8 4 16 3-8h4" />
+                    </svg>
+                </div>
+                <h3>Pantau progres</h3>
+                <p>Ketahui perkembangan penanganan laporan Anda.</p>
+            </article>
 
-    <a class="btn btn-light" href="{{ url_for('auth.register') }}">
-        Daftar sebagai warga
-    </a>
+            <article class="lk-feature-card">
+                <div class="lk-feature-icon lk-icon-navy">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" />
+                        <path d="M10 21h4" />
+                    </svg>
+                </div>
+                <h3>Dapat notifikasi</h3>
+                <p>Terima informasi terbaru tentang laporan Anda.</p>
+            </article>
 
-</section>
+        </div>
+    </section>
+
+
+    <!-- PROCESS -->
+    <section class="lk-process-section">
+
+        <div class="lk-section-heading">
+            <span class="lk-section-eyebrow">ALUR PELAPORAN</span>
+            <h2>Mudah, cepat, dan transparan</h2>
+            <p>Ikuti tiga langkah sederhana untuk menyampaikan laporan.</p>
+        </div>
+
+        <div class="lk-process-grid">
+
+            <article class="lk-process-card">
+                <div class="lk-process-top">
+                    <span class="lk-process-number">01</span>
+                    <div class="lk-process-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16h16V8Z" />
+                            <path d="M14 2v6h6M8 13h8M8 17h8" />
+                        </svg>
+                    </div>
+                </div>
+                <h3>Buat laporan</h3>
+                <p>Pilih kategori, jelaskan masalah, unggah foto, dan tandai lokasi.</p>
+            </article>
+
+            <article class="lk-process-card">
+                <div class="lk-process-top">
+                    <span class="lk-process-number">02</span>
+                    <div class="lk-process-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="m7 12 3 3 7-7" />
+                        </svg>
+                    </div>
+                </div>
+                <h3>Admin verifikasi</h3>
+                <p>Admin RW memeriksa laporan dan menentukan tindak lanjut.</p>
+            </article>
+
+            <article class="lk-process-card">
+                <div class="lk-process-top">
+                    <span class="lk-process-number">03</span>
+                    <div class="lk-process-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4v16" />
+                            <path d="M4 4h16l-4 5 4 5H4" />
+                        </svg>
+                    </div>
+                </div>
+                <h3>Pantau & selesai</h3>
+                <p>Ikuti perkembangan penanganan hingga laporan diselesaikan.</p>
+            </article>
+
+        </div>
+    </section>
+
+
+    <!-- CATEGORY -->
+    <section class="lk-category-section">
+
+        <div class="lk-section-heading">
+            <span class="lk-section-eyebrow">JENIS PERMASALAHAN</span>
+            <h2>Berbagai masalah bisa dilaporkan</h2>
+            <p>Laporkan permasalahan lingkungan yang membutuhkan perhatian.</p>
+        </div>
+
+        <div class="lk-category-grid">
+
+            <div class="lk-category-item">
+                <span class="lk-category-symbol">↗</span>
+                <span>Jalan rusak</span>
+            </div>
+
+            <div class="lk-category-item">
+                <span class="lk-category-symbol">♻</span>
+                <span>Sampah menumpuk</span>
+            </div>
+
+            <div class="lk-category-item">
+                <span class="lk-category-symbol">☼</span>
+                <span>Lampu jalan mati</span>
+            </div>
+
+            <div class="lk-category-item">
+                <span class="lk-category-symbol">≋</span>
+                <span>Saluran tersumbat</span>
+            </div>
+
+            <div class="lk-category-item">
+                <span class="lk-category-symbol">♧</span>
+                <span>Pohon tumbang</span>
+            </div>
+
+            <div class="lk-category-item">
+                <span class="lk-category-symbol">⌂</span>
+                <span>Fasilitas umum</span>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- FINAL CTA -->
+    <section class="lk-final-section">
+        <div class="lk-final-content">
+            <span class="lk-final-eyebrow">BERSAMA UNTUK RW 06</span>
+            <h2>Perubahan dimulai dari kepedulian kita.</h2>
+            <p>
+                Mari ikut menjaga lingkungan Jembatan Besi
+                agar menjadi tempat tinggal yang lebih baik.
+            </p>
+
+            <a href="{{ url_for('auth.register') }}" class="lk-final-button">
+                Bergabung dengan LaporKetua
+                <span>→</span>
+            </a>
+        </div>
+    </section>
+
+</div>
 
 {% endblock %}

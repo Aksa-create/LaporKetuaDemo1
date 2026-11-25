@@ -1,3 +1,4 @@
+import click
 import os
 from datetime import timezone
 from zoneinfo import ZoneInfo
@@ -230,5 +231,154 @@ def create_app(test_config=None):
             "Seed berhasil.\n"
             "Data referensi RW 06 dan kategori laporan telah disiapkan."
         )
+
+        
+    # ==================================================
+    # ADMIN CLI
+    # ==================================================
+
+    @app.cli.command("create-admin")
+    def create_admin():
+        """Create the first or an additional admin account."""
+
+        click.echo("\n=== BUAT AKUN ADMIN FINAL ===")
+
+        full_name = click.prompt("Nama lengkap").strip()
+        username = click.prompt("Username").strip()
+        email = click.prompt("Email").strip().lower()
+        password = click.prompt(
+            "Password",
+            hide_input=True,
+            confirmation_prompt=True
+        )
+
+        if not full_name or not username or not email:
+            raise click.ClickException(
+                "Nama, username, dan email wajib diisi."
+            )
+
+        if len(password) < 8:
+            raise click.ClickException(
+                "Password minimal 8 karakter."
+            )
+
+        if User.query.filter_by(username=username).first():
+            raise click.ClickException("Username sudah digunakan.")
+
+        if User.query.filter_by(email=email).first():
+            raise click.ClickException("Email sudah digunakan.")
+
+        try:
+            admin = User(
+                full_name=full_name,
+                username=username,
+                email=email,
+                role="admin",
+                account_status="active"
+            )
+
+            admin.set_password(password)
+
+            db.session.add(admin)
+            db.session.commit()
+
+            click.echo(
+                f"Akun admin '{username}' berhasil dibuat."
+            )
+
+        except Exception:
+            db.session.rollback()
+            click.echo("Gagal membuat akun admin.")
+            raise
+
+
+    @app.cli.command("update-admin")
+    def update_admin():
+        """Update an existing admin account."""
+
+        click.echo("\n=== UPDATE AKUN ADMIN FINAL ===")
+
+        current_username = click.prompt(
+            "Masukkan username admin yang ingin diubah"
+        ).strip()
+
+        admin = User.query.filter_by(
+            username=current_username,
+            role="admin"
+        ).first()
+
+        if not admin:
+            raise click.ClickException(
+                "Akun admin tidak ditemukan."
+            )
+
+        new_username = click.prompt(
+            "Username baru (kosongkan jika tetap)",
+            default=admin.username,
+            show_default=True
+        ).strip()
+
+        new_email = click.prompt(
+            "Email baru (kosongkan jika tetap)",
+            default=admin.email,
+            show_default=True
+        ).strip().lower()
+
+        if not new_username or not new_email:
+            raise click.ClickException(
+                "Username dan email tidak boleh kosong."
+            )
+
+        username_owner = User.query.filter_by(
+            username=new_username
+        ).first()
+
+        if username_owner and username_owner.id != admin.id:
+            raise click.ClickException(
+                "Username tersebut sudah digunakan akun lain."
+            )
+
+        email_owner = User.query.filter_by(
+            email=new_email
+        ).first()
+
+        if email_owner and email_owner.id != admin.id:
+            raise click.ClickException(
+                "Email tersebut sudah digunakan akun lain."
+            )
+
+        change_password = click.confirm(
+            "Apakah ingin mengganti password?",
+            default=False
+        )
+
+        try:
+            admin.username = new_username
+            admin.email = new_email
+
+            if change_password:
+                new_password = click.prompt(
+                    "Password baru",
+                    hide_input=True,
+                    confirmation_prompt=True
+                )
+
+                if len(new_password) < 8:
+                    raise click.ClickException(
+                        "Password minimal 8 karakter."
+                    )
+
+                admin.set_password(new_password)
+
+            db.session.commit()
+
+            click.echo(
+                f"Akun admin '{admin.username}' berhasil diperbarui."
+            )
+
+        except Exception:
+            db.session.rollback()
+            raise
+
 
     return app

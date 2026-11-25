@@ -1,35 +1,93 @@
+
 """Safe AI helpers. The app remains usable when no trained model exists."""
+
 import os
-import joblib
 import math
+import logging
+from functools import lru_cache
+
+import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.pipeline import FeatureUnion
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 
 
+logger = logging.getLogger(__name__)
+
 # Inisialisasi stemmer bahasa Indonesia
 stemmer_factory = StemmerFactory()
 stemmer = stemmer_factory.create_stemmer()
 
-MODEL_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "ml_models", "report_classifier.joblib")
+MODEL_PATH = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+    "ml_models",
+    "report_classifier.joblib"
+)
+
+
+@lru_cache(maxsize=1)
+def load_ai_model():
+    """
+    Memuat model AI satu kali dan menyimpan hasilnya dalam cache.
+    Model tidak perlu dimuat ulang setiap ada laporan baru.
+    """
+
+    if not os.path.isfile(MODEL_PATH):
+        logger.warning("File model AI tidak ditemukan: %s", MODEL_PATH)
+        return None
+
+    try:
+        bundle = joblib.load(MODEL_PATH)
+
+        if not isinstance(bundle, dict):
+            raise ValueError("Format bundle model AI tidak valid.")
+
+        if "model" not in bundle or "vectorizer" not in bundle:
+            raise ValueError(
+                "Bundle model AI tidak memiliki model atau vectorizer."
+            )
+
+        logger.info("Model AI berhasil dimuat.")
+        return bundle["model"], bundle["vectorizer"]
+
+    except Exception:
+        logger.exception("Gagal memuat model AI.")
+        return None
 
 
 def classify_report(title, description):
-    if os.path.exists(MODEL_PATH):
-        try:
-            bundle = joblib.load(MODEL_PATH)
-            model, vectorizer = bundle["model"], bundle["vectorizer"]
-            text = f"{title} {description}"
-            matrix = vectorizer.transform([text])
-            prediction = model.predict(matrix)[0]
-            confidence = float(max(model.predict_proba(matrix)[0])) if hasattr(model, "predict_proba") else None
-            return prediction, confidence, "model"
-        except Exception:
-            pass
-    # No fabricated prediction: ask the administrator to review the category.
-    return None, None, "model_belum_tersedia"
+    """
+    Mengklasifikasikan laporan menggunakan model AI terlatih.
+    Mengembalikan kategori, confidence, dan sumber prediksi.
+    """
 
+    bundle = load_ai_model()
+
+    if bundle is None:
+        return None, None, "model_belum_tersedia"
+
+    model, vectorizer = bundle
+
+    text = f"{title or ''} {description or ''}"
+
+    try:
+        matrix = vectorizer.transform([text])
+        prediction = model.predict(matrix)[0]
+
+    except Exception:
+        logger.exception("Gagal melakukan prediksi kategori laporan.")
+        return None, None, "model_belum_tersedia"
+
+    confidence = None
+
+    if hasattr(model, "predict_proba"):
+        try:
+            confidence = float(max(model.predict_proba(matrix)[0]))
+        except Exception:
+            logger.exception("Gagal menghitung confidence prediksi AI.")
+
+    return prediction, confidence, "model"
 
 
 def recommend_priority(category, urgency, description):
@@ -72,6 +130,7 @@ def recommend_priority(category, urgency, description):
 
 def _calculate_distance_m(lat1, lon1, lat2, lon2):
     """Menghitung jarak dua koordinat menggunakan rumus Haversine."""
+
     earth_radius = 6371000
 
     lat1, lon1, lat2, lon2 = map(
@@ -93,16 +152,19 @@ def _calculate_distance_m(lat1, lon1, lat2, lon2):
 
     return earth_radius * c
 
+
 def normalize_report_text(text):
     """
     Membersihkan dan melakukan stemming teks laporan bahasa Indonesia.
     """
+
     text = (text or "").lower()
 
     # Stemming kata bahasa Indonesia
     text = stemmer.stem(text)
 
     return text
+
 
 def find_duplicate_candidates(
     title,
@@ -161,7 +223,7 @@ def find_duplicate_candidates(
         normalize_report_text(f"{title} {description}")
     ] + [
         normalize_report_text(
-         f"{report.title} {report.description}"
+            f"{report.title} {report.description}"
         )
         for report in candidates
     ]
@@ -195,6 +257,7 @@ def find_duplicate_candidates(
         ).flatten()
 
     except ValueError:
+        logger.exception("Gagal menghitung kemiripan laporan.")
         return []
 
     return [

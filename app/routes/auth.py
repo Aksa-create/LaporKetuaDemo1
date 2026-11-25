@@ -11,7 +11,7 @@ from flask import (
     flash, 
     current_app
 )
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 from ..extensions import db
 from ..models import (
     User, 
@@ -360,3 +360,92 @@ def reset_password(token):
             return redirect(url_for("auth.login"))
 
     return render_template("auth/reset_password.html")
+
+
+
+@bp.route("/profil", methods=["GET", "POST"])
+@login_required
+def profile():
+    if current_user.role not in {"warga", "petugas"}:
+        return redirect(url_for("main.dashboard"))
+
+    if request.method == "POST":
+        full_name = request.form.get("full_name", "").strip()
+        email = request.form.get("email", "").strip().lower()
+
+        if not full_name or not email:
+            flash("Nama lengkap dan email wajib diisi.", "danger")
+
+        elif len(full_name) > 120:
+            flash("Nama lengkap maksimal 120 karakter.", "danger")
+
+        elif len(email) > 160 or "@" not in email:
+            flash("Format email tidak valid.", "danger")
+
+        else:
+            existing_email = User.query.filter(
+                db.func.lower(User.email) == email,
+                User.id != current_user.id
+            ).first()
+
+            if existing_email:
+                flash("Email tersebut sudah digunakan akun lain.", "danger")
+
+            else:
+                current_user.full_name = full_name
+                current_user.email = email
+
+                try:
+                    db.session.commit()
+                    flash("Profil berhasil diperbarui.", "success")
+                    return redirect(url_for("auth.profile"))
+
+                except Exception:
+                    db.session.rollback()
+                    current_app.logger.exception(
+                        "Gagal memperbarui profil pengguna."
+                    )
+                    flash("Terjadi kesalahan saat memperbarui profil.", "danger")
+
+    return render_template("profile.html")
+
+
+@bp.route("/ubah-password", methods=["GET", "POST"])
+@login_required
+def change_password():
+    if current_user.role not in {"warga", "petugas"}:
+        return redirect(url_for("main.dashboard"))
+
+    if request.method == "POST":
+        current_password = request.form.get("current_password", "")
+        new_password = request.form.get("new_password", "")
+        confirm_password = request.form.get("confirm_password", "")
+
+        if not current_user.check_password(current_password):
+            flash("Password saat ini tidak sesuai.", "danger")
+
+        elif len(new_password) < 10:
+            flash("Password baru minimal 10 karakter.", "danger")
+
+        elif new_password != confirm_password:
+            flash("Konfirmasi password baru tidak cocok.", "danger")
+
+        elif current_user.check_password(new_password):
+            flash("Password baru harus berbeda dari password lama.", "warning")
+
+        else:
+            current_user.set_password(new_password)
+
+            try:
+                db.session.commit()
+                flash("Password berhasil diperbarui.", "success")
+                return redirect(url_for("auth.profile"))
+
+            except Exception:
+                db.session.rollback()
+                current_app.logger.exception(
+                    "Gagal memperbarui password pengguna."
+                )
+                flash("Terjadi kesalahan saat memperbarui password.", "danger")
+
+    return render_template("auth/change_password.html")

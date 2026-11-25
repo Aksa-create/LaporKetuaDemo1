@@ -75,20 +75,25 @@ def dashboard():
 def reports():
     from ..models import RT
 
+    status = request.args.get("status", "").strip()
+    rt = request.args.get("rt", "").strip()
+
     query = Report.query
 
-    status = request.args.get("status", "")
-    rt = request.args.get("rt", "")
+    # Filter berdasarkan status laporan
+    if status and status in STATUSES:
+        query = query.filter(Report.status == status)
 
-    if status in STATUSES:
-        query = query.filter_by(status=status)
-
+    # Filter berdasarkan RT lokasi kejadian
     if rt:
-        query = query.filter_by(rt_number=rt)
+        query = query.filter(
+            db.func.trim(Report.rt_number) == rt
+        )
 
-    reports = query.order_by(Report.created_at.desc()).all()
+    reports = query.order_by(
+        Report.created_at.desc()
+    ).all()
 
-    # Hanya Petugas yang sudah disetujui dan aktif
     petugas_list = User.query.filter_by(
         role="petugas",
         account_status="active"

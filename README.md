@@ -14,18 +14,6 @@ flask --app run.py run --debug/python run.py
 ```
 Buka `http://127.0.0.1:5000`.
 
-## Akun demo
-
-| Peran | Username | Password |
-|---|---|---|
-| Admin RW | `adminrw` | `AdminRW06!Change` |
-| Warga | `warga_demo` | `WargaDemo!Change` |
-| Petugas | `petugas_demo` | `PetugasDemo!Change` |
-| Petugas | `Budi` | `BudiSantoso05!` |
- Petugas | `Sutisna` | `Sutisna010203!` |
-
-Akun warga tambahan: `warga01_demo` sampai `warga12_demo`, password `WargaDemo!Change`.
-
 > Seluruh nama, akun, laporan, nomor laporan, dan statistik yang dibuat perintah `seed` adalah data simulasi. Jangan gunakan kredensial demo atau data simulasi pada layanan publik.
 
 

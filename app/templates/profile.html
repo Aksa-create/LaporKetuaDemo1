@@ -1,0 +1,541 @@
+{% extends "base.html" %}
+
+{% block title %}Profil Saya{% endblock %}
+
+{% block head %}
+<style>
+    .profile-page {
+        max-width: 760px;
+        margin: 0 auto 35px;
+    }
+
+    .profile-heading {
+        margin-bottom: 22px;
+    }
+
+    .profile-heading h3 {
+        font-size: 25px;
+        font-weight: 800;
+        letter-spacing: -.6px;
+        margin-bottom: 6px;
+    }
+
+    .profile-heading p {
+        color: var(--slate);
+        font-size: 13px;
+        margin: 0;
+    }
+
+    .profile-card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 21px;
+        padding: 23px;
+        margin-bottom: 17px;
+        box-shadow: 0 5px 18px rgba(116, 65, 43, .055);
+    }
+
+    /* PROFILE HEADER */
+    .profile-hero {
+        display: flex;
+        align-items: center;
+        gap: 17px;
+    }
+
+    .profile-avatar {
+        width: 76px;
+        height: 76px;
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        border-radius: 22px;
+        background: #FFF0E6;
+        color: #D94B26;
+        font-size: 25px;
+        font-weight: 800;
+    }
+
+    .profile-name {
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--ink);
+        margin-bottom: 4px;
+        overflow-wrap: anywhere;
+    }
+
+    .profile-username {
+        color: var(--slate);
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .profile-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 10px;
+        border-radius: 30px;
+        background: #E7F6EC;
+        color: #198754;
+        font-size: 10px;
+        font-weight: 800;
+    }
+
+    .profile-status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #198754;
+    }
+
+    /* ACCOUNT INFORMATION */
+    .profile-section-title {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--ink);
+        margin-bottom: 17px;
+    }
+
+    .profile-info-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+    }
+
+    .profile-info-item {
+        padding: 13px;
+        border-radius: 13px;
+        background: #FAF7F5;
+        min-width: 0;
+    }
+
+    .profile-info-label {
+        display: block;
+        color: var(--slate);
+        font-size: 10px;
+        margin-bottom: 5px;
+    }
+
+    .profile-info-value {
+        display: block;
+        color: var(--ink);
+        font-size: 12px;
+        font-weight: 700;
+        overflow-wrap: anywhere;
+    }
+
+    /* SETTINGS */
+    .profile-settings-description {
+        color: var(--slate);
+        font-size: 12px;
+        line-height: 1.7;
+        margin-bottom: 21px;
+    }
+
+    .profile-setting-heading {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 17px;
+    }
+
+    .profile-setting-icon {
+        width: 42px;
+        height: 42px;
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        border-radius: 13px;
+        background: #FFF0E6;
+        color: #D94B26;
+        font-size: 19px;
+    }
+
+    .profile-setting-heading strong {
+        display: block;
+        font-size: 13px;
+        font-weight: 800;
+        color: var(--ink);
+    }
+
+    .profile-setting-heading small {
+        display: block;
+        margin-top: 3px;
+        color: var(--slate);
+        font-size: 10px;
+    }
+
+    .profile-form-group {
+        margin-bottom: 16px;
+    }
+
+    .profile-form-group .form-label {
+        font-size: 11px;
+        font-weight: 700;
+        color: #51443E;
+        margin-bottom: 7px;
+    }
+
+    .profile-form-group .form-control {
+        min-height: 47px;
+        border: 1px solid #EADDD6;
+        border-radius: 11px;
+        padding: 11px 13px;
+        font-size: 12px;
+        transition: border-color .2s, box-shadow .2s;
+    }
+
+    .profile-form-group .form-control:focus {
+        border-color: #D94B26;
+        box-shadow: 0 0 0 3px rgba(217, 75, 38, .10);
+    }
+
+    .profile-save-btn {
+        width: 100%;
+        min-height: 47px;
+        border: 0;
+        border-radius: 11px;
+        background: #D94B26;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 800;
+        transition: .2s ease;
+    }
+
+    .profile-save-btn:hover {
+        background: #B93C1D;
+        color: #fff;
+        transform: translateY(-1px);
+    }
+
+    /* SECURITY */
+    .profile-security {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        margin-bottom: 16px;
+    }
+
+    .profile-security-icon {
+        width: 43px;
+        height: 43px;
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        border-radius: 13px;
+        background: #FFF0E6;
+        color: #D94B26;
+        font-size: 19px;
+    }
+
+    .profile-security-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .profile-security-info strong {
+        display: block;
+        color: var(--ink);
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+    .profile-security-info small {
+        display: block;
+        margin-top: 3px;
+        color: var(--slate);
+        font-size: 10px;
+        line-height: 1.5;
+    }
+
+    .profile-password-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 46px;
+        border: 1px solid #EADDD6;
+        border-radius: 11px;
+        color: #D94B26;
+        background: #fff;
+        font-size: 12px;
+        font-weight: 800;
+        text-decoration: none;
+        transition: .2s ease;
+    }
+
+    .profile-password-btn:hover {
+        background: #FFF5EF;
+        border-color: #D94B26;
+        color: #B93C1D;
+    }
+
+    @media(max-width: 575px) {
+        .profile-page {
+            margin-top: 0;
+        }
+
+        .profile-heading h3 {
+            font-size: 22px;
+        }
+
+        .profile-card {
+            padding: 19px;
+            border-radius: 18px;
+        }
+
+        .profile-avatar {
+            width: 65px;
+            height: 65px;
+            border-radius: 19px;
+            font-size: 22px;
+        }
+
+        .profile-name {
+            font-size: 15px;
+        }
+
+        .profile-info-list {
+            grid-template-columns: 1fr 1fr;
+            gap: 9px;
+        }
+
+        .profile-info-item {
+            padding: 11px;
+        }
+    }
+
+    @media(max-width: 360px) {
+        .profile-info-list {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* =================================
+   PROFILE STAGGERED REVEAL
+================================= */
+
+    .reveal-item {
+        opacity: 0;
+        transform: translateY(18px);
+        animation: profileReveal .65s cubic-bezier(.2, .7, .2, 1) forwards;
+    }
+
+    .reveal-1 {
+        animation-delay: .05s;
+    }
+
+    .reveal-2 {
+        animation-delay: .16s;
+    }
+
+    .reveal-3 {
+        animation-delay: .27s;
+    }
+
+    .reveal-4 {
+        animation-delay: .38s;
+    }
+
+    @keyframes profileReveal {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .reveal-item {
+            opacity: 1;
+            transform: none;
+            animation: none;
+        }
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="profile-page">
+
+    <!-- PAGE HEADER -->
+    <div class="profile-heading reveal-item reveal-1">
+        <h3>Profil Saya</h3>
+        <p>Kelola informasi dan keamanan akun LaporKetua kamu.</p>
+    </div>
+
+    <!-- PROFILE HERO -->
+    <div class="profile-card reveal-item reveal-2">
+
+        <div class="profile-hero">
+
+            <div class="profile-avatar">
+                {% set name_parts = current_user.full_name.split() %}
+                {{ name_parts[0][0]|upper }}{% if name_parts|length > 1 %}{{ name_parts[-1][0]|upper }}{% endif %}
+            </div>
+
+            <div class="min-w-0">
+                <div class="profile-name">
+                    {{ current_user.full_name }}
+                </div>
+
+                <div class="profile-username">
+                    @{{ current_user.username }}
+                </div>
+
+                <span class="profile-status">
+                    <span class="profile-status-dot"></span>
+                    {{ current_user.account_status|capitalize }}
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ACCOUNT INFORMATION -->
+    <div class="profile-card reveal-item reveal-3">
+
+        <h5 class="profile-section-title">Informasi Akun</h5>
+
+        <div class="profile-info-list">
+
+            <div class="profile-info-item">
+                <span class="profile-info-label">Nama Lengkap</span>
+                <span class="profile-info-value">
+                    {{ current_user.full_name }}
+                </span>
+            </div>
+
+            <div class="profile-info-item">
+                <span class="profile-info-label">Username</span>
+                <span class="profile-info-value">
+                    {{ current_user.username }}
+                </span>
+            </div>
+
+            <div class="profile-info-item">
+                <span class="profile-info-label">Email</span>
+                <span class="profile-info-value">
+                    {{ current_user.email }}
+                </span>
+            </div>
+
+            <div class="profile-info-item">
+                <span class="profile-info-label">Jenis Akun</span>
+                <span class="profile-info-value">
+                    {{ current_user.role|capitalize }}
+                </span>
+            </div>
+
+            {% if current_user.role == "warga" %}
+            <div class="profile-info-item">
+                <span class="profile-info-label">RT Tempat Tinggal</span>
+                <span class="profile-info-value">
+                    RT {{ current_user.rt_number or "-" }}
+                </span>
+            </div>
+            {% endif %}
+
+            <div class="profile-info-item">
+                <span class="profile-info-label">Tanggal Bergabung</span>
+                <span class="profile-info-value">
+                    {{ current_user.created_at.strftime('%d-%m-%Y') }}
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ACCOUNT SETTINGS -->
+    <div class="profile-card reveal-item reveal-4">
+
+        <h5 class="profile-section-title mb-1">
+            Pengaturan Akun
+        </h5>
+
+        <p class="profile-settings-description">
+            Kelola informasi pribadi dan keamanan akun kamu di sini.
+        </p>
+
+        <!-- EDIT PROFILE -->
+        <div class="profile-setting-heading">
+
+            <div class="profile-setting-icon">
+                <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="8" r="3" />
+                    <path d="M3 20v-1a6 6 0 0 1 12 0v1" />
+                    <path d="M17 8h4M17 12h4M17 16h4" />
+                </svg>
+            </div>
+
+            <div>
+                <strong>Informasi Pribadi</strong>
+                <small>Perbarui data profil kamu</small>
+            </div>
+
+        </div>
+
+        <form method="POST" action="{{ url_for('auth.profile') }}">
+
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+            <div class="profile-form-group">
+                <label for="full_name" class="form-label">
+                    Nama Lengkap
+                </label>
+
+                <input type="text" class="form-control" id="full_name" name="full_name"
+                    value="{{ current_user.full_name }}" maxlength="120" required>
+            </div>
+
+            <div class="profile-form-group">
+                <label for="email" class="form-label">
+                    Email
+                </label>
+
+                <input type="email" class="form-control" id="email" name="email" value="{{ current_user.email }}"
+                    maxlength="160" required>
+            </div>
+
+            <button type="submit" class="profile-save-btn">
+                Simpan Perubahan
+            </button>
+
+        </form>
+
+        <hr class="my-4">
+
+        <!-- ACCOUNT SECURITY -->
+        <div class="profile-security">
+
+            <div class="profile-security-icon">
+                <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z" />
+                    <rect x="9" y="10" width="6" height="5" rx="1" />
+                    <path d="M10 10V8a2 2 0 0 1 4 0v2" />
+                </svg>
+            </div>
+
+            <div class="profile-security-info">
+                <strong>Keamanan Akun</strong>
+                <small>
+                    Lindungi akun dengan memperbarui password secara berkala.
+                </small>
+            </div>
+
+        </div>
+
+        <a href="{{ url_for('auth.change_password') }}" class="profile-password-btn">
+            Ubah Password
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

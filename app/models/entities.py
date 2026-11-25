@@ -144,6 +144,32 @@ class Report(db.Model):
     )
 
 
+class ReportPhoto(db.Model):
+    __tablename__ = "report_photo"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    report_id = db.Column(
+        db.Integer,
+        db.ForeignKey("report.id", ondelete="CASCADE"),
+        nullable=False,
+        unique=True,
+        index=True
+    )
+
+    filename = db.Column(db.String(255), nullable=False)
+    mimetype = db.Column(db.String(100), nullable=False)
+    data = db.Column(db.LargeBinary, nullable=False)
+
+    report = db.relationship(
+        "Report",
+        backref=db.backref(
+            "stored_photo",
+            uselist=False,
+            cascade="all, delete-orphan"
+        )
+    )
+
 class ReportStatusHistory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 

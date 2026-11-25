@@ -3,6 +3,7 @@ from .entities import (
     RT,
     Category,
     Report,
+    ReportPhoto,
     ReportStatusHistory,
     Notification,
     ActivityLog,

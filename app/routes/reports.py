@@ -149,7 +149,7 @@ def create():
         .all()
     )
 
-    rts = RT.query.order_by(RT.number).all()
+    rts = sorted(RT.query.all(), key=lambda rt: int(rt.number))
 
     if request.method == "POST":
 

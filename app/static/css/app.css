@@ -1496,6 +1496,47 @@ a:focus-visible {
         grid-template-columns: 90px 1fr 24px;
         gap: 7px;
     }
+
+    .bottom-nav-icon-wrap {
+        position: relative;
+        display: inline-flex;
+        width: 24px;
+        height: 24px;
+        align-items: center;
+        justify-content: center;
+        overflow: visible;
+        flex-shrink: 0;
+    }
+
+    .bottom-nav-icon-wrap .bottom-nav-badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(45%, -35%);
+
+        min-width: 16px;
+        height: 16px;
+        padding: 0 3px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        overflow: visible;
+        white-space: nowrap;
+
+        border-radius: 999px;
+        background: #e54832;
+        color: #fff;
+
+        border: 1.5px solid #fff;
+        box-sizing: border-box;
+
+        font-size: 9px;
+        font-weight: 700;
+        line-height: 1;
+    }
+
 }
 
 
@@ -3447,7 +3488,7 @@ a:focus-visible {
         line-height: 1;
     }
 
-    .bottom-nav-item span {
+    .bottom-nav-item>span:not(.bottom-nav-icon-wrap) {
         display: block;
         max-width: 100%;
         overflow: hidden;
@@ -3470,22 +3511,28 @@ a:focus-visible {
 
     .bottom-nav-badge {
         position: absolute;
-        top: 0;
-        left: calc(50% + 7px);
+        top: -3px;
+        right: -5px;
 
-        min-width: 17px;
-        height: 17px;
-        padding: 0 4px;
+        min-width: 16px;
+        height: 16px;
+        padding: 0 3px;
 
         display: flex;
         align-items: center;
         justify-content: center;
 
-        border-radius: 20px;
-        background: #D94B26;
-        color: #FFFFFF;
+        border-radius: 50%;
+        background: #ef4444;
+        color: #fff;
+
         font-size: 9px;
-        font-weight: 800;
+        font-weight: 700;
+        line-height: 16px;
+        text-align: center;
+
+        box-sizing: border-box;
+        border: 1.5px solid #fff;
     }
 
     /* Ruang untuk navigasi bawah */
@@ -5055,4 +5102,38 @@ a:focus-visible {
     .lk-button-secondary {
         border: 1.5px solid #D8C9BC !important;
     }
+}
+
+.bottom-nav-icon-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.bottom-nav-icon-wrap .bottom-nav-badge {
+    position: absolute;
+    top: -7px;
+    right: -9px;
+
+    min-width: 16px;
+    height: 16px;
+    padding: 0 3px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ef4444;
+    color: #ffffff;
+    border: 1.5px solid #ffffff;
+    border-radius: 50%;
+
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+
+    box-sizing: border-box;
 }

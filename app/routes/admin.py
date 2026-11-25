@@ -103,7 +103,7 @@ def reports():
         "admin/reports.html",
         reports=reports,
         statuses=STATUSES,
-        rts=RT.query.order_by(RT.number).all(),
+        rts=sorted(RT.query.all(), key=lambda rt: int(rt.number)),
         petugas_list=petugas_list,
         selected_status=status,
         selected_rt=rt
@@ -277,7 +277,7 @@ def residents():
     return render_template(
         "admin/residents.html",
         residents=residents,
-        rts=RT.query.order_by(RT.number).all(),
+        rts=sorted(RT.query.all(), key=lambda rt: int(rt.number)),
         selected_rt=rt,
         selected_status=status
     )

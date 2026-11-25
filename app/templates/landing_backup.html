@@ -1,0 +1,405 @@
+{% extends 'base.html' %}
+
+{% block title %}Beranda{% endblock %}
+
+{% block content %}
+
+<div class="civic-landing">
+
+    <!-- =========================
+         HERO SECTION
+    ========================== -->
+    <section class="civic-hero">
+
+        <div class="civic-hero-content">
+
+            <div class="civic-eyebrow">
+                <span class="civic-eyebrow-dot"></span>
+                PLATFORM PARTISIPASI WARGA · RW 06
+            </div>
+
+            <h1 class="civic-hero-title">
+                Lingkungan lebih baik,
+                <span>dimulai dari kepedulian.</span>
+            </h1>
+
+            <p class="civic-hero-description">
+                Sampaikan permasalahan lingkungan, tandai lokasi,
+                dan pantau tindak lanjut laporan secara transparan
+                melalui LaporKetua.
+            </p>
+
+            <!-- CTA -->
+            <div class="civic-hero-actions">
+
+                <a href="{{ url_for('auth.register') }}" class="civic-btn civic-btn-primary">
+
+                    <span>Buat laporan sekarang</span>
+                    <span class="civic-btn-arrow">→</span>
+
+                </a>
+
+                <a href="{{ url_for('auth.login') }}" class="civic-btn civic-btn-secondary">
+
+                    Masuk akun
+
+                </a>
+
+            </div>
+
+            <!-- PWA INSTALL -->
+            <div class="civic-install-area">
+
+                <button type="button" id="installBtn" class="civic-install-btn" hidden>
+
+                    <span class="civic-install-icon">↓</span>
+                    <span>Install aplikasi</span>
+
+                </button>
+
+                <div id="installedStatus" class="civic-installed-status" role="status" hidden>
+
+                    <span class="civic-installed-check">✓</span>
+                    <span>Aplikasi sudah terpasang</span>
+
+                </div>
+
+            </div>
+
+            <!-- LOCATION -->
+            <div class="civic-location-note">
+
+                <span class="civic-location-dot"></span>
+
+                <div>
+                    <strong>RW 06 Jembatan Besi</strong>
+                    <span>Kelurahan Jembatan Besi · Kecamatan Tambora</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- HERO VISUAL -->
+        <div class="civic-hero-visual">
+
+            <div class="civic-visual-card">
+
+                <div class="civic-visual-header">
+
+                    <div class="civic-visual-brand">
+
+                        <strong>LaporKetua<span>.</span></strong>
+
+                        <small>
+                            FORUM KOMUNIKASI RW 06
+                        </small>
+
+                    </div>
+
+                    <span class="civic-visual-badge">
+                        <span class="civic-badge-dot"></span>
+                        LAYANAN WARGA
+                    </span>
+
+                </div>
+
+
+                <div class="civic-visual-image">
+
+                    <img src="{{ url_for('static', filename='images/maskot-rw06-landscape.png') }}"
+                        alt="Ilustrasi Forum Komunikasi RW 06 Jembatan Besi" loading="eager">
+
+                </div>
+
+
+                <div class="civic-visual-caption">
+
+                    <span>
+                        SATU LINGKUNGAN,
+                        <strong>SATU TUJUAN.</strong>
+                    </span>
+
+                    <span class="civic-caption-location">
+                        RW 06
+                    </span>
+
+                </div>
+
+
+                <div class="civic-visual-footer">
+
+                    <div class="civic-visual-footer-content">
+
+                        <span class="civic-visual-footer-label">
+                            PARTISIPASI WARGA
+                        </span>
+
+                        <strong>
+                            Peduli lingkungan,
+                            mulai dari kita.
+                        </strong>
+
+                        <p>
+                            Bersama warga dan pengurus,
+                            wujudkan lingkungan yang lebih baik.
+                        </p>
+
+                    </div>
+
+                    <div class="civic-visual-arrow">
+                        ↗
+                    </div>
+
+                </div>
+
+
+                <div class="civic-visual-progress">
+
+                    <span>✓ Laporkan</span>
+                    <span>→ Tindak lanjut</span>
+                    <span>→ Selesai</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         VALUE / FEATURES
+    ========================== -->
+    <section class="civic-benefits">
+
+        <div class="civic-section-heading">
+
+            <span class="civic-eyebrow">
+                KENAPA LAPORKETUA?
+            </span>
+
+            <h2>
+                Satu platform untuk
+                <span>lingkungan yang lebih baik.</span>
+            </h2>
+
+            <p>
+                Mempermudah warga menyampaikan masalah
+                dan membantu pengurus mengelola tindak lanjut.
+            </p>
+
+        </div>
+
+
+        <div class="civic-benefit-grid">
+
+            <article class="civic-benefit-card">
+
+                <div class="civic-benefit-icon civic-icon-orange">
+                    <span>⌖</span>
+                </div>
+
+                <h3>Lokasi lebih akurat</h3>
+
+                <p>
+                    Tandai titik permasalahan pada peta
+                    agar petugas mengetahui lokasi yang perlu ditangani.
+                </p>
+
+            </article>
+
+
+            <article class="civic-benefit-card">
+
+                <div class="civic-benefit-icon civic-icon-green">
+                    <span>✓</span>
+                </div>
+
+                <h3>Tindak lanjut transparan</h3>
+
+                <p>
+                    Pantau perkembangan laporan mulai dari verifikasi
+                    hingga proses penanganan selesai.
+                </p>
+
+            </article>
+
+
+            <article class="civic-benefit-card">
+
+                <div class="civic-benefit-icon civic-icon-blue">
+                    <span>✦</span>
+                </div>
+
+                <h3>Pengelolaan terarah</h3>
+
+                <p>
+                    Laporan membantu pengurus mengidentifikasi
+                    permasalahan dan menentukan penanganan.
+                </p>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         REPORT CATEGORIES
+    ========================== -->
+    <section class="civic-categories">
+
+        <div class="civic-section-heading civic-heading-row">
+
+            <div>
+
+                <span class="civic-eyebrow">
+                    RUANG LINGKUP LAPORAN
+                </span>
+
+                <h2>
+                    Apa yang bisa
+                    <span>Anda laporkan?</span>
+                </h2>
+
+                <p>
+                    Berbagai permasalahan lingkungan
+                    dapat disampaikan melalui LaporKetua.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="civic-category-grid">
+
+            {% for icon, title, desc in [
+            ('⌁', 'Jalan rusak', 'Lubang, aspal rusak, atau akses jalan terganggu.'),
+            ('♻', 'Sampah menumpuk', 'Sampah liar atau masalah pengangkutan.'),
+            ('☼', 'Lampu jalan mati', 'Penerangan jalan dan area publik.'),
+            ('≋', 'Saluran tersumbat', 'Drainase mampet atau genangan air.'),
+            ('♧', 'Pohon tumbang', 'Pohon rawan tumbang atau dahan berbahaya.'),
+            ('⌂', 'Fasilitas umum', 'Kerusakan fasilitas bersama dan permasalahan keamanan.')
+            ] %}
+
+            <article class="civic-category-card">
+
+                <div class="civic-category-icon">
+                    {{ icon }}
+                </div>
+
+                <div class="civic-category-content">
+
+                    <h3>{{ title }}</h3>
+
+                    <p>{{ desc }}</p>
+
+                </div>
+
+                <span class="civic-category-arrow">↗</span>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         HOW IT WORKS
+    ========================== -->
+    <section class="civic-process">
+
+        <div class="civic-section-heading">
+
+            <span class="civic-eyebrow">
+                PROSES PELAPORAN
+            </span>
+
+            <h2>
+                Mudah, terarah,
+                <span>dan transparan.</span>
+            </h2>
+
+            <p>
+                Laporan warga melalui proses yang terstruktur
+                agar dapat ditindaklanjuti.
+            </p>
+
+        </div>
+
+
+        <div class="civic-process-grid">
+
+            {% for n, t, d in [
+            ('01', 'Buat laporan', 'Pilih kategori, jelaskan permasalahan, unggah foto, dan tandai lokasi.'),
+            ('02', 'Admin memverifikasi', 'Admin RW memeriksa laporan, menentukan prioritas, dan meneruskan tindak
+            lanjut.'),
+            ('03', 'Pantau sampai selesai', 'Warga menerima pembaruan status dan dapat melihat riwayat penanganan.')
+            ] %}
+
+            <article class="civic-process-card">
+
+                <div class="civic-process-number">
+                    {{ n }}
+                </div>
+
+                <div class="civic-process-line"></div>
+
+                <h3>{{ t }}</h3>
+
+                <p>{{ d }}</p>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FINAL CTA
+    ========================== -->
+    <section class="civic-final-cta">
+
+        <div class="civic-final-cta-content">
+
+            <span class="civic-final-label">
+                FORUM KOMUNIKASI RW 06
+            </span>
+
+            <h2>
+                Kepedulian Anda
+                <span>berarti bagi lingkungan.</span>
+            </h2>
+
+            <p>
+                Mari bersama menjaga lingkungan RW 06 Jembatan Besi
+                agar lebih nyaman, aman, dan tertata.
+            </p>
+
+        </div>
+
+
+        <a href="{{ url_for('auth.register') }}" class="civic-final-btn">
+
+            <span>Mulai berpartisipasi</span>
+            <span>→</span>
+
+        </a>
+
+    </section>
+
+
+</div>
+
+{% endblock %}

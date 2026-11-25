@@ -30,7 +30,7 @@ def register():
     if current_user.is_authenticated:
         return redirect(url_for("main.dashboard"))
 
-    rts = RT.query.order_by(RT.number).all()
+    rts = sorted(RT.query.all(), key=lambda rt: int(rt.number))
 
     if request.method == "POST":
         full_name = request.form.get("full_name", "").strip()

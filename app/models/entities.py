@@ -143,7 +143,6 @@ class Report(db.Model):
         order_by="ReportStatusHistory.created_at"
     )
 
-
 class ReportPhoto(db.Model):
     __tablename__ = "report_photo"
 

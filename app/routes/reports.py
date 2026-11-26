@@ -29,8 +29,10 @@ from ..models import (
     ReportStatusHistory,
     RT,
 )
+
 from ..services.ai_service import (
     classify_report,
+    hybrid_classification,
     find_duplicate_candidates,
     recommend_priority,
 )
@@ -193,10 +195,69 @@ def create():
                     photo_data = photo.read()
                     photo_mimetype = photo.mimetype or "application/octet-stream"
 
-                # Klasifikasi dan rekomendasi AI.
-                ai_category, confidence, model_status = classify_report(
-                    title, description
+                # ==================================================
+                # HYBRID AI CLASSIFICATION (ML + RULES)
+                # ==================================================
+
+                print("=== REPORT ROUTE DEBUG ===")
+                print("TITLE:", title)
+                print("DESCRIPTION:", description)
+
+                try:
+                    hybrid_result = hybrid_classification(
+                        title,
+                        description,
+                        ml_weight=0.65,
+                        rule_weight=0.35,
+                    )
+
+                    print("HYBRID RAW RESULT:", repr(hybrid_result))
+
+                    if (
+                        hybrid_result
+                        and hybrid_result.get("status") == "hybrid"
+                        and hybrid_result.get("category")
+                    ):
+                        ai_category = hybrid_result["category"]
+                        confidence = hybrid_result["hybrid_score"]
+                        model_status = "hybrid"
+                        ai_model_name = "Hybrid Classifier (TF-IDF + Rules)"
+
+                        print("AI CATEGORY:", ai_category)
+                        print("AI HYBRID SCORE:", confidence)
+                        print("AI STATUS:", model_status)
+
+                    else:
+                        raise ValueError("Hasil Hybrid tidak valid.")
+
+                except Exception as e:
+                    print("HYBRID ERROR:", str(e))
+                    print("Menggunakan classifier lama sebagai fallback.")
+
+                    ai_category, confidence, model_status = classify_report(
+                        title,
+                        description,
+                    )
+
+                    ai_model_name = (
+                        "TF-IDF classifier"
+                        if model_status == "model"
+                        else "Keyword fallback"
+                        if model_status == "keyword_fallback"
+                        else "Belum tersedia"
+                    )
+
+                print("=========================")
+
+                # Rekomendasi prioritas AI
+                priority = recommend_priority(
+                category.name, urgency, description
                 )
+
+                priority = recommend_priority(
+                    category.name, urgency, description
+                )
+
                 priority = recommend_priority(
                     category.name, urgency, description
                 )
@@ -246,21 +307,19 @@ def create():
                     )
                 )
 
+              
                 # Catatan hasil prediksi AI.
                 db.session.add(
                     AIPrediction(
                         report_id=report.id,
-                        model_name=(
-                            "TF-IDF classifier"
-                            if model_status == "model"
-                            else "Belum tersedia"
-                        ),
+                        model_name=ai_model_name,
                         predicted_category=ai_category,
                         confidence=confidence,
                         recommendation=priority,
                     )
                 )
 
+              
                 # Catatan aktivitas.
                 db.session.add(
                     ActivityLog(
@@ -304,6 +363,7 @@ def create():
                 flash("Laporan gagal dikirim. Silakan coba kembali.", "danger")
                 return redirect(url_for("reports.create"))
 
+           
             # Pesan setelah transaksi berhasil.
             if duplicates:
                 flash(
@@ -312,15 +372,25 @@ def create():
                     "untuk ditinjau Admin.",
                     "info",
                 )
-            elif model_status != "model":
+            elif model_status == "keyword_fallback":
                 flash(
-                    "Laporan terkirim. Model klasifikasi belum dilatih; "
+                    "Laporan berhasil dikirim. Sistem mengidentifikasi "
+                    "jenis masalah menggunakan pencocokan kata kunci "
+                    "dan hasil dapat ditinjau Admin.",
+                    "success",
+                )
+            elif model_status == "model":
+                flash(
+                    "Laporan berhasil dikirim dan dianalisis oleh model AI.",
+                    "success",
+                )
+            else:
+                flash(
+                    "Laporan terkirim. Analisis kategori belum tersedia; "
                     "kategori tetap menggunakan pilihan warga dan "
                     "dapat ditinjau Admin.",
                     "success",
                 )
-            else:
-                flash("Laporan berhasil dikirim.", "success")
 
             return redirect(url_for("reports.detail", report_id=report.id))
 

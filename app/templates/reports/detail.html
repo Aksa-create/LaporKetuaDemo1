@@ -63,41 +63,38 @@
 
 
 
-            <!-- ANALISIS AI -->
-            <div class="mt-3 p-3 p-md-4" style="
-        background: #ffffff;
-        border: 1px solid #e9e5e2;
-        border-left: 4px solid #e6532f;
-        border-radius: 16px;
-        box-shadow: 0 4px 16px rgba(30, 30, 30, 0.04);
-     ">
+
+            <!-- ANALISIS LAPORKETUA -->
+            <div class="mt-4 p-3 p-md-4" style="
+    background: #ffffff;
+    border: 1px solid #e9e5e2;
+    border-left: 4px solid #e6532f;
+    border-radius: 18px;
+    box-shadow: 0 4px 16px rgba(30, 30, 30, 0.04);
+">
+
+                {% set analysis_category = report.ai_category or report.category.name %}
+                {% set analysis_lower = analysis_category|lower %}
 
                 <!-- HEADER -->
                 <div class="d-flex align-items-center gap-3 mb-4">
-
                     <div class="d-flex align-items-center justify-content-center" style="
-                width: 44px;
-                height: 44px;
+                width: 46px;
+                height: 46px;
                 flex-shrink: 0;
                 background: #fff0e9;
                 color: #d94b26;
-                border-radius: 12px;
-                font-size: 20px;
+                border-radius: 14px;
              ">
-                        <span style="
-                                font-size: 15px;
-                                font-weight: 800;
-                                letter-spacing: 0.5px;">
-                            AI
-                        </span>
+                        <i class="bi bi-clipboard2-pulse fs-4"></i>
                     </div>
 
                     <div class="flex-grow-1">
-                        <h6 class="fw-bold mb-1" style="color: #292524;">
+                        <h5 class="fw-bold mb-1" style="color: #292524;">
                             Analisis LaporKetua
-                        </h6>
+                        </h5>
                         <small class="text-muted">
-                            Ringkasan hasil analisis laporan
+                            Informasi dan rekomendasi berdasarkan jenis laporan
                         </small>
                     </div>
 
@@ -105,49 +102,217 @@
                         <i class="bi bi-check-circle me-1"></i>
                         Tersedia
                     </span>
-
                 </div>
 
-                {% if report.ai_category or report.priority %}
-
-                <!-- IDENTIFIKASI MASALAH -->
+                <!-- IDENTIFIKASI -->
                 <div class="mb-4">
-
                     <div class="d-flex align-items-center gap-2 mb-2">
                         <i class="bi bi-tag" style="color: #d94b26;"></i>
-                        <span class="fw-semibold" style="font-size: 13px;">
-                            Identifikasi Masalah
-                        </span>
+                        <span class="fw-semibold">Identifikasi Masalah</span>
                     </div>
 
                     <div class="p-3 rounded-3" style="background: #f8f7f6;">
-
-                        {% if report.ai_category %}
-                        <h5 class="fw-bold mb-1" style="color: #292524;">
-                            {{ report.ai_category }}
+                        <h5 class="fw-bold mb-2" style="color: #292524;">
+                            {{ analysis_category }}
                         </h5>
 
-                        <small class="text-muted">
-                            Perkiraan jenis permasalahan berdasarkan
-                            isi laporan warga.
-                        </small>
-                        {% else %}
-                        <p class="mb-0 text-muted">
-                            Jenis masalah belum dapat diperkirakan.
+                        <p class="mb-0 text-muted" style="font-size: 13px;">
+                            Kategori ini merupakan rekomendasi sistem berdasarkan
+                            klasifikasi laporan dan dapat menjadi bahan pertimbangan
+                            dalam proses pemeriksaan.
                         </p>
-                        {% endif %}
-
                     </div>
                 </div>
 
-                <!-- REKOMENDASI PRIORITAS -->
-                <div class="mb-4">
+                <!-- RINGKASAN, DAMPAK, DAN REKOMENDASI -->
+                {% if 'sampah menumpuk' in analysis_lower %}
 
+                {% set analysis_summary = 'Permasalahan berkaitan dengan penumpukan sampah di lingkungan permukiman atau
+                area umum yang dapat mengganggu kebersihan dan kenyamanan lingkungan.' %}
+
+                {% set analysis_impact = 'Penumpukan sampah berpotensi menimbulkan bau tidak sedap, mengganggu
+                kebersihan, menarik hama, serta menghambat saluran air apabila sampah masuk ke saluran.' %}
+
+                {% set analysis_actions = [
+                'Periksa kondisi dan volume sampah di lokasi yang dilaporkan.',
+                'Identifikasi apakah sampah mengganggu akses warga atau saluran air.',
+                'Lakukan pengumpulan dan pembersihan sesuai kondisi lokasi.',
+                'Pastikan sampah dibawa ke tempat pembuangan yang sesuai.'
+                ] %}
+
+                {% elif 'saluran air tersumbat' in analysis_lower %}
+
+                {% set analysis_summary = 'Permasalahan berkaitan dengan hambatan pada saluran air yang dapat mengganggu
+                kelancaran aliran air di lingkungan.' %}
+
+                {% set analysis_impact = 'Saluran yang terhambat berpotensi menyebabkan air mengalir tidak lancar,
+                menimbulkan genangan, dan meningkatkan risiko luapan ketika curah hujan tinggi.' %}
+
+                {% set analysis_actions = [
+                'Periksa titik saluran yang dilaporkan mengalami hambatan.',
+                'Identifikasi penyebab penyumbatan jika dapat diketahui.',
+                'Lakukan pembersihan saluran sesuai kondisi dan keamanan lokasi.',
+                'Periksa kembali kelancaran aliran air setelah penanganan.'
+                ] %}
+
+                {% elif 'lampu jalan mati' in analysis_lower %}
+
+                {% set analysis_summary = 'Permasalahan berkaitan dengan lampu penerangan jalan atau lingkungan yang
+                tidak berfungsi sebagaimana mestinya.' %}
+
+                {% set analysis_impact = 'Penerangan yang tidak berfungsi dapat mengurangi visibilitas pada malam hari
+                dan berpotensi mengganggu kenyamanan serta keamanan pengguna jalan.' %}
+
+                {% set analysis_actions = [
+                'Periksa kondisi lampu dan perangkat penerangan di lokasi.',
+                'Identifikasi kemungkinan gangguan pada lampu atau sumber kelistrikannya.',
+                'Lakukan perbaikan atau penggantian komponen jika diperlukan.',
+                'Pastikan penerangan kembali berfungsi setelah perbaikan.'
+                ] %}
+
+                {% elif 'keamanan lingkungan' in analysis_lower %}
+
+                {% set analysis_summary = 'Laporan berkaitan dengan kondisi atau aktivitas di lingkungan yang
+                menimbulkan kekhawatiran warga terhadap keamanan.' %}
+
+                {% set analysis_impact = 'Kondisi yang belum terverifikasi dapat menimbulkan kekhawatiran warga dan
+                perlu diperiksa dengan tetap mengutamakan keselamatan.' %}
+
+                {% set analysis_actions = [
+                'Periksa informasi dan kondisi lokasi berdasarkan laporan.',
+                'Koordinasikan pemeriksaan dengan pengurus lingkungan.',
+                'Hindari tindakan konfrontatif atau pemeriksaan yang berisiko.',
+                'Hubungi pihak berwenang apabila terdapat indikasi ancaman nyata.'
+                ] %}
+
+                {% elif 'jalan rusak' in analysis_lower %}
+
+                {% set analysis_summary = 'Permasalahan berkaitan dengan kerusakan permukaan jalan yang dapat mengganggu
+                akses dan aktivitas pengguna jalan.' %}
+
+                {% set analysis_impact = 'Kerusakan jalan dapat mengganggu mobilitas dan berpotensi membahayakan
+                pengguna jalan, terutama apabila kerusakan sulit terlihat atau berada di jalur yang sering dilalui.' %}
+
+                {% set analysis_actions = [
+                'Periksa bentuk, ukuran, dan kondisi kerusakan jalan.',
+                'Dokumentasikan kondisi kerusakan untuk kebutuhan tindak lanjut.',
+                'Pertimbangkan pengamanan sementara jika kerusakan berisiko.',
+                'Lakukan perbaikan sesuai kondisi dan kewenangan.'
+                ] %}
+
+                {% elif 'pohon tumbang' in analysis_lower %}
+
+                {% set analysis_summary = 'Permasalahan berkaitan dengan pohon tumbang atau kondisi pohon yang
+                berpotensi mengganggu akses maupun lingkungan sekitar.' %}
+
+                {% set analysis_impact = 'Pohon tumbang dapat menghalangi jalan, merusak fasilitas, mengganggu akses
+                warga, atau menimbulkan bahaya apabila terdapat bagian pohon yang belum stabil.' %}
+
+                {% set analysis_actions = [
+                'Periksa kondisi pohon dan area di sekitarnya dari jarak aman.',
+                'Identifikasi apakah pohon menghalangi akses atau mengenai fasilitas.',
+                'Amankan area apabila terdapat potensi bahaya.',
+                'Koordinasikan penanganan dengan pihak yang memiliki kompetensi.'
+                ] %}
+
+                {% elif 'fasilitas umum rusak' in analysis_lower %}
+
+                {% set analysis_summary = 'Permasalahan berkaitan dengan kerusakan fasilitas umum yang digunakan atau
+                dibutuhkan oleh warga.' %}
+
+                {% set analysis_impact = 'Fasilitas yang rusak dapat mengurangi fungsi, kenyamanan, dan keamanan
+                pengguna serta berpotensi memperburuk kondisi apabila tidak diperiksa.' %}
+
+                {% set analysis_actions = [
+                'Periksa kondisi fasilitas yang dilaporkan.',
+                'Identifikasi bagian yang rusak dan potensi risiko penggunaannya.',
+                'Batasi penggunaan apabila fasilitas berpotensi membahayakan.',
+                'Lakukan perbaikan atau koordinasikan dengan pihak terkait.'
+                ] %}
+
+                {% elif 'pasca kebakaran' in analysis_lower or 'penanganan puing' in analysis_lower %}
+
+                {% set analysis_summary = 'Permasalahan berkaitan dengan kondisi area setelah kebakaran, termasuk sisa
+                material atau puing yang memerlukan pemeriksaan dan penanganan.' %}
+
+                {% set analysis_impact = 'Sisa material kebakaran dapat mengganggu akses, menimbulkan bahaya dari
+                material yang tidak stabil, atau menyisakan kondisi yang belum aman untuk digunakan.' %}
+
+                {% set analysis_actions = [
+                'Pastikan area telah dinyatakan aman sebelum pemeriksaan lebih lanjut.',
+                'Periksa kondisi sisa material dan puing dari jarak aman.',
+                'Identifikasi material yang berpotensi membahayakan.',
+                'Koordinasikan pembersihan dan penanganan dengan pihak terkait.'
+                ] %}
+
+                {% else %}
+
+                {% set analysis_summary = 'Laporan berkaitan dengan permasalahan lingkungan atau fasilitas warga yang
+                memerlukan pemeriksaan lebih lanjut untuk memahami kondisi dan kebutuhan penanganannya.' %}
+
+                {% set analysis_impact = 'Dampak permasalahan belum dapat dipastikan sebelum kondisi di lokasi
+                diperiksa. Penanganan perlu disesuaikan dengan temuan lapangan.' %}
+
+                {% set analysis_actions = [
+                'Periksa kondisi permasalahan yang dilaporkan.',
+                'Identifikasi dampak terhadap warga dan lingkungan.',
+                'Tentukan kebutuhan penanganan berdasarkan kondisi lapangan.',
+                'Dokumentasikan hasil pemeriksaan dan tindak lanjut.'
+                ] %}
+
+                {% endif %}
+
+                <!-- RINGKASAN -->
+                <div class="mb-4">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="bi bi-file-text" style="color: #d94b26;"></i>
+                        <span class="fw-semibold">Ringkasan Permasalahan</span>
+                    </div>
+
+                    <div class="p-3 rounded-3" style="background: #f8f7f6;">
+                        <p class="mb-0" style="line-height: 1.7;">
+                            {{ analysis_summary }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- POTENSI DAMPAK -->
+                <div class="mb-4">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="bi bi-exclamation-triangle" style="color: #d94b26;"></i>
+                        <span class="fw-semibold">Potensi Dampak</span>
+                    </div>
+
+                    <div class="p-3 rounded-3" style="background: #fff8e8; border: 1px solid #f3e5bd;">
+                        <p class="mb-0" style="line-height: 1.7;">
+                            {{ analysis_impact }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- REKOMENDASI TINDAKAN -->
+                <div class="mb-4">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="bi bi-clipboard-check" style="color: #d94b26;"></i>
+                        <span class="fw-semibold">Rekomendasi Tindakan</span>
+                    </div>
+
+                    <div class="p-3 rounded-3" style="background: #f8f7f6;">
+                        <ol class="mb-0 ps-3">
+                            {% for action in analysis_actions %}
+                            <li class="mb-2" style="line-height: 1.7;">
+                                {{ action }}
+                            </li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- PRIORITAS -->
+                <div class="mb-4">
                     <div class="d-flex align-items-center gap-2 mb-2">
                         <i class="bi bi-speedometer2" style="color: #d94b26;"></i>
-                        <span class="fw-semibold" style="font-size: 13px;">
-                            Rekomendasi Penanganan
-                        </span>
+                        <span class="fw-semibold">Rekomendasi Prioritas</span>
                     </div>
 
                     <div class="p-3 rounded-3" style="background: #f8f7f6;">
@@ -158,26 +323,24 @@
                         {% set priority_lower = priority_label|lower %}
 
                         {% if 'tinggi' in priority_lower %}
-                        {% set priority_class = 'background: #fde8e7; color: #c73535;' %}
-                        {% set priority_description = 'Disarankan untuk segera diperiksa dan mendapat perhatian pengurus
-                        RW.' %}
+                        {% set priority_style = 'background: #fde8e7; color: #c73535;' %}
+                        {% set priority_text = 'Disarankan untuk mendapat perhatian lebih lanjut dan pemeriksaan segera
+                        sesuai kondisi laporan.' %}
                         {% elif 'sedang' in priority_lower %}
-                        {% set priority_class = 'background: #fff3d9; color: #956000;' %}
-                        {% set priority_description = 'Disarankan untuk diperiksa dan ditindaklanjuti sesuai kondisi
-                        laporan.' %}
+                        {% set priority_style = 'background: #fff3d9; color: #956000;' %}
+                        {% set priority_text = 'Disarankan untuk diperiksa dan ditindaklanjuti sesuai kondisi laporan.'
+                        %}
                         {% else %}
-                        {% set priority_class = 'background: #e8f4eb; color: #287442;' %}
-                        {% set priority_description = 'Dapat ditangani sesuai jadwal dan kebutuhan penanganan.' %}
+                        {% set priority_style = 'background: #e8f4eb; color: #287442;' %}
+                        {% set priority_text = 'Dapat ditindaklanjuti sesuai kebutuhan dan kondisi di lokasi.' %}
                         {% endif %}
 
-                        <div class="mb-2">
-                            <span class="badge rounded-pill px-3 py-2" style="{{ priority_class }}">
-                                {{ priority_label }}
-                            </span>
-                        </div>
+                        <span class="badge rounded-pill px-3 py-2 mb-2" style="{{ priority_style }}">
+                            {{ priority_label }}
+                        </span>
 
-                        <p class="mb-0 text-muted" style="font-size: 13px; line-height: 1.7;">
-                            {{ priority_description }}
+                        <p class="mb-0 text-muted" style="line-height: 1.7;">
+                            {{ priority_text }}
                         </p>
 
                         {% else %}
@@ -187,139 +350,109 @@
                         </p>
 
                         {% endif %}
-
                     </div>
                 </div>
 
-                {% else %}
-
-                <div class="p-3 rounded-3" style="background: #f8f7f6;">
-                    <p class="mb-0 text-muted">
-                        Analisis belum tersedia untuk laporan ini.
-                    </p>
-                </div>
-
-                {% endif %}
-
-                <!-- PENJELASAN BERDASARKAN ROLE -->
+                <!-- CATATAN -->
                 <div class="d-flex align-items-start gap-2 pt-3" style="border-top: 1px solid #eee9e5;">
 
                     <i class="bi bi-info-circle mt-1" style="color: #d94b26;"></i>
 
                     <div>
-                        {% if current_user.role == "warga" %}
                         <small class="text-muted" style="line-height: 1.7;">
-                            Hasil ini merupakan saran sistem untuk membantu
-                            memahami jenis masalah dan prioritas penanganannya.
-                            Admin RW 06 tetap melakukan pemeriksaan laporan.
+                            Informasi ini merupakan panduan umum berdasarkan kategori
+                            laporan. Potensi dampak dan rekomendasi tidak menggantikan
+                            pemeriksaan kondisi aktual oleh petugas.
                         </small>
-
-                        {% elif current_user.role == "admin" %}
-                        <small class="text-muted" style="line-height: 1.7;">
-                            Gunakan hasil analisis sebagai bahan pertimbangan
-                            dalam memeriksa kategori dan menentukan tindak lanjut
-                            laporan.
-                        </small>
-
-                        {% elif current_user.role == "petugas" %}
-                        <small class="text-muted" style="line-height: 1.7;">
-                            Informasi ini dapat membantu memahami permasalahan
-                            dan memperhatikan prioritas penanganan laporan.
-                        </small>
-                        {% endif %}
-
-                        <div class="mt-2">
-                            <small class="fw-semibold" style="color: #78716c;">
-                                Hasil analisis merupakan rekomendasi sistem,
-                                bukan keputusan final.
-                            </small>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-
-            <!-- Riwayat dan tindakan -->
-            <div class="col-lg-5">
-
-                <div class="detail-card">
-                    <h3>Riwayat status</h3>
-
-                    <div class="timeline">
-                        {% for h in report.history %}
-                        <div class="timeline-item">
-
-                            <strong>{{ h.new_status }}</strong>
-
-                            <small>
-                                {{ h.created_at|wib_datetime('%d/%m/%Y %H:%M') }}
-                                · {{ h.actor.full_name }}
-                            </small>
-
-                            {% if h.note %}
-                            <p>{{ h.note }}</p>
-                            {% endif %}
-
-                        </div>
-                        {% endfor %}
                     </div>
                 </div>
 
-                <!-- Khusus Admin -->
-                {% if current_user.role == 'admin' %}
-                <div class="detail-card mt-3">
-
-                    {% if report.status == 'Menunggu Verifikasi' %}
-                    <form method="post" action="{{ url_for('admin.verify_report', report_id=report.id) }}" class="mb-3">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-
-                        <button class="btn btn-teal w-100">
-                            ✓ Verifikasi laporan
-                        </button>
-                    </form>
-                    {% endif %}
-
-                    <h3>Perbarui status</h3>
-
-                    <form method="post" action="{{ url_for('admin.update_status', report_id=report.id) }}">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-
-                        <label class="form-label">Status</label>
-
-                        <select class="form-select mb-3" name="status">
-                            {% for s in [
-                            'Menunggu Verifikasi',
-                            'Diverifikasi',
-                            'Sedang Diproses',
-                            'Selesai',
-                            'Ditolak'
-                            ] %}
-                            <option {% if report.status==s %}selected{% endif %}>
-                                {{ s }}
-                            </option>
-                            {% endfor %}
-                        </select>
-
-                        <label class="form-label">
-                            Catatan / alasan penolakan
-                        </label>
-
-                        <textarea class="form-control mb-3" rows="3" name="note"
-                            placeholder="Wajib diisi jika laporan ditolak"></textarea>
-
-                        <button class="btn btn-teal w-100">
-                            Simpan perubahan
-                        </button>
-                    </form>
-
-                </div>
-                {% endif %}
-
             </div>
+            <!-- AKHIR ANALISIS LAPORKETUA -->
+
+
         </div>
 
-        {% endblock %}
+
+
+
+        <!-- Riwayat dan tindakan -->
+        <div class="col-lg-5">
+
+            <div class="detail-card">
+                <h3>Riwayat status</h3>
+
+                <div class="timeline">
+                    {% for h in report.history %}
+                    <div class="timeline-item">
+
+                        <strong>{{ h.new_status }}</strong>
+
+                        <small>
+                            {{ h.created_at|wib_datetime('%d/%m/%Y %H:%M') }}
+                            · {{ h.actor.full_name }}
+                        </small>
+
+                        {% if h.note %}
+                        <p>{{ h.note }}</p>
+                        {% endif %}
+
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Khusus Admin -->
+            {% if current_user.role == 'admin' %}
+            <div class="detail-card mt-3">
+
+                {% if report.status == 'Menunggu Verifikasi' %}
+                <form method="post" action="{{ url_for('admin.verify_report', report_id=report.id) }}" class="mb-3">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                    <button class="btn btn-teal w-100">
+                        ✓ Verifikasi laporan
+                    </button>
+                </form>
+                {% endif %}
+
+                <h3>Perbarui status</h3>
+
+                <form method="post" action="{{ url_for('admin.update_status', report_id=report.id) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                    <label class="form-label">Status</label>
+
+                    <select class="form-select mb-3" name="status">
+                        {% for s in [
+                        'Menunggu Verifikasi',
+                        'Diverifikasi',
+                        'Sedang Diproses',
+                        'Selesai',
+                        'Ditolak'
+                        ] %}
+                        <option {% if report.status==s %}selected{% endif %}>
+                            {{ s }}
+                        </option>
+                        {% endfor %}
+                    </select>
+
+                    <label class="form-label">
+                        Catatan / alasan penolakan
+                    </label>
+
+                    <textarea class="form-control mb-3" rows="3" name="note"
+                        placeholder="Wajib diisi jika laporan ditolak"></textarea>
+
+                    <button class="btn btn-teal w-100">
+                        Simpan perubahan
+                    </button>
+                </form>
+
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+    {% endblock %}
